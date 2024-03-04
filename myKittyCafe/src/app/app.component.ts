@@ -12,4 +12,8 @@ export class AppComponent {
   navigateHome() {
     this.router.navigate(['/home']);
   }
+
+  navigateToBooking() {
+    this.router.navigate(['/booking']);
+  }
 }
