@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>booking</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">booking</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      Appointment Details
+    </ion-card-header>
+    <ion-card-content>
+      <form>
+        <ion-item>
+          <ion-label position="floating">First Name</ion-label>
+          <ion-input type="text" [(ngModel)]="addAppointment.firstName"
+            name="firstName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Last Name</ion-label>
+          <ion-input type="text" [(ngModel)]="addAppointment.lastName"
+            name="lastName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Number of Persons</ion-label>
+          <ion-input type="number" [(ngModel)]="addAppointment.persons"
+            name="persons"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Phone</ion-label>
+          <ion-input type="tel" [(ngModel)]="addAppointment.phone"
+            name="phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="addAppointment.email"
+            name="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Date</ion-label>
+          <ion-input type="date" [(ngModel)]="addAppointment.date"
+            name="date"></ion-input>
+        </ion-item>
+        <ion-button (click)="demo()">Book Appointment</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,18 @@
+<ion-app>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>
+        MyApp
+      </ion-title>
+      <ion-buttons slot="start">
+        <ion-button (click)="navigateHome()">
+          <ion-icon slot="icon-only" name="home"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <!-- Your other content goes here -->
+    <ion-router-outlet></ion-router-outlet>
+  </ion-content>
+</ion-app>
