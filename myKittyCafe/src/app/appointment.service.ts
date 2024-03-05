@@ -20,8 +20,4 @@ export class AppointmentService {
   getAllAppointments(): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(this.apiUrl);
   }
-
-  getAllAppointments(): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(this.apiUrl);
-  }
 }
