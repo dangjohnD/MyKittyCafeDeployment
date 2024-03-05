@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy JAR app to Azure Web App - MyKittyCafeBack
 
 on:
@@ -19,13 +22,13 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        run: mvn -f backend/pom.xml clean install  # Execute Maven from the backend folder
+        run: mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: '${{ github.workspace }}/backend/target/*.jar'
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: windows-latest
@@ -34,7 +37,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -45,9 +48,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0BCD431688F043248C4321E3A6CFAB52 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CBF8DBC7842E4A87871EADDB4506F900 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F7DBFD5A4DE24101B138407FEC94D4AD }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E903D5F247AE4932B5908F40B8D895BE }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9357A03B0FE64A5894882012278B3728 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_EF7047235F8B4500B1E0F26FEBF934E6 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -55,4 +58,5 @@ jobs:
         with:
           app-name: 'MyKittyCafeBack'
           slot-name: 'Production'
-          package: 'backend/*.jar'  # Adjusted the path to the JAR file
+          package: '*.jar'
+          
