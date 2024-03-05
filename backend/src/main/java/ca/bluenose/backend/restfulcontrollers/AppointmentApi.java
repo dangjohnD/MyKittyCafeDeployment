@@ -16,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api/appointments")
 public class AppointmentApi {
 
+    
     private final AppointmentRepository appointmentRepository;
 
     public AppointmentApi(AppointmentRepository appointmentRepository) {
