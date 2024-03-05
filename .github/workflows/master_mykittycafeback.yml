@@ -22,13 +22,13 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        run: mvn -f backend/pom.xml clean install
+        run: mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: '${{ github.workspace }}/backend/target/*.jar'
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: windows-latest
@@ -48,9 +48,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E903D5F247AE4932B5908F40B8D895BE }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9357A03B0FE64A5894882012278B3728 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_EF7047235F8B4500B1E0F26FEBF934E6 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_875DB66AD5AE4C838498A4C60B344060 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9C4792E5A54C4FBC98DA302D3289DDDB }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_88DCF5D4B22E4D1982DA526F79D78B38 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
