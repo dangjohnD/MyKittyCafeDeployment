@@ -46,14 +46,4 @@ public class AppointmentApi {
         return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAppointment(@PathVariable("id") long id) {
-        if (appointmentRepository.findById(id).isPresent()) {
-            appointmentRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage("There is no review with this ID"));
-        }
-    }
-
 }
