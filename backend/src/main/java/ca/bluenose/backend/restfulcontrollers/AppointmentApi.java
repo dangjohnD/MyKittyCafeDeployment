@@ -1,6 +1,7 @@
 package ca.bluenose.backend.restfulcontrollers;
 
 import ca.bluenose.backend.beans.Appointment;
+import ca.bluenose.backend.exception.ErrorMessage;
 import ca.bluenose.backend.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,16 @@ public class AppointmentApi {
                         appointment.getEmail(),
                         appointment.getDate()));
         return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAppointment(@PathVariable("id") long id) {
+        if (appointmentRepository.findById(id).isPresent()) {
+            appointmentRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage("There is no review with this ID"));
+        }
     }
 
 }
