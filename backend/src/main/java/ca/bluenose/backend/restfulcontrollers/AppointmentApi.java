@@ -12,13 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "https://mykittycafe.azurewebsites.net")
+@CrossOrigin(origins = "http://localhost:8100")
 @RequestMapping("/api/appointments")
 public class AppointmentApi {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
 
+    // grabs each current appointment in the database
+    // if there are no appointments, HTTP STATUS NO CONTENT is given
     @GetMapping
     public ResponseEntity<List<Appointment>> getAllAppointments(@RequestParam(required =
             false) String appt) {
@@ -33,6 +35,7 @@ public class AppointmentApi {
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
+    // adds an appointment after filling out form on webpage
     @PostMapping()
     public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
         Appointment _tutorial =
@@ -44,6 +47,17 @@ public class AppointmentApi {
                         appointment.getEmail(),
                         appointment.getDate()));
         return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
+    }
+
+    // delete the appointment by auto generated ID value
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAppointment(@PathVariable("id") long id) {
+        if (appointmentRepository.findById(id).isPresent()) {
+            appointmentRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage("There is no review with this ID"));
+        }
     }
 
 }

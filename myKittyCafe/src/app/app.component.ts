@@ -16,4 +16,8 @@ export class AppComponent {
   navigateToBooking() {
     this.router.navigate(['/booking']);
   }
+
+  navigateToViewAll(){
+    this.router.navigate(['/viewall']);
+  }
 }
