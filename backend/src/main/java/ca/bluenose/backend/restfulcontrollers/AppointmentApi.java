@@ -31,4 +31,18 @@ public class AppointmentApi {
 
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
+
+    @PostMapping()
+    public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
+        Appointment _tutorial =
+                appointmentRepository.save(new Appointment(appointment.getId(),
+                        appointment.getFirstName(),
+                        appointment.getLastName(),
+                        appointment.getPersons(),
+                        appointment.getPhone(),
+                        appointment.getEmail(),
+                        appointment.getDate()));
+        return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
+    }
+
 }
