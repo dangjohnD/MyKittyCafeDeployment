@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8100")
+//https://mykittycafe.azurewebsites.net
+@CrossOrigin(origins = {"http://localhost:8100", "https://mykittycafe.azurewebsites.net"})
 @RequestMapping("/api/appointments")
 public class AppointmentApi {
 

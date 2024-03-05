@@ -10,7 +10,7 @@ export class AppointmentService {
 
   //http://localhost:8080/api/appointments
   private apiUrl = 'http://localhost:8080/api/appointments';
-
+  //'https://mykittycafeback.azurewebsites.net/api/appointments'
   constructor(private http: HttpClient) { }
 
   addAppointment(appointment: Appointment): Observable<any> {
