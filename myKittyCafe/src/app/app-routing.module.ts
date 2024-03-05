@@ -14,7 +14,11 @@ const routes: Routes = [
   {
     path: 'booking',
     loadChildren: () => import('./pages/booking/booking.module').then( m => m.BookingPageModule)
+  },  {
+    path: 'viewall',
+    loadChildren: () => import('./pages/viewall/viewall.module').then( m => m.ViewallPageModule)
   },
+
 ];
 
 @NgModule({
