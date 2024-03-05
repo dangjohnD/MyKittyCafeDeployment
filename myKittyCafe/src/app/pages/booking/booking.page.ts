@@ -30,7 +30,6 @@ export class BookingPage implements OnInit {
   }
 
   demo() {
-    console.log("doing adding")
     const formattedString = `
       First Name: ${this.addAppointment.firstName}
       Last Name: ${this.addAppointment.lastName}
