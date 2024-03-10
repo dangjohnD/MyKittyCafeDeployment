@@ -1,8 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>booking</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -10,6 +5,9 @@
       <ion-title size="large">booking</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-datetime presentation="date" min="{{minDate}}"></ion-datetime>
+
   <ion-card>
     <ion-card-header>
       Appointment Details

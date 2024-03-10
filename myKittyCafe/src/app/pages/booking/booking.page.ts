@@ -18,8 +18,12 @@ export class BookingPage implements OnInit {
   };
 
   public hello: String = "Hello";
+  minDate: string;
 
-  constructor(private appService: AppointmentService) {}
+  constructor(private appService: AppointmentService) {
+    const today = new Date();
+    this.minDate = today.toISOString();
+  }
 
   ngOnInit() {}
 
