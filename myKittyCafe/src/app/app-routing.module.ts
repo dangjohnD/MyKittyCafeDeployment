@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'viewall',
     loadChildren: () => import('./pages/viewall/viewall.module').then( m => m.ViewallPageModule)
   },
+  {
+    path: 'appt-info',
+    loadChildren: () => import('./pages/appt-info/appt-info.module').then( m => m.ApptInfoPageModule)
+  },
 
 ];
 

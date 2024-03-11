@@ -1,4 +1,3 @@
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -7,7 +6,14 @@
   </ion-header>
   <div class="container">
     <h1>All Appointments</h1>
-    <div *ngIf="appointments.length > 0; else noAppointments">
+    <div>
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate">
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="endDate" [(ngModel)]="endDate">
+      <button (click)="filterAppointments()">Filter</button>
+    </div>
+    <div *ngIf="filteredAppointments.length > 0; else noAppointments">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -21,14 +27,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let appointment of appointments; let i = index">
+          <tr *ngFor="let appointment of filteredAppointments; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ appointment.firstName }}</td>
             <td>{{ appointment.lastName }}</td>
             <td>{{ appointment.persons }}</td>
             <td>{{ appointment.phone }}</td>
             <td>{{ appointment.email }}</td>
-            <td>{{ appointment.date | date: 'medium' : '+0000' }}</td> <!-- Format the date using Angular's built-in date pipe -->
+            <td>{{ appointment.date | date: 'medium' : '-0400' }}</td>
           </tr>
         </tbody>
       </table>

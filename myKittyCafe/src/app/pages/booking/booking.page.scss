@@ -1,0 +1,17 @@
+.container {
+    padding: 20px; /* Adjust the value as needed */
+    border-radius: 10px; /* Adjust the value to control the roundness of the border */
+    border: 1px solid #ccc; /* Border color and thickness */
+    margin: 20px;
+  }
+
+  .invalid-input {
+    color: red;
+    font-size: 80%; /* Reduces font size by 40% */
+  }
+
+  .selected-item {
+    background-color: #50fd9e; /* Change to the desired background color */
+    color: #e7910feb; /* Change to the desired text color */
+    /* Add any additional styling for the selected item */
+  }

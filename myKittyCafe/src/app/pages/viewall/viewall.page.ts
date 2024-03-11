@@ -10,12 +10,25 @@ import { AppointmentService } from 'src/app/appointment.service';
 export class ViewallPage implements OnInit {
 
   appointments: Appointment[] = [];
+  startDate: string = ""; // Variable to hold the selected start date
+  endDate: string = ""; // Variable to hold the selected end date
+  filteredAppointments: Appointment[] = [];
 
   constructor(private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
     this.loadAppointments();
   }
+
+   // Method to filter appointments based on selected start and end dates
+   filterAppointments() {
+    this.filteredAppointments = this.appointments.filter(appointment => {
+      const appointmentDate = new Date(appointment.date);
+      const startDate = new Date(this.startDate);
+      const endDate = new Date(this.endDate);
+      return appointmentDate >= startDate && appointmentDate <= endDate;
+    });
+   }
 
   loadAppointments() {
     this.appointmentService.getAllAppointments().subscribe(

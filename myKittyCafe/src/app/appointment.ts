@@ -5,5 +5,5 @@ export interface Appointment {
     persons: number;
     phone: string;
     email: string;
-    date: Date;
+    date: string;
   }

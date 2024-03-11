@@ -1,0 +1,20 @@
+<ion-content class="ion-text-center">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Appointment Information</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p><strong>First Name:</strong> {{ appointmentInfo.state.firstName }}</p>
+      <p><strong>Last Name:</strong> {{ appointmentInfo.state.lastName }}</p>
+      <p><strong>Number of Persons:</strong> {{ appointmentInfo.state.persons }}</p>
+      <p><strong>Phone:</strong> {{ appointmentInfo.state.phone }}</p>
+      <p><strong>Email:</strong> {{ appointmentInfo.state.email }}</p>
+      <p><strong>Date:</strong> {{ appointmentInfo.state.date | date: 'medium' : '-0400' }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item class="ion-text-center">
+    <ion-label color="success">You've successfully booked an appointment!</ion-label>
+  </ion-item>
+</ion-content>
