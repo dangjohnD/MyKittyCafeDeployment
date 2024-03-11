@@ -1,0 +1,34 @@
+ion-content {
+    --ion-background-color: white;
+  }
+  
+  ion-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  ion-card-header {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+  }
+  
+  ion-card-content p {
+    color: black;
+  }
+  
+  ion-label {
+    color: white;
+  }
+  
+  ion-item {
+    --ion-color-base: white;
+    --ion-color-base-rgb: 255, 255, 255;
+  }
+  
+  ion-button {
+    --background: gold;
+    --color: black;
+  }
+  
