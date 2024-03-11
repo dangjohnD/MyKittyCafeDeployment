@@ -1,0 +1,78 @@
+ion-content {
+    --ion-background-color: white;
+  }
+  
+  ion-header {
+    --ion-background-color: white;
+  }
+  
+  ion-toolbar {
+    --ion-color-base: black;
+  }
+  
+  ion-title {
+    color: black;
+  }
+  
+  .container {
+    padding: 20px;
+  }
+  
+  h1 {
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    color: black;
+  }
+  
+  input[type="date"] {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
+  button {
+    background-color: gold;
+    color: black;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: gold;
+    color: black;
+  }
+  
+  td {
+    background-color: white;
+    color: black;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .noAppointments {
+    color: black;
+    font-style: italic;
+  }
+  

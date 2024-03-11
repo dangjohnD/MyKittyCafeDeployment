@@ -15,3 +15,64 @@
     color: #e7910feb; /* Change to the desired text color */
     /* Add any additional styling for the selected item */
   }
+
+  ion-content {
+    --ion-background-color: white;
+  }
+  
+  ion-header {
+    --ion-background-color: black;
+  }
+  
+  ion-toolbar {
+    --ion-color-base: gold;
+  }
+  
+  ion-title {
+    color: white;
+  }
+  
+  p {
+    color: black;
+    font-weight: bold;
+    padding-left:20px;
+  }
+  
+  .container ion-item {
+    --ion-color-base: white;
+    --ion-color-base-rgb: 255, 255, 255;
+  }
+  
+  .invalid-input ion-text {
+    color: gold;
+  }
+  
+  ion-datetime {
+    color: black;
+  }
+  
+  ion-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  ion-card-header {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+  }
+  
+  ion-label {
+    color: white;
+  }
+  
+  ion-input {
+    color: black;
+  }
+  
+  ion-button {
+    --background: gold;
+    --color: black;
+  }
+  
