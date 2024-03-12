@@ -8,9 +8,8 @@ import { Appointment } from './appointment';
 })
 export class AppointmentService {
 
-  //http://localhost:8080/api/appointments
-  private apiUrl = 'https://mykittycafeback.azurewebsites.net/api/appointments';
-  //'https://mykittycafeback.azurewebsites.net/api/appointments'
+  //public apiUrl = 'http://localhost:8080/api/appointments'
+  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/appointments';
   constructor(private http: HttpClient) { }
 
   addAppointment(appointment: Appointment): Observable<any> {

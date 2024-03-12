@@ -1,5 +1,6 @@
 export interface TimeSlot {
     time: string,
     numAppt: number,
-    isSelected: boolean
+    isSelected: boolean,
+    aboveCapacity: boolean
   }

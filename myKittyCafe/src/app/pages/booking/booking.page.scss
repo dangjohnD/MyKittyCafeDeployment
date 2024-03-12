@@ -12,8 +12,14 @@
 
   .selected-item {
     background-color: #50fd9e; /* Change to the desired background color */
+    border: 2px solid #f4980f;
     color: #e7910feb; /* Change to the desired text color */
     /* Add any additional styling for the selected item */
+  }
+
+  ion-item.over-capacity {
+    color: #555; /* Darker grey text */
+    text-decoration: line-through;
   }
 
   ion-content {
