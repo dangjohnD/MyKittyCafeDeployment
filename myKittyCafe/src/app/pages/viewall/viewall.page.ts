@@ -13,6 +13,7 @@ export class ViewallPage implements OnInit {
   startDate: string = ""; // Variable to hold the selected start date
   endDate: string = ""; // Variable to hold the selected end date
   filteredAppointments: Appointment[] = [];
+  noAppointments: boolean = false;
 
   constructor(private appointmentService: AppointmentService) { }
 
@@ -38,7 +39,6 @@ export class ViewallPage implements OnInit {
       },
       (error) => {
         console.error('Error fetching appointments: ', error);
-        // Handle error here
       }
     );
   }

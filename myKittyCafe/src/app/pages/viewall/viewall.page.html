@@ -12,8 +12,11 @@
       <label for="endDate">End Date:</label>
       <input type="date" id="endDate" name="endDate" [(ngModel)]="endDate">
       <button (click)="filterAppointments()">Filter</button>
+        <p class="noAppointments" *ngIf="filteredAppointments.length == 0;">
+          No appointments found.
+        </p>
     </div>
-    <div *ngIf="filteredAppointments.length > 0; else noAppointments">
+    <div *ngIf="filteredAppointments.length > 0;">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -38,8 +41,9 @@
           </tr>
         </tbody>
       </table>
+      <p class="noAppointments">No appointments found.</p>
     </div>
-    <ng-template #noAppointments>
+    <ng-template *ngIf="filteredAppointments.length === 0" class="noAppointments">
       <p>No appointments found.</p>
     </ng-template>
   </div>
