@@ -14,7 +14,6 @@ export class ApptInfoPage implements OnInit {
   
   ngOnInit() {
       this.appointmentInfo = this.router.getCurrentNavigation()?.extras.state;
-      console.log(this.appointmentInfo)
   }
 
 }

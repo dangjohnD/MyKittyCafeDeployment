@@ -32,16 +32,28 @@ export class BookingPage implements OnInit {
   showCalendarFlag: boolean = false;
 
   constructor(private appService: AppointmentService, private router: Router) {
-    const today = new Date();
-    const isoDateString = today.toISOString().split('T')[0];
-    console.log(isoDateString);
+    // Get the current date and time in UTC
+    const dateNow = new Date();
+    
+    // Adjust the current date and time to Eastern Daylight Time (EDT, UTC-4)
+    dateNow.setUTCHours(dateNow.getUTCHours() - 4);
+
+    // Get the date part in ISO format (YYYY-MM-DD)
+    const isoDateString = dateNow.toISOString().split('T')[0];
+
+    // Set the minimum date for the component
     this.minDate = isoDateString;
-  }
+    console.log(dateNow);
+    console.log(this.minDate);
+}
 
   ngOnInit() {}
 
   dateChanged(event: CustomEvent<any>) {
+    console.log("Date Changed - selected date");
+    console.log("from datepicker", event.detail.value);
     const selectedDate = new Date(event.detail.value);
+    console.log(selectedDate);
     const utcSelectedDate = new Date(
       Date.UTC(
         selectedDate.getFullYear(),
@@ -52,16 +64,15 @@ export class BookingPage implements OnInit {
         selectedDate.getSeconds()
       )
     );
+    console.log(utcSelectedDate);
 
-    console.log(this.addAppointment.date);
     this.addAppointment.date = utcSelectedDate.toISOString();
-    console.log('after', this.addAppointment.date);
+    console.log(this.addAppointment.date);
 
     //get timeslots
     this.appService
       .getAllAppointments()
       .subscribe((appointments: Appointment[]) => {
-        console.log('getting all appointments');
         this.timeSlots = this.getTimeSlots(appointments);
       });
   }
@@ -77,7 +88,6 @@ export class BookingPage implements OnInit {
       return;
     }
 
-    console.log('Adding Appointment');
     const formattedString = `
       First Name: ${this.addAppointment.firstName}
       Last Name: ${this.addAppointment.lastName}
@@ -86,11 +96,9 @@ export class BookingPage implements OnInit {
       Email: ${this.addAppointment.email}
       Date: ${this.addAppointment.date}
     `;
-    console.log(formattedString);
 
     this.appService.addAppointment(this.addAppointment).subscribe(
       (response) => {
-        console.log('Appointment added successfully:', response);
         this.router.navigate(['/appt-info'], {
           state: { state: this.addAppointment },
         });
@@ -138,10 +146,10 @@ export class BookingPage implements OnInit {
   showCalendar(event: any) {
     // Show the calendar only if the number of persons is selected
     const selectedValue = event.detail.value;
-    console.log(selectedValue);
     this.addAppointment.persons = parseInt(selectedValue);
     this.showCalendarFlag = this.addAppointment.persons != null;
-    console.log(this.addAppointment.persons);
+    this.timeslotSelected = false
+    this.timeSlots = [];
   }
 
   changeAppointmentTime(timeSlot: string) {
@@ -155,9 +163,7 @@ export class BookingPage implements OnInit {
     const amPm = timeParts[1]; // Extract AM/PM from the second part
 
     // Parse the existing date string into a Date object
-    console.log('before clicking', this.addAppointment.date);
     const appointmentDate = new Date(this.addAppointment.date);
-    console.log(appointmentDate);
 
     // Adjust the hour based on AM/PM
     let adjustedHour = hour;
@@ -177,13 +183,12 @@ export class BookingPage implements OnInit {
     // Format the updated date back into a string in ISO 8601 format
     const updatedDateString = appointmentDate.toISOString();
 
-    console.log('the date in changeappt ', appointmentDate);
 
     // Update the date property of the addAppointment object with the updated date string
     this.addAppointment.date = updatedDateString;
-    console.log('set hour: ', this.addAppointment.date);
     this.timeslotSelected = true;
     this.highlightTime(timeSlot);
+    console.log("date and time: " + this.addAppointment.date);
   }
 
   getTimeSlots(appointments: Appointment[]): TimeSlot[] {
@@ -216,21 +221,14 @@ export class BookingPage implements OnInit {
       return timeSlots;
     }
 
-    console.log('comparing');
     appointments.forEach((appointment) => {
       // if the day matches
-      console.log(appointment.date);
-      console.log(this.addAppointment.date);
-      console.log('adding timeslots:\n');
-      console.log(timeSlots);
       if (this.isSameDay(appointment.date, this.addAppointment.date)) {
-        console.log('is the same day');
         const appointmentDate = new Date(appointment.date);
 
         // Add the appointment to the current timeslots
         const hour = appointmentDate.getHours();
         const timeSlotIndex = hour - 9;
-        console.log(timeSlotIndex);
         timeSlots[timeSlotIndex].numAppt += appointment.persons;
       }
     });
@@ -241,7 +239,6 @@ export class BookingPage implements OnInit {
         timeslot.aboveCapacity = true;
       }
     })
-    console.log('done comparing');
 
     return timeSlots;
   }
@@ -270,17 +267,12 @@ export class BookingPage implements OnInit {
   }
 
   enoughCapacity(timeStr: String) {
-    console.log(timeStr);
     var enough = true;
     this.timeSlots.forEach((timeslot) => {
-      console.log(timeslot);
       if (timeStr == timeslot.time) {
-        console.log(this.addAppointment.persons, ' ', timeslot.numAppt);
-        console.log(this.addAppointment.persons + timeslot.numAppt);
         enough = !(this.addAppointment.persons + timeslot.numAppt > 10);
       }
     });
-    console.log(enough);
     return enough;
   }
 
@@ -288,33 +280,45 @@ export class BookingPage implements OnInit {
     // Check if any of the properties are empty
     if (appointment.firstName.trim() === '') {
       this.fNameValid = false;
+    }else{
+      this.fNameValid = true;
     }
 
     if (appointment.lastName.trim() === '') {
       this.lNameValid = false;
+    }else{
+      this.fNameValid = true;
     }
 
-    if (appointment.persons === 0) {
+    if (appointment.persons <= 0 || appointment.persons > 10) {
       this.numValid = false;
+    }else{
+      this.numValid = true;
     }
 
     if (appointment.phone.trim() === '') {
       this.phoneValid = false;
+    }else{
+      this.phoneValid = true;
     }
 
     if (appointment.email.trim() === '') {
       this.emailValid = false;
+    }else{
+      this.emailValid = true;
     }
 
     if (appointment.date.trim() === '') {
       this.dateValid = false;
+    }else{
+      this.dateValid = true;
     }
 
     // Return true if any property is empty, otherwise return false
     return (
       appointment.firstName.trim() === '' ||
       appointment.lastName.trim() === '' ||
-      appointment.persons === 0 ||
+      appointment.persons <= 0 || appointment.persons > 10 ||
       appointment.phone.trim() === '' ||
       appointment.email.trim() === '' ||
       appointment.date.trim() === '' ||

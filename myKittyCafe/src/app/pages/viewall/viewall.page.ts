@@ -8,33 +8,51 @@ import { AppointmentService } from 'src/app/appointment.service';
   styleUrls: ['./viewall.page.scss'],
 })
 export class ViewallPage implements OnInit {
-
   appointments: Appointment[] = [];
-  startDate: string = ""; // Variable to hold the selected start date
-  endDate: string = ""; // Variable to hold the selected end date
+  startDate: string = ''; // Variable to hold the selected start date
+  endDate: string = ''; // Variable to hold the selected end date
   filteredAppointments: Appointment[] = [];
   noAppointments: boolean = false;
+  endDateBeforeStartDate: boolean = false;
+  // Define a boolean variable to track if both start and end dates are provided
+  datesNotEmpty: boolean = true;
 
-  constructor(private appointmentService: AppointmentService) { }
+  constructor(private appointmentService: AppointmentService) {}
 
   ngOnInit(): void {
     this.loadAppointments();
   }
 
-   // Method to filter appointments based on selected start and end dates
-   filterAppointments() {
-    this.filteredAppointments = this.appointments.filter(appointment => {
+  // Method to filter appointments based on selected start and end dates
+  filterAppointments() {
+    this.filteredAppointments = [];
+    if (this.startDate == '' || this.endDate == '') {
+      this.datesNotEmpty = false;
+      return;
+    }
+
+    // Check if end date is before start date
+    if (new Date(this.endDate) < new Date(this.startDate)) {
+      // Set the boolean variable to true to indicate the error
+      this.endDateBeforeStartDate = true;
+      return; // Exit the method early
+    } else {
+      // Reset the boolean variable if there is no error
+      this.endDateBeforeStartDate = false;
+    }
+
+    this.filteredAppointments = this.appointments.filter((appointment) => {
       const appointmentDate = new Date(appointment.date);
       const startDate = new Date(this.startDate);
       const endDate = new Date(this.endDate);
+      endDate.setDate(endDate.getDate() + 1);
       return appointmentDate >= startDate && appointmentDate <= endDate;
     });
-   }
+  }
 
   loadAppointments() {
     this.appointmentService.getAllAppointments().subscribe(
       (appointments: Appointment[]) => {
-        console.log(appointments);
         this.appointments = appointments;
       },
       (error) => {
