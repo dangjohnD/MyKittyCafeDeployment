@@ -9,18 +9,17 @@ import { AppointmentService } from 'src/app/appointment.service';
 })
 export class ViewallPage implements OnInit {
   appointments: Appointment[] = [];
-  startDate: string = ''; // Variable to hold the selected start date
-  endDate: string = ''; // Variable to hold the selected end date
+  startDate: string = '';
+  endDate: string = '';
   filteredAppointments: Appointment[] = [];
   noAppointments: boolean = false;
   endDateBeforeStartDate: boolean = false;
-  // Define a boolean variable to track if both start and end dates are provided
+  // boolean variable to track if both start and end dates are provided
   datesNotEmpty: boolean = true;
 
   constructor(private appointmentService: AppointmentService) {}
 
   ngOnInit(): void {
-    this.loadAppointments();
   }
 
   // Method to filter appointments based on selected start and end dates
@@ -31,7 +30,6 @@ export class ViewallPage implements OnInit {
       return;
     }
 
-    // Check if end date is before start date
     if (new Date(this.endDate) < new Date(this.startDate)) {
       // Set the boolean variable to true to indicate the error
       this.endDateBeforeStartDate = true;
@@ -40,7 +38,6 @@ export class ViewallPage implements OnInit {
       // Reset the boolean variable if there is no error
       this.endDateBeforeStartDate = false;
     }
-    // Get all appointments
     this.loadAppointments();
 
     //Apply filters

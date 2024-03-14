@@ -269,6 +269,7 @@ export class BookingPage implements OnInit {
 
   isAppointmentEmpty(appointment: Appointment): boolean {
     // Check if any of the properties are empty
+
     if (appointment.firstName.trim() === '') {
       this.fNameValid = false;
     }else{
