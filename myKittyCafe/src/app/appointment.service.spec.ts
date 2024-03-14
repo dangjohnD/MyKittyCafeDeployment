@@ -6,6 +6,11 @@ import {
 import { AppointmentService } from './appointment.service';
 import { Appointment } from './appointment';
 
+/*
+Disregard VSCode toBe, toBeTruthy and toEquals error
+vscode is mixing up cypress and jasmine
+ng test still performs
+*/
 describe('AppointmentService', () => {
   let service: AppointmentService;
   let httpMock: HttpTestingController;
