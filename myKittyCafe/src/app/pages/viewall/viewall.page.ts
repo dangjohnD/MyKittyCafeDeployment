@@ -40,7 +40,10 @@ export class ViewallPage implements OnInit {
       // Reset the boolean variable if there is no error
       this.endDateBeforeStartDate = false;
     }
+    // Get all appointments
+    this.loadAppointments();
 
+    //Apply filters
     this.filteredAppointments = this.appointments.filter((appointment) => {
       const appointmentDate = new Date(appointment.date);
       const startDate = new Date(this.startDate);
@@ -48,6 +51,11 @@ export class ViewallPage implements OnInit {
       endDate.setDate(endDate.getDate() + 1);
       return appointmentDate >= startDate && appointmentDate <= endDate;
     });
+
+    // Sort the filteredAppointments array by appointment date
+    this.filteredAppointments.sort((a, b) => {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
   }
 
   loadAppointments() {

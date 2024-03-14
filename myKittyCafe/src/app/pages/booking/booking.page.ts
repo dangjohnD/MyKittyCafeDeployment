@@ -43,17 +43,12 @@ export class BookingPage implements OnInit {
 
     // Set the minimum date for the component
     this.minDate = isoDateString;
-    console.log(dateNow);
-    console.log(this.minDate);
 }
 
   ngOnInit() {}
 
   dateChanged(event: CustomEvent<any>) {
-    console.log("Date Changed - selected date");
-    console.log("from datepicker", event.detail.value);
     const selectedDate = new Date(event.detail.value);
-    console.log(selectedDate);
     const utcSelectedDate = new Date(
       Date.UTC(
         selectedDate.getFullYear(),
@@ -64,10 +59,7 @@ export class BookingPage implements OnInit {
         selectedDate.getSeconds()
       )
     );
-    console.log(utcSelectedDate);
-
     this.addAppointment.date = utcSelectedDate.toISOString();
-    console.log(this.addAppointment.date);
 
     //get timeslots
     this.appService
@@ -188,7 +180,6 @@ export class BookingPage implements OnInit {
     this.addAppointment.date = updatedDateString;
     this.timeslotSelected = true;
     this.highlightTime(timeSlot);
-    console.log("date and time: " + this.addAppointment.date);
   }
 
   getTimeSlots(appointments: Appointment[]): TimeSlot[] {
