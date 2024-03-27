@@ -9,7 +9,8 @@ export class AuthService {
 
   public username!: string;
   public password!: string;
-  public apiUrl = 'http://localhost:8080/api';
+  //public apiUrl = 'http://localhost:8080/api';
+  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/appointments';
   message = new BehaviorSubject<any>('');
   asObserver = this.message.asObservable();
 

@@ -36,7 +36,7 @@ export class BookingPage implements OnInit {
     const dateNow = new Date();
     
     // Adjust the current date and time to Eastern Daylight Time (EDT, UTC-4)
-    dateNow.setUTCHours(dateNow.getUTCHours() - 4);
+    dateNow.setUTCHours(dateNow.getUTCHours());
 
     // Get the date part in ISO format (YYYY-MM-DD)
     const isoDateString = dateNow.toISOString().split('T')[0];
@@ -168,7 +168,7 @@ export class BookingPage implements OnInit {
 
 
     // Set the adjusted hour in UTC
-    appointmentDate.setUTCHours(adjustedHour + 4);
+    appointmentDate.setUTCHours(adjustedHour);
 
     // Set the minutes and seconds to 0 in UTC
     appointmentDate.setUTCMinutes(0);
@@ -176,12 +176,14 @@ export class BookingPage implements OnInit {
 
     // Format the updated date back into a string in ISO 8601 format
     const updatedDateString = appointmentDate.toISOString();
+    console.log(updatedDateString);
 
 
     // Update the date property of the addAppointment object with the updated date string
     this.addAppointment.date = updatedDateString;
     this.timeslotSelected = true;
     this.highlightTime(timeSlot);
+    console.log(this.addAppointment.date)
   }
 
   getTimeSlots(appointments: Appointment[]): TimeSlot[] {
