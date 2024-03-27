@@ -60,9 +60,18 @@ public class AppointmentApi {
                 appointment.getEmail(),
                 appointment.getDate()));
 
-        // String message = "Test message";
-        // emailService.sendEmail(appointment.getEmail(), "My Kitty Cafe Appointment
-        // For: " + appointment.getFirstName(), message);
+        String message = "Dear " + appointment.getFirstName() + " " + appointment.getLastName() + ",\n\n" +
+                "This is a reminder of your upcoming appointment.\n\n" +
+                "Details:\n" +
+                "Date: " + appointment.getDate() + "\n" +
+                "Persons involved: " + appointment.getPersons() + "\n" +
+                "Contact Phone: " + appointment.getPhone() + "\n" +
+                "Email: " + appointment.getEmail() + "\n\n" +
+                "We look forward to seeing you!\n\n" +
+                "Best regards,\n" +
+                "My Kitty Cafe";
+        emailService.sendEmail(appointment.getEmail(), "My Kitty Cafe Appointment For: "
+                + appointment.getFirstName(), message);
 
         return new ResponseEntity<>(_appt, HttpStatus.CREATED);
     }
