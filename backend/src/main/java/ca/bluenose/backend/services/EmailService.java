@@ -8,7 +8,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmailService extends JavaMailSenderImpl {
+public class EmailService{
 
     @Autowired
     @Lazy

@@ -162,8 +162,10 @@ export class BookingPage implements OnInit {
     if (amPm.toLowerCase() === 'pm' && hour !== 12) {
       adjustedHour += 12; // Add 12 hours for PM except for 12 PM
     } else if (amPm.toLowerCase() === 'am' && hour === 12) {
-      adjustedHour = 0; // For 12 AM, set hour to 0
+      adjustedHour += 0; // For 12 AM, set hour to 0
     }
+
+
 
     // Set the adjusted hour in UTC
     appointmentDate.setUTCHours(adjustedHour + 4);
