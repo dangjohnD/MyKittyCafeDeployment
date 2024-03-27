@@ -1,6 +1,7 @@
 package ca.bluenose.backend.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class EmailService extends JavaMailSenderImpl {
 
     @Autowired
+    @Lazy
     private JavaMailSender mailSender;
 
     public void sendEmail(String recipient, String subject, String body) {

@@ -36,6 +36,7 @@ public class AuthController {
         return new BCryptPasswordEncoder();
     }
     @Autowired
+    @Lazy
     private BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping("/api/users")
