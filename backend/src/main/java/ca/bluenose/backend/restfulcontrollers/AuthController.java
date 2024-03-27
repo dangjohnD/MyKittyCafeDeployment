@@ -26,11 +26,9 @@ public class AuthController {
     @Value("${security.jwt.token.secret-key:secret-key}")
     private String secretKey;
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public AuthController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     // create password encoder bean and autowire to make it easier for dependency injection
     @Bean
