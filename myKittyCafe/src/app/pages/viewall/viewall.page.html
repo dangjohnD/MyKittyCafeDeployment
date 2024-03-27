@@ -4,7 +4,11 @@
       <ion-title size="large">viewall</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div class="container">
+  <div *ngIf="userType === undefined || userType === ''" class="error-message">
+    <br><br>
+    You are not authorized to view this.
+  </div>
+  <div class="container" *ngIf="userType === 'employee'">
     <h1>All Appointments</h1>
     <div>
       <label for="startDate">Start Date:</label>

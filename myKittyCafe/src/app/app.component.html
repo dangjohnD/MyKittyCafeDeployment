@@ -13,9 +13,22 @@
         <ion-button (click)="navigateToBooking()">
           Book Appointment
         </ion-button>
-        <ion-button (click)="navigateToViewAll()">
-          View All Appointments
-        </ion-button>
+        <div *ngIf="userType === 'employee'">
+          <ion-button (click)="navigateToViewAll()">
+            View Appointments
+          </ion-button>
+          <ion-button (click)="logout()">
+            Log Out
+          </ion-button>
+        </div>
+        <div *ngIf="userType === undefined || userType === ''">
+          <ion-button (click)="navigateToLogin()">
+            Login
+          </ion-button>
+          <ion-button (click)="navigateToRegister()">
+            Register
+          </ion-button>
+        </div>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>

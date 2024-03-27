@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/appointment';
 import { AppointmentService } from 'src/app/appointment.service';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-viewall',
@@ -17,9 +18,15 @@ export class ViewallPage implements OnInit {
   // boolean variable to track if both start and end dates are provided
   datesNotEmpty: boolean = true;
 
-  constructor(private appointmentService: AppointmentService) {}
+  userType!: any;
+
+  constructor(private appointmentService: AppointmentService,
+      private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.authService.asObserver.subscribe(
+      message => { this.userType = message}
+    );
   }
 
   // Method to filter appointments based on selected start and end dates

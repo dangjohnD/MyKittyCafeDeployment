@@ -22,6 +22,14 @@ const routes: Routes = [
     path: 'appt-info',
     loadChildren: () => import('./pages/appt-info/appt-info.module').then( m => m.ApptInfoPageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },
 
 ];
 
