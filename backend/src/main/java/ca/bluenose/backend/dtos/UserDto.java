@@ -1,4 +1,4 @@
-package ca.bluenose.dtos;
+package ca.bluenose.backend.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

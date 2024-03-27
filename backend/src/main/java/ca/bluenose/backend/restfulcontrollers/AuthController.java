@@ -1,12 +1,12 @@
 package ca.bluenose.backend.restfulcontrollers;
 
-import java.util.Base64;
-import java.util.Date;
 import java.util.Optional;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,13 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-
 import ca.bluenose.backend.beans.User;
 import ca.bluenose.backend.repository.UserRepository;
-import ca.bluenose.dtos.UserDto;
-import jakarta.annotation.PostConstruct;
+import ca.bluenose.backend.dtos.UserDto;
 
 @RestController
 @CrossOrigin(origins = { "http://localhost:8100", "https://mykittycafe.azurewebsites.net" })
@@ -30,13 +26,19 @@ public class AuthController {
     @Value("${security.jwt.token.secret-key:secret-key}")
     private String secretKey;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
+    public AuthController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    // create password encoder bean and autowire to make it easier for dependency injection
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping("/api/users")
     public ResponseEntity<String> createUser(@RequestBody UserDto userDto) {
@@ -54,8 +56,8 @@ public class AuthController {
                             .username(userDto.getUsername())
                             .build();
             
-            // Encrypt the password using BCryptPasswordEncoder
-            user.setPassword(this.passwordEncoder().encode(userDto.getPassword()));
+            // Encrypt the password using our autowired passwordEncoder
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
 
             userRepository.save(user);
 
@@ -77,7 +79,7 @@ public class AuthController {
             User user = optionalUser.get();
 
             // Compare the passwords
-            if (this.passwordEncoder().matches(password, user.getPassword())) {
+            if (passwordEncoder.matches(password, user.getPassword())) {
                 // Passwords match, generate JWT token and return it
                 String token = generateJwtToken(username);
                 return new ResponseEntity<>("{\"message\": \"success\"}", HttpStatus.OK);
@@ -96,15 +98,8 @@ public class AuthController {
 }
 
 // Define a class for the login request payload
+@Getter
 class LoginRequest {
     private String username;
     private String password;
-
-    public String getUsername() {
-        return this.username;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
 }
