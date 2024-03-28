@@ -27,10 +27,10 @@ describe('Bad Credentials', () => {
 })
 
 describe('login success', () => {
-  it('prompts to enter username',() => {
+  it('success login',() => {
     cy.visit('http://localhost:8100/login');
-    cy.get('input[name=username]').type("username");
-    cy.get('input[name=password]').type("pass123");
+    cy.get('input[name=username]').type("employee@gmail.com");
+    cy.get('input[name=password]').type("password");
     cy.contains('Log In').click();
     cy.contains('1400 Adoptions and Counting');
   })
@@ -38,6 +38,10 @@ describe('login success', () => {
 
 describe('Register prompt', () => {
   it('Message to fill in info',() => {
+    cy.visit('http://localhost:8100/login');
+    cy.get('input[name=username]').type("admin@gmail.com");
+    cy.get('input[name=password]').type("password");
+    cy.contains('Log In').click();
     cy.visit('http://localhost:8100/register');
     cy.get('input[name=username]').type("username");
     cy.get('input[name=password]').type("pass123");

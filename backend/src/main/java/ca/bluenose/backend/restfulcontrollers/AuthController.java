@@ -44,7 +44,7 @@ public class AuthController {
         try {
             // Check if the username already exists
             if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
-                // If the username exists, return a conflict response
+                // If the username exists, return a conflict res
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists");
             }
 
