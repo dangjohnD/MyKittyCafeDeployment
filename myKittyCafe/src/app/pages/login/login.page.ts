@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { first } from 'cypress/types/lodash';
 import { AuthService } from 'src/app/auth.service';
 
@@ -16,7 +17,7 @@ export class LoginPage implements OnInit {
   wrongCredentials = false;
   missingCredentials = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {}
 
@@ -32,6 +33,7 @@ export class LoginPage implements OnInit {
       (response) => {
         console.log(response.message);
         this.authService.setMessage("employee");
+        this.router.navigate(['/home']);
       },
       (res) => {
         console.log('Error logging in:', res.error);
