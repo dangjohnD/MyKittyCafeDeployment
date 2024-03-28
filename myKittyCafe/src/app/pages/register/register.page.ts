@@ -15,6 +15,7 @@ export class RegisterPage implements OnInit {
   missingCredentials = false;
   existingUser = false;
   invalidEmail = false;
+  success = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -40,7 +41,7 @@ export class RegisterPage implements OnInit {
       .subscribe(
         (response) => {
           console.log('Response:', response.message);
-          this.router.navigate(['/login']);
+          this.success = true;
         },
         (error) => {
           if (error.status === 409) {

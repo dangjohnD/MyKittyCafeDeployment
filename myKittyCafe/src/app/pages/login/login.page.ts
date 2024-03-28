@@ -33,6 +33,9 @@ export class LoginPage implements OnInit {
       (response) => {
         console.log(response.message);
         this.authService.setMessage("employee");
+        if (this.username == "admin@gmail.com"){
+          this.authService.setMessage("admin");
+        }
         this.router.navigate(['/home']);
       },
       (res) => {

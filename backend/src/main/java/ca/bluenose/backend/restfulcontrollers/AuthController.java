@@ -41,6 +41,7 @@ public class AuthController {
 
     @PostMapping("/api/users")
     public ResponseEntity<String> createUser(@RequestBody UserDto userDto) {
+        System.out.println(userDto);
         try {
             // Check if the username already exists
             if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
@@ -56,12 +57,13 @@ public class AuthController {
                             .build();
             
             // Encrypt the password using our autowired passwordEncoder
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
             userRepository.save(user);
 
             return ResponseEntity.status(HttpStatus.CREATED).body("{\"message\": \"success\"}");
         } catch (Exception e) {
+            System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create user");
         }
     }

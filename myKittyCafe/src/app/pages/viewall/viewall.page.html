@@ -48,7 +48,7 @@
             <td>{{ appointment.persons }}</td>
             <td>{{ appointment.phone }}</td>
             <td>{{ appointment.email }}</td>
-            <td>{{ appointment.date | date: 'medium' : '-0400' }}</td>
+            <td>{{ appointment.date | date: 'MMM d, y, h:mm:ss a': 'UTC' }}</td>
           </tr>
         </tbody>
       </table>

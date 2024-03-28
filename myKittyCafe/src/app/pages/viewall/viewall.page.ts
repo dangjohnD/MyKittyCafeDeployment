@@ -60,6 +60,7 @@ export class ViewallPage implements OnInit {
     this.filteredAppointments.sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
   });
+    console.log(this.filteredAppointments);
   }
 
   loadAppointments() {

@@ -44,6 +44,13 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-card *ngIf="success" class="register-card">
+    <ion-card-content>
+      <ion-card-title>Notice</ion-card-title>
+      <p>Employee User created!</p>
+    </ion-card-content>
+  </ion-card>
+
   <ion-card class="error-card" *ngIf="missingCredentials">
     <ion-card-content>
       <ion-card-title>Error</ion-card-title>
