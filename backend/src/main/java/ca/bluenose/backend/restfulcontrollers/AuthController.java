@@ -41,7 +41,6 @@ public class AuthController {
 
     @PostMapping("/api/users")
     public ResponseEntity<String> createUser(@RequestBody UserDto userDto) {
-        System.out.println(userDto);
         try {
             // Check if the username already exists
             if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
