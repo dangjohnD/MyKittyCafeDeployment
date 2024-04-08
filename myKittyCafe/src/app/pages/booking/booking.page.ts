@@ -222,7 +222,7 @@ export class BookingPage implements OnInit {
         const appointmentDate = new Date(appointment.date);
 
         // Add the appointment to the current timeslots
-        const hour = appointmentDate.getHours();
+        const hour = appointmentDate.getHours() + 4;
         const timeSlotIndex = hour - 9;
         timeSlots[timeSlotIndex].numAppt += appointment.persons;
       }

@@ -33,9 +33,6 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-
-    this.clear();
-
     this.authService
       .register(this.firstName, this.lastName, this.username, this.password)
       .subscribe(
@@ -53,6 +50,9 @@ export class RegisterPage implements OnInit {
           }
         }
       );
+
+
+      this.clear();
   }
 
   checkEmpty(): boolean{
