@@ -22,6 +22,9 @@ export class RegisterPage implements OnInit {
   ngOnInit() {}
 
   handleRegister() {
+    this.missingCredentials = false;
+    this.existingUser = false;
+    this.invalidEmail = false;
 
     if (this.checkEmpty()){
       this.missingCredentials = true;
