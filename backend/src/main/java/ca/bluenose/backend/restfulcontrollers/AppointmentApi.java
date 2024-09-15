@@ -45,7 +45,7 @@ public class AppointmentApi {
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
-    @GetMapping("email/{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<List<Appointment>> getAppointmentsByEmail(@PathVariable("email") String email) {
         List<Appointment> appointments = appointmentRepository.findByEmail(email);
         if (appointments.isEmpty()) {
