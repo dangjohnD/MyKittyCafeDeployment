@@ -20,8 +20,7 @@ export class AppointmentService {
     return this.http.get<Appointment[]>(this.apiUrl);
   }
 
-  getAppointmentsByEmails(email: string): Observable<Appointment[]> {
-    const body = { email };  // Creating the request body object with the email
-    return this.http.post<Appointment[]>(this.apiUrl + "/email", body);
-}
+  getAppointmentsByEmails(email: String): Observable<Appointment[]>{
+    return this.http.get<Appointment[]>(this.apiUrl + "/email/" + email);
+  }
 }
