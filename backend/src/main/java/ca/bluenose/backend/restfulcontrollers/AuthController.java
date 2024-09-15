@@ -31,6 +31,7 @@ public class AuthController {
 
 
     // create password encoder bean and autowire to make it easier for dependency injection
+    // use lazy to prevent circular references [it will break otherwise]
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
