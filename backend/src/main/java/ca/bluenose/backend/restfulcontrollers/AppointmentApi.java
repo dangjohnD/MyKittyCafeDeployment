@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 // add values to config file and read the values after deployment
@@ -45,12 +46,20 @@ public class AppointmentApi {
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
-    @GetMapping("/email/{email}")
-    public ResponseEntity<List<Appointment>> getAppointmentsByEmail(@PathVariable("email") String email) {
+    @PostMapping("/email")
+    public ResponseEntity<List<Appointment>> getAppointmentsByEmail(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");
+        
+        if (email == null || email.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // Return 400 if the email is missing
+        }
+    
         List<Appointment> appointments = appointmentRepository.findByEmail(email);
+        
         if (appointments.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+    
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
