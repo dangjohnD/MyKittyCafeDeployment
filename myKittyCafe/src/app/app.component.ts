@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent {
 
+  userEmail: string | null = null;
   userType!: any;
   constructor(private router: Router, private authService: AuthService) {}
 

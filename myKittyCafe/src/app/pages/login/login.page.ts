@@ -30,14 +30,14 @@ export class LoginPage implements OnInit {
       this.missingCredentials = true;
       return;
     }
-    //
+    // Handle Log in
     this.authService.login(this.username, this.password).subscribe(
       (response) => {
         console.log(response.message);
-        this.authService.setMessage("employee");
         if (this.username == "admin@gmail.com"){
-          this.authService.setMessage("admin");
+          this.authService.setMessage(this.username);
         }
+        this.authService.setMessage(this.username);
         this.router.navigate(['/home']);
       },
       (res) => {

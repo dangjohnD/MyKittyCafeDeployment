@@ -10,13 +10,18 @@
         </ion-button>
       </ion-buttons>
       <ion-buttons slot="end">
+        <ion-label *ngIf="userType">
+          Hello, {{ userType }}
+        </ion-label>
         <ion-button (click)="navigateToBooking()">
           Book Appointment
         </ion-button>
-        <div *ngIf="userType === 'employee' || userType === 'admin'">
+        <div *ngIf="userType === 'employee' || userType === 'admin@gmail.com'">
           <ion-button (click)="navigateToViewAll()">
             View Appointments
           </ion-button>
+        </div>
+        <div *ngIf="userType != ''">
           <ion-button (click)="logout()">
             Log Out
           </ion-button>
@@ -26,7 +31,8 @@
             Login
           </ion-button>
         </div>
-        <div *ngIf="userType === 'admin'">
+        <!--<div *ngIf="userType === 'admin@gmail.com'">-->
+        <div *ngIf="userType === undefined || userType === '' || userType === 'admin@gmail.com'">
           <ion-button (click)="navigateToRegister()">
             Register
           </ion-button>
