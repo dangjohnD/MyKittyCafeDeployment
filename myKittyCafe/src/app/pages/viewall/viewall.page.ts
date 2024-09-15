@@ -27,6 +27,10 @@ export class ViewallPage implements OnInit {
     this.authService.asObserver.subscribe(
       message => { this.userType = message}
     );
+
+    if (this.userType != 'admin@gmail.com' && this.userType){
+      this.loadUserAppointments();
+    }
   }
 
   // Method to filter appointments based on selected start and end dates
@@ -67,6 +71,21 @@ export class ViewallPage implements OnInit {
     this.appointmentService.getAllAppointments().subscribe(
       (appointments: Appointment[]) => {
         this.appointments = appointments;
+      },
+      (error) => {
+        console.error('Error fetching appointments: ', error);
+      }
+    );
+  }
+  
+  loadUserAppointments(){
+    this.appointmentService.getAppointmentsByEmails(this.userType).subscribe(
+      (appointments: Appointment[]) => {
+        this.appointments = appointments;
+        console.log(this.appointments);
+        if (appointments.length > 0){
+          this.filteredAppointments = appointments;
+        }
       },
       (error) => {
         console.error('Error fetching appointments: ', error);

@@ -19,4 +19,8 @@ export class AppointmentService {
   getAllAppointments(): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(this.apiUrl);
   }
+
+  getAppointmentsByEmails(email: String): Observable<Appointment[]>{
+    return this.http.get<Appointment[]>(this.apiUrl + "/email/" + email);
+  }
 }

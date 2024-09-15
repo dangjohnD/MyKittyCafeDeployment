@@ -4,11 +4,62 @@
       <ion-title size="large">viewall</ion-title>
     </ion-toolbar>
   </ion-header>
+  <!-- No User -->
   <div *ngIf="userType === undefined || userType === ''" class="error-message">
     <br><br>
     You are not authorized to view this.
   </div>
-  <div class="container" *ngIf="userType === 'employee' || userType === 'admin'">
+
+  <!-- User -->
+  <div class="container" *ngIf="userType !== 'admin@gmail.com' && userType">
+    <p>Hello {{ userType }} </p>
+    <h1>All Appointments</h1>
+    <div>
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate">
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="endDate" [(ngModel)]="endDate">
+      <button (click)="filterAppointments()">Filter</button>
+      <p class="noAppointments" *ngIf="!datesNotEmpty">
+        Please provide both start date and end date.
+      </p>
+      <!-- Show error message if end date is before start date -->
+      <p class="noAppointments" *ngIf="endDateBeforeStartDate">
+        End date cannot be before start date.
+      </p>
+      <p class="noAppointments" *ngIf="filteredAppointments.length < 1;">
+        No appointments found.
+      </p>
+    </div>
+    <div *ngIf="filteredAppointments.length > 0;">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Persons</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appointment of filteredAppointments; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ appointment.firstName }}</td>
+            <td>{{ appointment.lastName }}</td>
+            <td>{{ appointment.persons }}</td>
+            <td>{{ appointment.phone }}</td>
+            <td>{{ appointment.email }}</td>
+            <td>{{ appointment.date | date: 'MMM d, y, h:mm:ss a': 'UTC' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Admin -->
+  <div class="container" *ngIf="userType === 'admin@gmail.com'">
     <h1>All Appointments</h1>
     <div>
       <label for="startDate">Start Date:</label>
