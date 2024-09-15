@@ -45,6 +45,15 @@ public class AppointmentApi {
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
+    @GetMapping("/{email}")
+    public ResponseEntity<List<Appointment>> getAppointmentsByEmail(@PathVariable("email") String email) {
+        List<Appointment> appointments = appointmentRepository.findByEmail(email);
+        if (appointments.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
+    }
+
     // creating appointment function
     // adds an appointment after filling out form on webpage
     @PostMapping()
@@ -59,6 +68,8 @@ public class AppointmentApi {
                 appointment.getPhone(),
                 appointment.getEmail(),
                 appointment.getDate()));
+
+        //find way to not hardcode this
 
         String message = "Dear " + appointment.getFirstName() + " " + appointment.getLastName() + ",\n\n" +
                 "This is a reminder of your upcoming appointment.\n\n" +
@@ -86,7 +97,8 @@ public class AppointmentApi {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // delete review based on ID value
+
+    // delete appt based on ID value
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAppointment(@PathVariable("id") long id) {
         if (appointmentRepository.findById(id).isPresent()) {
@@ -94,6 +106,6 @@ public class AppointmentApi {
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage("There is no review with this ID"));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage("There is no appointment with this ID"));
     }
 }
