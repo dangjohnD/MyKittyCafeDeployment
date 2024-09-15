@@ -94,6 +94,7 @@ export class BookingPage implements OnInit {
         this.router.navigate(['/appt-info'], {
           state: { state: this.addAppointment },
         });
+        this.clear();
       },
       (error) => {
         console.error('Error adding appointment:', error);
@@ -222,7 +223,7 @@ export class BookingPage implements OnInit {
         const appointmentDate = new Date(appointment.date);
 
         // Add the appointment to the current timeslots
-        const hour = appointmentDate.getHours();
+        const hour = appointmentDate.getHours() + 4;
         const timeSlotIndex = hour - 9;
         timeSlots[timeSlotIndex].numAppt += appointment.persons;
       }
@@ -320,5 +321,25 @@ export class BookingPage implements OnInit {
       appointment.date.trim() === '' ||
       this.timeslotSelected == false
     );
+  }
+
+  clear(){
+    this.addAppointment.firstName = '';
+    this.addAppointment.lastName = '';
+    this.addAppointment.persons = 0;
+    this.addAppointment.phone = '';
+    this.addAppointment.email = '';
+    this.addAppointment.date = '';
+
+    this.emailValid = true;
+  this.phoneValid = true;
+  this.numValid = true;
+  this.fNameValid = true;
+  this.lNameValid = true;
+  this.dateValid = true;
+  this.timeslotSelected = false;
+
+  this.showCalendarFlag = false;
+  this.timeSlots = [];
   }
 }

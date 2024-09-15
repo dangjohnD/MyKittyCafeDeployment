@@ -23,6 +23,8 @@ export class LoginPage implements OnInit {
 
 
   handleLogin(){
+    this.wrongCredentials = false;
+    this.missingCredentials = false;
 
     if (this.username == '' || this.password == ''){
       this.missingCredentials = true;

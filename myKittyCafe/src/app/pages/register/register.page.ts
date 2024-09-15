@@ -22,6 +22,9 @@ export class RegisterPage implements OnInit {
   ngOnInit() {}
 
   handleRegister() {
+    this.missingCredentials = false;
+    this.existingUser = false;
+    this.invalidEmail = false;
 
     if (this.checkEmpty()){
       this.missingCredentials = true;
@@ -32,9 +35,6 @@ export class RegisterPage implements OnInit {
       this.invalidEmail = true;
       return;
     }
-
-
-    this.clear();
 
     this.authService
       .register(this.firstName, this.lastName, this.username, this.password)
@@ -53,6 +53,9 @@ export class RegisterPage implements OnInit {
           }
         }
       );
+
+
+      this.clear();
   }
 
   checkEmpty(): boolean{

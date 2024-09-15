@@ -8,7 +8,7 @@
     <br><br>
     You are not authorized to view this.
   </div>
-  <div class="container" *ngIf="userType === 'employee'">
+  <div class="container" *ngIf="userType === 'employee' || userType === 'admin'">
     <h1>All Appointments</h1>
     <div>
       <label for="startDate">Start Date:</label>
