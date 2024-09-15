@@ -45,9 +45,8 @@ public class AppointmentApi {
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
-    @PostMapping("/email")
-    public ResponseEntity<List<Appointment>> getAppointmentsByEmail(@RequestBody String email) {
-        System.out.println(email);
+    @GetMapping("email/{email}")
+    public ResponseEntity<List<Appointment>> getAppointmentsByEmail(@PathVariable("email") String email) {
         List<Appointment> appointments = appointmentRepository.findByEmail(email);
         if (appointments.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -88,4 +87,25 @@ public class AppointmentApi {
         return new ResponseEntity<>(_appt, HttpStatus.CREATED);
     }
 
+    // view specific appointment by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Appointment> getAppointmentById(@PathVariable(value = "id") Long id) {
+        if (appointmentRepository.findById(id).isPresent()) {
+            Appointment appointment = appointmentRepository.findById(id).get();
+            return new ResponseEntity<>(appointment, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
+    // delete appt based on ID value
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAppointment(@PathVariable("id") long id) {
+        if (appointmentRepository.findById(id).isPresent()) {
+            appointmentRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage("There is no appointment with this ID"));
+    }
 }
