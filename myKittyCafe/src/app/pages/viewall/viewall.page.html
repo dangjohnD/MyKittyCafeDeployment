@@ -46,7 +46,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let appointment of filteredAppointments; let i = index">
-            <td>{{ i + 1 }}</td>
+            <td><button (click)="openAppointmentModal(appointment.id)">Cancel</button></td>
             <td>{{ appointment.firstName }}</td>
             <td>{{ appointment.lastName }}</td>
             <td>{{ appointment.persons }}</td>

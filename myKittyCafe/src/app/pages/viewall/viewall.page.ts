@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Appointment } from 'src/app/appointment';
 import { AppointmentService } from 'src/app/appointment.service';
 import { AuthService } from 'src/app/auth.service';
+import { ApptModalComponent } from 'src/app/components/appt-modal/appt-modal.component';
 
 @Component({
   selector: 'app-viewall',
@@ -21,15 +23,19 @@ export class ViewallPage implements OnInit {
   userType!: any;
 
   constructor(private appointmentService: AppointmentService,
-      private authService: AuthService) {}
+      private authService: AuthService,
+      private modalController: ModalController,
+      private toastController: ToastController) {}
 
   ngOnInit(): void {
     this.authService.asObserver.subscribe(
       message => { this.userType = message}
     );
-
+    console.log(this.userType);
     if (this.userType != 'admin@gmail.com' && this.userType){
+      console.log("getting user appts")
       this.loadUserAppointments();
+      console.log(this.filteredAppointments);
     }
   }
 
@@ -49,7 +55,10 @@ export class ViewallPage implements OnInit {
       // Reset the boolean variable if there is no error
       this.endDateBeforeStartDate = false;
     }
-    this.loadAppointments();
+    if (this.userType == "admin@gmail.com"){
+      this.loadAppointments();
+    }else{
+    }
 
     //Apply filters
     this.filteredAppointments = this.appointments.filter((appointment) => {
@@ -65,6 +74,7 @@ export class ViewallPage implements OnInit {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
   });
     console.log(this.filteredAppointments);
+    console.log("filtered");
   }
 
   loadAppointments() {
@@ -91,5 +101,45 @@ export class ViewallPage implements OnInit {
         console.error('Error fetching appointments: ', error);
       }
     );
+  }
+
+  async openAppointmentModal(id: Number | undefined){
+    console.log(id);
+    var selectedAppt = this.filteredAppointments.find(appointment => appointment.id === id);
+    console.log(selectedAppt);
+
+    const modal = await this.modalController.create({
+      component: ApptModalComponent,
+      componentProps: { selectedAppt }
+    });
+  
+    modal.onDidDismiss().then((result) => {
+      if (result.data != undefined){
+        if (result.data.delete) {
+          this.deleteAppointment(result.data.selectedAppt.id);
+        }
+      }
+    });
+  
+    return await modal.present();
+  }
+
+  async deleteAppointment(appointmentId: number) {
+    // Perform the deletion logic
+    console.log("delete appt: " + appointmentId);
+    // After deletion, show a toast message
+    await this.presentToast();
+    // Refresh the list of appointments
+    this.loadUserAppointments();
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Appointment deleted, email sent to user.',
+      duration: 2000, // Duration in milliseconds
+      position: 'bottom',
+      color: 'success',
+    });
+    await toast.present();
   }
 }

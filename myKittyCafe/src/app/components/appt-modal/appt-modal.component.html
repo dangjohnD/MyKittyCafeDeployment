@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Appointment Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeCorner()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>First Name:</ion-label>
+          <ion-text>{{ selectedAppt.firstName }}</ion-text>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Last Name:</ion-label>
+          <ion-text>{{ selectedAppt.lastName }}</ion-text>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Persons:</ion-label>
+          <ion-text>{{ selectedAppt.persons }}</ion-text>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Phone:</ion-label>
+          <ion-text>{{ selectedAppt.phone }}</ion-text>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label>Email:</ion-label>
+          <ion-text>{{ selectedAppt.email }}</ion-text>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label>Date:</ion-label>
+          <ion-text>{{ selectedAppt.date | date: 'MMM d, y, h:mm:ss a' }}</ion-text>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-item>
+    <ion-checkbox [(ngModel)]="isDeleteConfirmed" [disabled]="isCheckboxDisabled"></ion-checkbox>
+    <ion-label>Confirm Deletion</ion-label>
+  </ion-item>
+
+  <ion-item *ngIf="errorMessage">
+    <ion-label color="danger">{{ errorMessage }}</ion-label>
+  </ion-item>
+
+  <ion-button expand="full" color="danger" (click)="closeModal()"
+  [disabled]="isCheckboxDisabled">Confirm</ion-button>
+</ion-content>
