@@ -69,7 +69,7 @@ public class AppointmentApi {
                 appointment.getEmail(),
                 appointment.getDate()));
 
-        //find way to not hardcode this
+        // find way to not hardcode this
 
         String message = "Dear " + appointment.getFirstName() + " " + appointment.getLastName() + ",\n\n" +
                 "This is a reminder of your upcoming appointment.\n\n" +
@@ -97,15 +97,42 @@ public class AppointmentApi {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-
     // delete appt based on ID value
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAppointment(@PathVariable("id") long id) {
         if (appointmentRepository.findById(id).isPresent()) {
+            Appointment appointment = appointmentRepository.findById(id).get();
             appointmentRepository.deleteById(id);
+
+            // Send Email
+
+            String cancellationMessage = "<html>" +
+                    "<body>" +
+                    "<h2>Dear " + appointment.getFirstName() + " " + appointment.getLastName() + ",</h2>" +
+                    "<p>We have successfully processed your request to cancel the following appointment at <strong>My Kitty Cafe</strong>:</p>"
+                    +
+                    "<table style='border: 1px solid black; padding: 10px;'>" +
+                    "<tr><td><strong>Date</strong>:</td><td>" + appointment.getDate() + "</td></tr>" +
+                    "<tr><td><strong>Persons Involved</strong>:</td><td>" + appointment.getPersons() + "</td></tr>" +
+                    "<tr><td><strong>Contact Phone</strong>:</td><td>" + appointment.getPhone() + "</td></tr>" +
+                    "<tr><td><strong>Email</strong>:</td><td>" + appointment.getEmail() + "</td></tr>" +
+                    "</table>" +
+                    "<p>We’re sorry to see you cancel, but we hope to see you soon. If you would like to reschedule, please visit our <a href='https://mykittycafe.com'>website</a> or contact us directly.</p>"
+                    +
+                    "<p>Thank you for choosing <strong>My Kitty Cafe</strong>. We look forward to serving you in the future!</p>"
+                    +
+                    "<p>Best regards,</p>" +
+                    "<p>The My Kitty Cafe Team</p>" +
+                    "</body>" +
+                    "</html>";
+
+            emailService.sendHtmlEmail(appointment.getEmail(), "My Kitty Cafe Appointment Cancellation Confirmation",
+                    cancellationMessage);
+
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage("There is no appointment with this ID"));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorMessage("There is no appointment with this ID"));
     }
 }

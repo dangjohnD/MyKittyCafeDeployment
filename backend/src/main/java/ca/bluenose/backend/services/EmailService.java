@@ -5,7 +5,11 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class EmailService{
@@ -25,6 +29,26 @@ public class EmailService{
         try {
             mailSender.send(msg);
         } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Done");
+    }
+
+    // New method to send HTML email
+    public void sendHtmlEmail(String recipient, String subject, String htmlBody) {
+        System.out.println("Sending HTML message...");
+
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            helper.setTo(recipient);
+            helper.setSubject(subject);
+            helper.setText(htmlBody, true); // HTML content
+
+            mailSender.send(mimeMessage);
+        } catch (MessagingException ex) {
             ex.printStackTrace();
         }
 
