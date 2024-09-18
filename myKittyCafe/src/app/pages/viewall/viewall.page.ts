@@ -103,7 +103,10 @@ export class ViewallPage implements OnInit {
     );
   }
 
+  // Open the appointment dialog to
   async openAppointmentModal(id: Number | undefined){
+    
+    //Grab appointment that's being deleted
     console.log(id);
     var selectedAppt = this.filteredAppointments.find(appointment => appointment.id === id);
     console.log(selectedAppt);
@@ -113,6 +116,7 @@ export class ViewallPage implements OnInit {
       componentProps: { selectedAppt }
     });
   
+    // on confirmation delete via service
     modal.onDidDismiss().then((result) => {
       if (result.data != undefined){
         if (result.data.delete) {
@@ -125,9 +129,16 @@ export class ViewallPage implements OnInit {
   }
 
   async deleteAppointment(appointmentId: number) {
-    // Perform the deletion logic
+    // Delete and show message
     console.log("delete appt: " + appointmentId);
-    // After deletion, show a toast message
+    this.appointmentService.deleteAppointmentById(appointmentId).subscribe(
+      response => {
+        console.log('Deletion successful:', response);
+      },
+      error => {
+        console.error('Deletion failed:', error);
+      }
+    );
     await this.presentToast();
     // Refresh the list of appointments
     this.loadUserAppointments();
@@ -136,7 +147,7 @@ export class ViewallPage implements OnInit {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Appointment deleted, email sent to user.',
-      duration: 2000, // Duration in milliseconds
+      duration: 5000, // Duration in milliseconds
       position: 'bottom',
       color: 'success',
     });
