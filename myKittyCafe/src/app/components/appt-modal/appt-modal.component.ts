@@ -21,7 +21,7 @@ export class ApptModalComponent{
   ngOnInit() {
     this.isCheckboxDisabled = !this.isCancellationAllowed();
     if (this.isCheckboxDisabled){
-      this.errorMessage = "You cannot delete this appointment because it is past" + 
+      this.errorMessage = "You cannot delete this appointment because it is past " + 
       "the cancellation deadline or the confirmation checkbox is not checked.";
     }
   }
@@ -38,6 +38,7 @@ export class ApptModalComponent{
     return currentDate <= cancellationDeadline;
   }
 
+  // Allow user to close pop-up without cancelling
   async closeCorner(){
     await this.modalController.dismiss();
   }

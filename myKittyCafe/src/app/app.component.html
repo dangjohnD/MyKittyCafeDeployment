@@ -17,7 +17,7 @@
           Book Appointment
         </ion-button>
         <div *ngIf="userType !== 'admin@gmail.com' && userType">
-          <ion-button (click)="navigateToViewAll()">
+          <ion-button id="viewButton" (click)="navigateToViewAll()">
             View My Appointments
           </ion-button>
         </div>

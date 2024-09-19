@@ -32,6 +32,16 @@ export class ViewallPage implements OnInit {
       message => { this.userType = message}
     );
     console.log(this.userType);
+    
+    // if user logged in, get all appointments
+    if (this.userType != 'admin@gmail.com' && this.userType){
+      console.log("getting user appts")
+      this.loadUserAppointments();
+      console.log(this.filteredAppointments);
+    }
+  }
+
+  ionViewWillEnter(){
     if (this.userType != 'admin@gmail.com' && this.userType){
       console.log("getting user appts")
       this.loadUserAppointments();

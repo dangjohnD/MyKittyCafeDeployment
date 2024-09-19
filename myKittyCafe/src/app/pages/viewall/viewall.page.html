@@ -46,7 +46,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let appointment of filteredAppointments; let i = index">
-            <td><button (click)="openAppointmentModal(appointment.id)">Cancel</button> {{ appointment.id }} </td>
+            <td><ion-button (click)="openAppointmentModal(appointment.id)">Cancel</ion-button></td>
             <td>{{ appointment.firstName }}</td>
             <td>{{ appointment.lastName }}</td>
             <td>{{ appointment.persons }}</td>
