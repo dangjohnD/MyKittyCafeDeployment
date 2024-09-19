@@ -81,7 +81,7 @@ describe('Register User already exists', () => {
   });
 
   describe('Cancelling appointment', () => {
-    it('Show\'s error message', () => {
+    it('Show\'s Appointment Cancelled', () => {
         cy.visit(`${baseUrlS3}/login`);
         cy.get('input[name=username]').type("farmusfresh@gmail.com");
         cy.get('input[name=password]').type("password");

@@ -62,16 +62,29 @@ describe('AppointmentService', () => {
     req.flush(mockAppointment);
   });
 
+
   it('should get all appointments', () => {
     const dummyAppointments: Appointment[] = [
       /* dummy data */
     ];
     service.getAllAppointments().subscribe((appointments) => {
       expect(appointments).toEqual(dummyAppointments);
-      // Add additional expectations as needed
     });
 
     const req = httpMock.expectOne(service.apiUrl);
+    expect(req.request.method).toBe('GET');
+    req.flush(dummyAppointments);
+  });
+
+  it('should get all user appointments', () => {
+    const dummyAppointments: Appointment[] = [
+      /* dummy data */
+    ];
+    service.getAppointmentsByEmails('mail@gmail.com').subscribe((appointments) => {
+      expect(appointments).toEqual(dummyAppointments);
+    });
+
+    const req = httpMock.expectOne(service.apiUrl + '/email/mail@gmail.com');
     expect(req.request.method).toBe('GET');
     req.flush(dummyAppointments);
   });

@@ -11,7 +11,14 @@ import { IonicModule } from '@ionic/angular';
 })
 export class ApptModalComponent{
 
-  @Input() selectedAppt!: Appointment;
+  @Input() selectedAppt: Appointment = {
+    firstName: '',
+    lastName: '',
+    persons: 0,
+    phone: '',
+    email: '',
+    date: '2024-03-29 17:00:00.000000',  
+  };
   isDeleteConfirmed: boolean = false;
   isCheckboxDisabled: boolean = false;
   errorMessage: string = '';
