@@ -1,0 +1,55 @@
+ion-content {
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+    --padding-left: 15px;
+    --padding-right: 15px;
+    background-color: #f7f8fa; /* Subtle background color for a cleaner look */
+  }
+  
+  ion-header {
+    background-color: #f5a623; /* Header background color */
+    color: #ffffff; /* Header text color */
+  }
+
+  ion-title {
+    font-weight: bold;
+    color: white;
+  }
+  
+  ion-toolbar {
+    --background: transparent; /* Make the toolbar transparent so header color shows */
+  }
+  
+  ion-grid {
+    margin-top: 20px;
+  }
+  
+  ion-item {
+    --inner-padding-start: 10px;
+    --inner-padding-end: 10px;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    border-radius: 10px; /* Add rounding to the item boxes */
+    background-color: #ffffff; /* White background for the form fields */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  ion-label {
+    font-weight: bold;
+    color: #333; /* Darker text color for labels */
+  }
+  
+  ion-text {
+    font-size: 14px;
+    color: #666; /* Subtle color for the text */
+  }
+  
+  ion-button {
+    margin-top: 20px;
+    --border-radius: 8px; /* Rounded corners for the button */
+    font-size: 16px;
+    --padding-start: 15px;
+    --padding-end: 15px;
+    color: white;
+  }
+  

@@ -35,7 +35,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>#</th>
+            <th></th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Persons</th>
@@ -46,7 +46,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let appointment of filteredAppointments; let i = index">
-            <td><button (click)="openAppointmentModal(appointment.id)">Cancel</button> {{ appointment.id }} </td>
+            <td><button (click)="openAppointmentModal(appointment.id)">Cancel</button></td>
             <td>{{ appointment.firstName }}</td>
             <td>{{ appointment.lastName }}</td>
             <td>{{ appointment.persons }}</td>

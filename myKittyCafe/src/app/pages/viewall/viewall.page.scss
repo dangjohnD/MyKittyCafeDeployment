@@ -1,10 +1,11 @@
+/* General Styling */
 ion-content {
-  --ion-background-color: white; /* Light background */
+  --ion-background-color: white;
   padding: 20px;
 }
 
 ion-header {
-  --ion-background-color: #333; /* dark header */
+  --ion-background-color: #333; /* Dark header */
   color: white;
 }
 
@@ -20,7 +21,7 @@ ion-title {
 }
 
 p {
-  color:#333;
+  color: #333;
 }
 
 h1 {
@@ -70,7 +71,7 @@ table {
   margin-top: 20px;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds Shadow */
 }
 
 th, td {
@@ -113,21 +114,82 @@ tr:nth-child(even) {
   padding: 20px;
 }
 
-/* Additional styling for mobile responsiveness */
+/* Popup Box Styling */
+ion-modal {
+  --height: auto;
+  --width: auto;
+  --border-radius: 8px;
+  --background: white;
+  padding: 20px; /* Add padding */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+ion-modal .modal-content {
+  padding: 20px; /* Add padding to the content */
+  font-family: 'Roboto', sans-serif;
+}
+
+ion-modal h1 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+ion-modal p {
+  font-size: 16px;
+  color: #333;
+}
+
+ion-modal button {
+  background-color: #f5a623;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
   h1 {
-      font-size: 22px;
+    font-size: 22px;
   }
 
   label, input[type="date"], button {
-      font-size: 14px;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 10px; /* Stack inputs vertically */
   }
 
-  th, td {
-      padding: 8px;
+  input[type="date"] {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
   }
 
   button {
-      padding: 8px 12px;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  table {
+    font-size: 12px; /* Smaller font for mobile */
+    display: block;
+    overflow-x: auto; /* Make table scrollable */
+  }
+
+  th, td {
+    white-space: nowrap; /* Prevent content from breaking */
+  }
+
+  ion-modal {
+    width: 90%; /* Full width for mobile */
+    max-width: 500px;
   }
 }
