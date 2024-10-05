@@ -4,14 +4,13 @@ import ca.bluenose.backend.beans.Appointment;
 import ca.bluenose.backend.exception.ErrorMessage;
 import ca.bluenose.backend.repository.AppointmentRepository;
 import ca.bluenose.backend.services.EmailService;
+import ca.bluenose.backend.services.EmailTemplatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -24,6 +23,9 @@ public class AppointmentApi {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private EmailTemplatesService emailTemplateService;
 
     public AppointmentApi(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
@@ -69,20 +71,10 @@ public class AppointmentApi {
                 appointment.getEmail(),
                 appointment.getDate()));
 
-        // find way to not hardcode this
-
-        String message = "Dear " + appointment.getFirstName() + " " + appointment.getLastName() + ",\n\n" +
-                "This is a reminder of your upcoming appointment.\n\n" +
-                "Details:\n" +
-                "Date: " + appointment.getDate() + "\n" +
-                "Persons involved: " + appointment.getPersons() + "\n" +
-                "Contact Phone: " + appointment.getPhone() + "\n" +
-                "Email: " + appointment.getEmail() + "\n\n" +
-                "We look forward to seeing you!\n\n" +
-                "Best regards,\n" +
-                "My Kitty Cafe";
+        // Uses Template Service to generate a confirmation template, can be changed via EmailTemplatesService
+        String confirmationMessage = emailTemplateService.generateAppointmentConfirmationEmail(appointment);
         emailService.sendEmail(appointment.getEmail(), "My Kitty Cafe Appointment For: "
-                + appointment.getFirstName(), message);
+                + appointment.getFirstName(), confirmationMessage);
 
         return new ResponseEntity<>(_appt, HttpStatus.CREATED);
     }
@@ -104,28 +96,10 @@ public class AppointmentApi {
             Appointment appointment = appointmentRepository.findById(id).get();
             appointmentRepository.deleteById(id);
 
+
+            // Uses Template Service to generate a cancellation template, can be changed via EmailTemplatesService
             // Send Email
-
-            String cancellationMessage = "<html>" +
-                    "<body>" +
-                    "<h2>Dear " + appointment.getFirstName() + " " + appointment.getLastName() + ",</h2>" +
-                    "<p>We have successfully processed your request to cancel the following appointment at <strong>My Kitty Cafe</strong>:</p>"
-                    +
-                    "<table style='border: 1px solid black; padding: 10px;'>" +
-                    "<tr><td><strong>Date</strong>:</td><td>" + appointment.getDate() + "</td></tr>" +
-                    "<tr><td><strong>Persons Involved</strong>:</td><td>" + appointment.getPersons() + "</td></tr>" +
-                    "<tr><td><strong>Contact Phone</strong>:</td><td>" + appointment.getPhone() + "</td></tr>" +
-                    "<tr><td><strong>Email</strong>:</td><td>" + appointment.getEmail() + "</td></tr>" +
-                    "</table>" +
-                    "<p>We’re sorry to see you cancel, but we hope to see you soon. If you would like to reschedule, please visit our <a href='https://mykittycafe.com'>website</a> or contact us directly.</p>"
-                    +
-                    "<p>Thank you for choosing <strong>My Kitty Cafe</strong>. We look forward to serving you in the future!</p>"
-                    +
-                    "<p>Best regards,</p>" +
-                    "<p>The My Kitty Cafe Team</p>" +
-                    "</body>" +
-                    "</html>";
-
+            String cancellationMessage = emailTemplateService.generateCancellationEmail(appointment);
             emailService.sendHtmlEmail(appointment.getEmail(), "My Kitty Cafe Appointment Cancellation Confirmation",
                     cancellationMessage);
 
