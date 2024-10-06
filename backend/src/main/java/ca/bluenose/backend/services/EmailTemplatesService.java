@@ -52,8 +52,8 @@ public class EmailTemplatesService {
                 "</html>";
     }
 
-    //@Scheduled(cron = "0 0 * * * ?") // checks every hour on the hour
-    @Scheduled(cron = "0 */2 * * * ?") // Runs every 5 minutes for testing
+    @Scheduled(cron = "0 0 * * * ?") // checks every hour on the hour
+//    @Scheduled(cron = "0 */2 * * * ?") // Runs every 5 minutes for testing
     public void sendAppointmentReminder() {
         LocalDateTime now = LocalDateTime.now(ZoneId.of("America/New_York"));
 
@@ -83,7 +83,7 @@ public class EmailTemplatesService {
                     message);
         }
 
-        emailService.sendEmail("farmusfresh@gmail.com", "test scheduled email", "hi lmao time is: " + now);
+//        emailService.sendEmail("farmusfresh@gmail.com", "test scheduled email", "hi lmao time is: " + now);
     }
 
 }
