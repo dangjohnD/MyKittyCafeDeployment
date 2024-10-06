@@ -7,3 +7,23 @@
     --background: #000000;
     color: #ffffff;
 }
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Higher than ion-content */
+  top: 40px; /* Adjust this to your dropdown height */
+  right: 0; /* Align the dropdown to the right side of the button */
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+ion-content {
+  z-index: 0; /* Ensure it stays behind the dropdown */
+  position: relative;
+}

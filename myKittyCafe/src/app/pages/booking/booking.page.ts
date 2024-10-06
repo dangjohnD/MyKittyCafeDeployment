@@ -31,10 +31,6 @@ export class BookingPage implements OnInit {
   timeSlots: TimeSlot[] = [];
   showCalendarFlag: boolean = false;
 
-  paymentAmount: string = '0.01';
-  currency: string = 'CAD';
-  currencyIcon: string = '$';
-
   constructor(private appService: AppointmentService, private router: Router) {
     // Get the current date and time in UTC
     const dateNow = new Date();

@@ -43,4 +43,8 @@ export class AppComponent {
     this.authService.logout();
     this.router.navigate(['/home']);
   }
+
+  navigateToAdmin(){
+    this.router.navigate(['/admin-board']);
+  }
 }

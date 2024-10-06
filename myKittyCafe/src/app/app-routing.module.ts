@@ -34,6 +34,14 @@ const routes: Routes = [
     path: 'appt-summary',
     loadChildren: () => import('./pages/appt-summary/appt-summary.module').then( m => m.ApptSummaryPageModule)
   },
+  {
+    path: 'admin-board',
+    loadChildren: () => import('./pages/admin-board/admin-board.module').then( m => m.AdminBoardPageModule)
+  },
+  {
+    path: 'limit-appointment',
+    loadChildren: () => import('./pages/limit-appointment/limit-appointment.module').then( m => m.LimitAppointmentPageModule)
+  },
 
 ];
 
