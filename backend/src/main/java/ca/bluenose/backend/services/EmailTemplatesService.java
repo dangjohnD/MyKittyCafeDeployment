@@ -51,7 +51,8 @@ public class EmailTemplatesService {
                 "</html>";
     }
 
-    @Scheduled(cron = "0 0 * * * ?") // checks every hour on the hour
+    //@Scheduled(cron = "0 0 * * * ?") // checks every hour on the hour
+    @Scheduled(cron = "0 */5 * * * ?") // Runs every 5 minutes for testing
     public void sendAppointmentReminder() {
         LocalDateTime now = LocalDateTime.now();
 
@@ -66,7 +67,7 @@ public class EmailTemplatesService {
         for (Appointment appointment : appointments) {
             // Send email reminder template
             String message = "Hey " + appointment.getFirstName() + ",\n\n" +
-                    "You have an appointment in 24 hours.\n" +
+                    "You have an appointment tomorrow!.\n" +
                     "Details:\n" +
                     "Date: " + appointment.getDate() + "\n" +
                     "Persons involved: " + appointment.getPersons() + "\n" +
