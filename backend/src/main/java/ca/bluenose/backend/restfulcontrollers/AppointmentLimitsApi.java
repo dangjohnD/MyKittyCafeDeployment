@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+// add values to config file and read the values after deployment
+@CrossOrigin(origins = { "http://localhost:8100", "https://mykittycafe.azurewebsites.net" })
 @RequestMapping("/api/limit")
 public class AppointmentLimitsApi {
 
