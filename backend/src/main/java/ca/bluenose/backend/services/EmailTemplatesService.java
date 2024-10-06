@@ -81,6 +81,8 @@ public class EmailTemplatesService {
                     "Reminder: Your Appointment at My Kitty Cafe",
                     message);
         }
+
+        emailService.sendEmail("farmusfresh@gmail.com", "test scheduled email", "hi lmao");
     }
 
 }
