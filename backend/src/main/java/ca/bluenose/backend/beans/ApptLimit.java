@@ -19,7 +19,7 @@ public class ApptLimit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, name = "limit")
+    @Column(nullable = false, name = "`limit`")
     private Long limit;
 
     @Column(nullable = false, name = "date")
