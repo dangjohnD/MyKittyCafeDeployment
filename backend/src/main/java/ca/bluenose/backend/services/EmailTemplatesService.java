@@ -51,7 +51,7 @@ public class EmailTemplatesService {
                 "</html>";
     }
 
-    @Scheduled(fixedRate = 3600000) // Check every hour
+    @Scheduled(cron = "0 0 * * * ?") // checks every hour on the hour
     public void sendAppointmentReminder() {
         LocalDateTime now = LocalDateTime.now();
 
