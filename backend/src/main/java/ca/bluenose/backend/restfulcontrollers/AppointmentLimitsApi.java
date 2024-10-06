@@ -3,9 +3,11 @@ package ca.bluenose.backend.restfulcontrollers;
 import ca.bluenose.backend.beans.ApptLimit;
 import ca.bluenose.backend.services.AppointmentLimitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -25,10 +27,20 @@ public class AppointmentLimitsApi {
     }
 
     @GetMapping("/date/{date}")
-    public ResponseEntity<ApptLimit> getLimitByDate(@PathVariable Date date) {
-        ApptLimit limit = apptLimitService.getLimitByDate(date);
-        return ResponseEntity.ok(limit);
+    public ResponseEntity<ApptLimit> getLimitByDate(@PathVariable String date) {
+        try {
+            // Parse the date string to a Date object
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            Date parsedDate = formatter.parse(date);
+            
+            // Call the service with the parsed date
+            ApptLimit limit = apptLimitService.getLimitByDate(parsedDate);
+            return ResponseEntity.ok(limit);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Handle parsing error
+        }
     }
+
 
     @GetMapping
     public ResponseEntity<List<ApptLimit>> getLimits() {

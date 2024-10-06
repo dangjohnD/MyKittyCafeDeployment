@@ -14,4 +14,13 @@ export class ApptLimitService {
   addAppointmentLimit(apptLimit: apptLimit): Observable<any> {
     return this.http.post<any>(this.apiUrl, apptLimit);
   }
+
+  getAppointmentLimits(): Observable<apptLimit[]>{
+    return this.http.get<any>(this.apiUrl);
+  }
+
+  getApptLimitByDate(limitDate: string): Observable<apptLimit>{
+    return this.http.get<apptLimit>(this.apiUrl + "/date/" + limitDate);
+  }
+
 }
