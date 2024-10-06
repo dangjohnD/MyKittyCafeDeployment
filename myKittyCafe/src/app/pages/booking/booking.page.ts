@@ -47,40 +47,6 @@ export class BookingPage implements OnInit {
 
     // Set the minimum date for the component
     this.minDate = isoDateString;
-
-    let _this = this;
-
-
-
-    
-    setTimeout(() => {
-      // Render the PayPal button into #paypal-button div
-      (window as any)['paypal'].Buttons({
-
-        // Set up transaction - enter value
-        createOrder: function (data: any, actions: any) {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                value: _this.paymentAmount
-              }
-            }]
-          });
-        },
-
-        // Happens when payment success
-        onApprove: function (data: any, actions: any) {
-          return actions.order.capture()
-            .then(function (details: any) {
-              // Show
-              alert('Transaction completed by ' + details.payer.name.given_name + '!');
-            })
-            .catch((err: any) => {
-              console.log(err);
-            })
-        }
-      }).render('#paypal-button');
-    }, 500)
 }
 
 
@@ -269,10 +235,12 @@ export class BookingPage implements OnInit {
       if (this.isSameDay(appointment.date, this.addAppointment.date)) {
         const appointmentDate = new Date(appointment.date);
 
-        // Add the appointment to the current timeslots
+        // Add the appointment to the current timeslots+4 for
         const hour = appointmentDate.getHours() + 4;
         const timeSlotIndex = hour - 9;
-        timeSlots[timeSlotIndex].numAppt += appointment.persons;
+        if (timeSlotIndex >= 0 && timeSlotIndex < timeSlots.length) {
+          timeSlots[timeSlotIndex].numAppt += appointment.persons;
+        }
       }
     });
 
