@@ -5,6 +5,8 @@ import { AppointmentService } from 'src/app/appointment.service';
 import { ApptLimitService } from 'src/app/appt-limit.service';
 import { apptLimit } from 'src/app/apptLimit';
 import { TimeSlot } from 'src/app/timeslot';
+import { forkJoin } from 'rxjs';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-limit-appointment',
@@ -14,13 +16,13 @@ import { TimeSlot } from 'src/app/timeslot';
 export class LimitAppointmentPage implements OnInit {
 
   currentLimit: apptLimit = {
-    date:'',
+    date: '',
     limit: 0
   }
 
   selectedLimit: number = 10;
-
   selectedDate: any;
+  selectedDay: any;
   dateValid: boolean = true;
   minDate: string;
   timeSlots: TimeSlot[] = [];
@@ -31,62 +33,84 @@ export class LimitAppointmentPage implements OnInit {
   invalidLimit: boolean = false;
 
   constructor(private appService: AppointmentService, private router: Router,
-    private apptLimitService: ApptLimitService) {
-    // Get the current date and time in UTC
+    private apptLimitService: ApptLimitService, private toastController: ToastController) {
     const dateNow = new Date();
-    
-    // Adjust the current date and time to Eastern Daylight Time (EDT, UTC-4)
     dateNow.setUTCHours(dateNow.getUTCHours());
-
-    // Get the date part in ISO format (YYYY-MM-DD)
     const isoDateString = dateNow.toISOString().split('T')[0];
-
-    // Set the minimum date for the component
     this.minDate = isoDateString;
   }
 
   ngOnInit() {
   }
 
-dateChanged(event: CustomEvent<any>) {
-  const selectedDate = new Date(event.detail.value);
-  const utcSelectedDate = new Date(
-    Date.UTC(
-      selectedDate.getFullYear(),
-      selectedDate.getMonth(),
-      selectedDate.getDate(),
-      selectedDate.getHours(),
-      selectedDate.getMinutes(),
-      selectedDate.getSeconds()
-    )
-  );
-  
-  this.selectedDate = utcSelectedDate.toISOString();
+  dateChanged(event: CustomEvent<any>) {
+    const selectedDate = new Date(event.detail.value);
+    const utcSelectedDate = new Date(
+      Date.UTC(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate(),
+        selectedDate.getHours(),
+        selectedDate.getMinutes(),
+        selectedDate.getSeconds()
+      )
+    );
 
-  //get timeslots
-  this.appService
-    .getAllAppointments()
-    .subscribe((appointments: Appointment[]) => {
+    utcSelectedDate.setUTCHours(0);
+    utcSelectedDate.setMinutes(0);
+    this.selectedDay = utcSelectedDate;
+    this.selectedDate = utcSelectedDate.toISOString();
+
+    // Get timeslots and limits
+    this.appService.getAllAppointments().subscribe((appointments: Appointment[]) => {
       this.timeSlots = this.getTimeSlots(appointments);
+
+      // Fetch limits for all timeslots and update their limits
+      this.fetchAllLimitsForTimeslots();
     });
   }
 
-  getTimeSlots(appointments: Appointment[]): TimeSlot[] {
-    this.timeSlots = [];
-    // Initialize the time slots from 9am to 5pm with an initial count of 0 appointments
-    const timeSlots: TimeSlot[] = [];
+  fetchAllLimitsForTimeslots() {
+    const limitRequests = this.timeSlots.map((timeslot) => {
+      const time = this.convertTo24Hour(timeslot.time);
+      const dateTime = new Date(this.selectedDay);
+      dateTime.setUTCHours(time);
+      const dateTimeString = dateTime.toISOString();
+      return this.apptLimitService.getApptLimitByDate(dateTimeString);
+    });
 
-    // Generate time slots from 9am to 11am
+    forkJoin(limitRequests).subscribe(
+      (limits: apptLimit[]) => {
+        limits.forEach((limit, index) => {
+          if (limit) {
+            this.timeSlots[index].limit = limit.limit;
+          }
+        });
+
+        // Check above capacity after fetching limits
+        this.timeSlots.forEach(timeslot => {
+          if (timeslot.numAppt > timeslot.limit) {
+            timeslot.aboveCapacity = true;
+          }
+        });
+      },
+      (error) => {
+        console.error('Error fetching limits: ', error);
+      }
+    );
+  }
+
+  getTimeSlots(appointments: Appointment[]): TimeSlot[] {
+    const timeSlots: TimeSlot[] = [];
     for (let hour = 9; hour <= 11; hour++) {
       timeSlots.push({
         time: hour + ' am',
         numAppt: 0,
         isSelected: false,
         aboveCapacity: false,
+        limit: 10
       });
     }
-
-    // Generate time slots from 12pm to 5pm
     for (let hour = 12; hour <= 17; hour++) {
       const time = hour > 12 ? hour - 12 + ' pm' : hour + ' pm';
       timeSlots.push({
@@ -94,19 +118,15 @@ dateChanged(event: CustomEvent<any>) {
         numAppt: 0,
         isSelected: false,
         aboveCapacity: false,
+        limit: 10
       });
     }
 
-    if (!appointments) {
-      return timeSlots;
-    }
+    if (!appointments) return timeSlots;
 
-    appointments.forEach((appointment) => {
-      // if the day matches
+    appointments.forEach(appointment => {
       if (this.isSameDay(appointment.date, this.selectedDate)) {
         const appointmentDate = new Date(appointment.date);
-
-        // Add the appointment to the current timeslots+4 for
         const hour = appointmentDate.getHours() + 4;
         const timeSlotIndex = hour - 9;
         if (timeSlotIndex >= 0 && timeSlotIndex < timeSlots.length) {
@@ -115,87 +135,95 @@ dateChanged(event: CustomEvent<any>) {
       }
     });
 
-    // indicate if timeslot does not have room
-    timeSlots.forEach((timeslot) =>{
-      if (timeslot.numAppt > 10){
-        timeslot.aboveCapacity = true;
-      }
-    })
-
     return timeSlots;
   }
 
   isSameDay(dateString1: string, dateString2: string): boolean {
     const date1 = new Date(dateString1);
     const date2 = new Date(dateString2);
-
-    // Compare year, month, and day components in UTC
-    const isSameYear = date1.getUTCFullYear() === date2.getUTCFullYear();
-    const isSameMonth = date1.getUTCMonth() === date2.getUTCMonth();
-    const isSameDay = date1.getUTCDate() === date2.getUTCDate();
-
-    return isSameYear && isSameMonth && isSameDay;
+    return date1.getUTCFullYear() === date2.getUTCFullYear() &&
+      date1.getUTCMonth() === date2.getUTCMonth() &&
+      date1.getUTCDate() === date2.getUTCDate();
   }
 
   selectTimeSlot(timeSlot: TimeSlot) {
     this.selectedTimeslot = timeSlot;
-
-    var timeSlottime = timeSlot.time;
-    const timeParts = timeSlottime.split(' '); // Split the time slot string into parts
-    const hour = parseInt(timeParts[0]); // Extract the hour from the first part
-    const amPm = timeParts[1]; // Extract AM/PM from the second part
-
-    // Parse the existing date string into a Date object
-    console.log("This is selectedDate" + this.selectedDate);
     const appointmentDate = new Date(this.selectedDate);
+    const timeParts = timeSlot.time.split(' ');
+    const hour = parseInt(timeParts[0]);
+    const amPm = timeParts[1];
 
-    // Adjust the hour based on AM/PM
     let adjustedHour = hour;
     if (amPm.toLowerCase() === 'pm' && hour !== 12) {
-      adjustedHour += 12; // Add 12 hours for PM except for 12 PM
+      adjustedHour += 12;
     } else if (amPm.toLowerCase() === 'am' && hour === 12) {
-      adjustedHour += 0; // For 12 AM, set hour to 0
+      adjustedHour = 0;
     }
 
-
-
-    // Set the adjusted hour in UTC
     appointmentDate.setUTCHours(adjustedHour);
-
-    // Set the minutes and seconds to 0 in UTC
     appointmentDate.setUTCMinutes(0);
     appointmentDate.setUTCSeconds(0);
 
-    // Format the updated date back into a string in ISO 8601 format
-    console.log(appointmentDate);
-    const updatedDateString = appointmentDate.toISOString();
-    console.log(updatedDateString);
-
-
-    // Update the date property of the addAppointment object with the updated date string
-    this.selectedDate = updatedDateString;
-    this.currentLimit.date = updatedDateString;
+    this.currentLimit.date = appointmentDate.toISOString();
     this.timeslotSelected = true;
+    this.highlightTime(timeSlot.time)
     timeSlot.isSelected = true;
-    console.log(this.selectedDate)
   }
 
-    addLimit(){
-
-      if (this.selectedLimit < this.selectedTimeslot.numAppt){
-        this.invalidLimit = true;
-        return;
+  // once selected, give css class to highlight
+  highlightTime(timeSlotStr: String) {
+    this.timeSlots.forEach((timeslot) => {
+      if (timeSlotStr == timeslot.time) {
+        timeslot.isSelected = true;
+      } else {
+        timeslot.isSelected = false;
       }
-      this.currentLimit.limit = this.selectedLimit;
+    });
+  }
 
-      this.apptLimitService.addAppointmentLimit(this.currentLimit).subscribe(
-        (response) => {
-          console.log("limit added");
-        },
-        (error) => {
-          console.error('Error adding limit:', error);
-        }
-      );
+  addLimit() {
 
+    if (!this.timeslotSelected){
+      return;
     }
+
+    if (this.selectedLimit < this.selectedTimeslot.numAppt) {
+      this.invalidLimit = true;
+      return;
+    }
+    this.currentLimit.limit = this.selectedLimit;
+
+    this.apptLimitService.addAppointmentLimit(this.currentLimit).subscribe(
+      (response) => {
+        this.presentSuccessToast();
+      },
+      (error) => {
+        console.error('Error adding limit:', error);
+      }
+    );
+
+    // Refresh the timeslots shown
+    this.fetchAllLimitsForTimeslots();
+  }
+
+  async presentSuccessToast() {
+    const toast = await this.toastController.create({
+      message: 'Limit added successfully!',
+      duration: 2000,
+      color: 'success',
+      position: 'top',
+    });
+    toast.present();
+  }
+
+  convertTo24Hour(timeString: string): number {
+    const [time, period] = timeString.split(' ');
+    let hour = parseInt(time);
+    if (period.toLowerCase() === 'pm' && hour !== 12) {
+      hour += 12;
+    } else if (period.toLowerCase() === 'am' && hour === 12) {
+      hour = 0;
+    }
+    return hour;
+  }
 }

@@ -11,7 +11,7 @@
             <ion-item *ngFor="let iTimeSlot of timeSlots" (click)="selectTimeSlot(iTimeSlot)"
             [ngClass]="{ 'selected-item': iTimeSlot.isSelected, 'over-capacity': iTimeSlot.aboveCapacity }">
               <ion-label>{{ iTimeSlot.time }}</ion-label>
-              <ion-label slot="end">{{ iTimeSlot.numAppt }}/10</ion-label>
+              <ion-label slot="end">{{ iTimeSlot.numAppt }}/{{ iTimeSlot.limit }}</ion-label>
             </ion-item>
           </ion-list>
         </ion-col>

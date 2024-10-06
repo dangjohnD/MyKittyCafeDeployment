@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ApptLimitService {
   //public apiUrl = 'http://localhost:8080/api/appointments'
-  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/limits';
+  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/limit';
   constructor(private http: HttpClient) { }
 
   addAppointmentLimit(apptLimit: apptLimit): Observable<any> {
@@ -20,6 +20,7 @@ export class ApptLimitService {
   }
 
   getApptLimitByDate(limitDate: string): Observable<apptLimit>{
+    console.log(this.apiUrl + "/date/" + limitDate);
     return this.http.get<apptLimit>(this.apiUrl + "/date/" + limitDate);
   }
 

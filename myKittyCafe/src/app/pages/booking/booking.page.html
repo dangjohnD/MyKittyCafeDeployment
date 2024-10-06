@@ -32,7 +32,7 @@
             <ion-item *ngFor="let iTimeSlot of timeSlots" (click)="changeAppointmentTime(iTimeSlot.time)"
             [ngClass]="{ 'selected-item': iTimeSlot.isSelected, 'over-capacity': iTimeSlot.aboveCapacity }">
               <ion-label>{{ iTimeSlot.time }}</ion-label>
-              <ion-label slot="end">{{ iTimeSlot.numAppt }}/10</ion-label>
+              <ion-label slot="end">{{ iTimeSlot.numAppt }}/{{ iTimeSlot.limit }}</ion-label>
             </ion-item>
           </ion-list>
         </ion-col>
@@ -94,7 +94,7 @@
             Please enter a valid email address.
           </ion-text>
         </ion-item>
-        <ion-button (click)="bookAppointment()">Book Appt/Go Cart</ion-button>
+        <ion-button (click)="bookAppointment()">Next</ion-button>
       </form>
     </ion-card-content>
   </ion-card>
