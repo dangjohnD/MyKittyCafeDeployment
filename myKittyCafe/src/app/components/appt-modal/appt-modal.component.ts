@@ -33,6 +33,7 @@ export class ApptModalComponent{
     }
   }
 
+  // Checks if appointment is past cancellation date(day before)
   isCancellationAllowed(): boolean {
     const currentDate = new Date();
     const appointmentDate = new Date(this.selectedAppt.date);
@@ -50,6 +51,7 @@ export class ApptModalComponent{
     await this.modalController.dismiss();
   }
 
+  // Check if user can/checked box and sends confirm back to viewall
   async closeModal() {
 
     if (this.isDeleteConfirmed && this.isCancellationAllowed()) {

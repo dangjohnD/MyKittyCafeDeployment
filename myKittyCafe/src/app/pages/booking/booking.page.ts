@@ -31,6 +31,10 @@ export class BookingPage implements OnInit {
   timeSlots: TimeSlot[] = [];
   showCalendarFlag: boolean = false;
 
+  paymentAmount: string = '0.01';
+  currency: string = 'CAD';
+  currencyIcon: string = '$';
+
   constructor(private appService: AppointmentService, private router: Router) {
     // Get the current date and time in UTC
     const dateNow = new Date();
@@ -43,7 +47,42 @@ export class BookingPage implements OnInit {
 
     // Set the minimum date for the component
     this.minDate = isoDateString;
+
+    let _this = this;
+
+
+
+    
+    setTimeout(() => {
+      // Render the PayPal button into #paypal-button div
+      (window as any)['paypal'].Buttons({
+
+        // Set up transaction - enter value
+        createOrder: function (data: any, actions: any) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: _this.paymentAmount
+              }
+            }]
+          });
+        },
+
+        // Happens when payment success
+        onApprove: function (data: any, actions: any) {
+          return actions.order.capture()
+            .then(function (details: any) {
+              // Show
+              alert('Transaction completed by ' + details.payer.name.given_name + '!');
+            })
+            .catch((err: any) => {
+              console.log(err);
+            })
+        }
+      }).render('#paypal-button');
+    }, 500)
 }
+
 
   ngOnInit() {}
 
@@ -89,6 +128,13 @@ export class BookingPage implements OnInit {
       Date: ${this.addAppointment.date}
     `;
 
+    // Appointment info is right
+    this.router.navigate(['/appt-summary'], {
+      state: this.addAppointment,
+    });
+
+
+    /*
     this.appService.addAppointment(this.addAppointment).subscribe(
       (response) => {
         this.router.navigate(['/appt-info'], {
@@ -100,6 +146,7 @@ export class BookingPage implements OnInit {
         console.error('Error adding appointment:', error);
       }
     );
+    */
   }
 
   validateEmail(email: string): boolean {
@@ -342,4 +389,6 @@ export class BookingPage implements OnInit {
   this.showCalendarFlag = false;
   this.timeSlots = [];
   }
+
+
 }
