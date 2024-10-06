@@ -82,7 +82,7 @@ public class EmailTemplatesService {
                     message);
         }
 
-        emailService.sendEmail("farmusfresh@gmail.com", "test scheduled email", "hi lmao");
+        emailService.sendEmail("farmusfresh@gmail.com", "test scheduled email", "hi lmao time is: " + now);
     }
 
 }
