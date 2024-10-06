@@ -30,6 +30,10 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
+  {
+    path: 'appt-summary',
+    loadChildren: () => import('./pages/appt-summary/appt-summary.module').then( m => m.ApptSummaryPageModule)
+  },
 
 ];
 

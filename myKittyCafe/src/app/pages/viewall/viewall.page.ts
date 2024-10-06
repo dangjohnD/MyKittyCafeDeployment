@@ -56,6 +56,7 @@ export class ViewallPage implements OnInit {
       this.datesNotEmpty = false;
       return;
     }
+    this.datesNotEmpty = true;
 
     if (new Date(this.endDate) < new Date(this.startDate)) {
       // Set the boolean variable to true to indicate the error
@@ -103,6 +104,7 @@ export class ViewallPage implements OnInit {
       (appointments: Appointment[]) => {
         this.appointments = appointments;
         console.log(this.appointments);
+        // If there are appointments, show them
         if (appointments.length > 0){
           this.filteredAppointments = appointments;
         }
@@ -141,15 +143,16 @@ export class ViewallPage implements OnInit {
   async deleteAppointment(appointmentId: number) {
     // Delete and show message
     console.log("delete appt: " + appointmentId);
+
     this.appointmentService.deleteAppointmentById(appointmentId).subscribe(
-      response => {
+      async response => {
         console.log('Deletion successful:', response);
+        await this.presentToast();
       },
       error => {
         console.error('Deletion failed:', error);
       }
     );
-    await this.presentToast();
     // Refresh the list of appointments
     this.loadUserAppointments();
   }
