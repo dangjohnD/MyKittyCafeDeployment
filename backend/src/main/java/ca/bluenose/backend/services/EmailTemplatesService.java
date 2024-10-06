@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -52,9 +53,9 @@ public class EmailTemplatesService {
     }
 
     //@Scheduled(cron = "0 0 * * * ?") // checks every hour on the hour
-    @Scheduled(cron = "0 */5 * * * ?") // Runs every 5 minutes for testing
+    @Scheduled(cron = "0 */2 * * * ?") // Runs every 5 minutes for testing
     public void sendAppointmentReminder() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("America/New_York"));
 
         // test code to make it only send once (checks if its between 23 and 24 hours ,
         // it only checks once per hour, should work
