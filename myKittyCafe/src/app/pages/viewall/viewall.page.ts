@@ -45,7 +45,6 @@ export class ViewallPage implements OnInit {
     if (this.userType != 'admin@gmail.com' && this.userType){
       console.log("getting user appts")
       this.loadUserAppointments();
-      console.log(this.filteredAppointments);
     }
   }
 
@@ -132,7 +131,11 @@ export class ViewallPage implements OnInit {
     modal.onDidDismiss().then((result) => {
       if (result.data != undefined){
         if (result.data.delete) {
-          this.deleteAppointment(result.data.selectedAppt.id);
+          // Normal user
+          if (this.userType != 'admin@gmail.com' && this.userType){
+            this.deleteAppointment(result.data.selectedAppt.id);
+          }
+          
         }
       }
     });

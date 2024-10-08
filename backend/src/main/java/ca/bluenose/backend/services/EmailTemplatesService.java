@@ -13,16 +13,14 @@ import java.util.List;
 @Service
 public class EmailTemplatesService {
 
-
     @Autowired
     private AppointmentRepository appointmentRepository; // Inject your appointment repository
 
     @Autowired
     private EmailService emailService; // Inject your email service
 
-
     public String generateAppointmentConfirmationEmail(Appointment appointment) {
-        return  "Dear " + appointment.getFirstName() + " " + appointment.getLastName() + ",\n\n" +
+        return "Dear " + appointment.getFirstName() + " " + appointment.getLastName() + ",\n\n" +
                 "This is a reminder of your upcoming appointment.\n\n" +
                 "Details:\n" +
                 "Date: " + appointment.getDate() + "\n" +
@@ -33,19 +31,46 @@ public class EmailTemplatesService {
                 "Best regards,\n" +
                 "My Kitty Cafe";
     }
+
     public String generateCancellationEmail(Appointment appointment) {
         return "<html>" +
                 "<body>" +
                 "<h2>Dear " + appointment.getFirstName() + " " + appointment.getLastName() + ",</h2>" +
-                "<p>We have successfully processed your request to cancel the following appointment at <strong>My Kitty Cafe</strong>:</p>" +
+                "<p>We have successfully processed your request to cancel the following appointment at <strong>My Kitty Cafe</strong>:</p>"
+                +
                 "<table style='border: 1px solid black; padding: 10px;'>" +
                 "<tr><td><strong>Date</strong>:</td><td>" + appointment.getDate() + "</td></tr>" +
                 "<tr><td><strong>Persons Involved</strong>:</td><td>" + appointment.getPersons() + "</td></tr>" +
                 "<tr><td><strong>Contact Phone</strong>:</td><td>" + appointment.getPhone() + "</td></tr>" +
                 "<tr><td><strong>Email</strong>:</td><td>" + appointment.getEmail() + "</td></tr>" +
                 "</table>" +
-                "<p>We’re sorry to see you cancel, but we hope to see you soon. If you would like to reschedule, please visit our <a href='https://mykittycafe.com'>website</a> or contact us directly.</p>" +
-                "<p>Thank you for choosing <strong>My Kitty Cafe</strong>. We look forward to serving you in the future!</p>" +
+                "<p>We’re sorry to see you cancel, but we hope to see you soon. If you would like to reschedule, please visit our <a href='https://mykittycafe.com'>website</a> or contact us directly.</p>"
+                +
+                "<p>Thank you for choosing <strong>My Kitty Cafe</strong>. We look forward to serving you in the future!</p>"
+                +
+                "<p>Best regards,</p>" +
+                "<p>The My Kitty Cafe Team</p>" +
+                "</body>" +
+                "</html>";
+    }
+
+    public String generateAdminCancellationEmail(Appointment appointment) {
+        return "<html>" +
+                "<body>" +
+                "<h2>Dear " + appointment.getFirstName() + " " + appointment.getLastName() + ",</h2>" +
+                "<p>We regret to inform you that your appointment at <strong>My Kitty Cafe</strong> has been cancelled by our administration. The details of your cancelled appointment are as follows:</p>"
+                +
+                "<table style='border: 1px solid black; padding: 10px;'>" +
+                "<tr><td><strong>Date</strong>:</td><td>" + appointment.getDate() + "</td></tr>" +
+                "<tr><td><strong>Persons Involved</strong>:</td><td>" + appointment.getPersons() + "</td></tr>" +
+                "<tr><td><strong>Contact Phone</strong>:</td><td>" + appointment.getPhone() + "</td></tr>" +
+                "<tr><td><strong>Email</strong>:</td><td>" + appointment.getEmail() + "</td></tr>" +
+                "</table>" +
+                "<p>Please note that our website does not process refunds automatically. We will be refunding you or contacting you shortly regarding the next steps for your cancelled appointment.</p>"
+                +
+                "<p>If you have any questions, feel free to reach out to us or visit our <a href='https://mykittycafe.com/refund-policy'>refund policy page</a> for more details.</p>"
+                +
+                "<p>We apologize for any inconvenience caused and hope to serve you in the near future.</p>" +
                 "<p>Best regards,</p>" +
                 "<p>The My Kitty Cafe Team</p>" +
                 "</body>" +
@@ -53,7 +78,7 @@ public class EmailTemplatesService {
     }
 
     @Scheduled(cron = "0 0 * * * ?") // checks every hour on the hour
-//    @Scheduled(cron = "0 */2 * * * ?") // Runs every 5 minutes for testing
+    // @Scheduled(cron = "0 */2 * * * ?") // Runs every 5 minutes for testing
     public void sendAppointmentReminder() {
         LocalDateTime now = LocalDateTime.now(ZoneId.of("America/New_York"));
 
@@ -83,7 +108,8 @@ public class EmailTemplatesService {
                     message);
         }
 
-//        emailService.sendEmail("farmusfresh@gmail.com", "test scheduled email", "hi lmao time is: " + now);
+        // emailService.sendEmail("farmusfresh@gmail.com", "test scheduled email", "hi
+        // lmao time is: " + now);
     }
 
 }

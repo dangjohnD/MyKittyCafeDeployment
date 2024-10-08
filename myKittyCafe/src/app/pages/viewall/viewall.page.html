@@ -27,7 +27,7 @@
       <p class="noAppointments" *ngIf="endDateBeforeStartDate">
         End date cannot be before start date.
       </p>
-      <p class="noAppointments" *ngIf="filteredAppointments.length < 1;">
+      <p class="noAppointments" *ngIf="noAppointments">
         No appointments found.
       </p>
     </div>
@@ -74,7 +74,7 @@
       <p class="noAppointments" *ngIf="endDateBeforeStartDate">
         End date cannot be before start date.
       </p>
-      <p class="noAppointments" *ngIf="filteredAppointments.length < 1;">
+      <p class="noAppointments" *ngIf="noAppointments">
         No appointments found.
       </p>
     </div>
@@ -93,7 +93,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let appointment of filteredAppointments; let i = index">
-            <td>{{ i + 1 }}</td>
+            <td><ion-button (click)="openAppointmentModal(appointment.id)">Cancel</ion-button></td>
             <td>{{ appointment.firstName }}</td>
             <td>{{ appointment.lastName }}</td>
             <td>{{ appointment.persons }}</td>

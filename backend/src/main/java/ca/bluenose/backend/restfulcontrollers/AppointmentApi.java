@@ -109,4 +109,25 @@ public class AppointmentApi {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorMessage("There is no appointment with this ID"));
     }
+
+    // delete appt based on ID value
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAppointmentAdmin(@PathVariable("id") long id) {
+        if (appointmentRepository.findById(id).isPresent()) {
+            Appointment appointment = appointmentRepository.findById(id).get();
+            appointmentRepository.deleteById(id);
+
+
+            // Uses Template Service to generate a cancellation template, can be changed via EmailTemplatesService
+            // Send Email
+            String cancellationMessage = emailTemplateService.generateAdminCancellationEmail(appointment);
+            emailService.sendHtmlEmail(appointment.getEmail(), "My Kitty Cafe Appointment Cancellation Notice",
+                    cancellationMessage);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorMessage("There is no appointment with this ID"));
+    }
 }

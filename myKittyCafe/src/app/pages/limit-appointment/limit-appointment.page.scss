@@ -1,24 +1,23 @@
 .container {
-    padding: 20px; /* Adjust the value as needed */
-    border-radius: 10px; /* Adjust the value to control the roundness of the border */
-    border: 1px solid #ccc; /* Border color and thickness */
+    padding: 20px; 
+    border-radius: 10px; 
+    border: 1px solid #ccc; 
     margin: 20px;
   }
 
   .invalid-input {
     color: red;
-    font-size: 80%; /* Reduces font size by 40% */
+    font-size: 80%;
   }
 
   .selected-item {
-    background-color: #50fd9e; /* Change to the desired background color */
+    background-color: #50fd9e;
     border: 2px solid #f4980f;
-    color: #e7910feb; /* Change to the desired text color */
-    /* Add any additional styling for the selected item */
+    color: #e7910feb; 
   }
 
   ion-item.over-capacity {
-    color: #555; /* Darker grey text */
+    color: #555; 
     text-decoration: line-through;
   }
 

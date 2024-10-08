@@ -67,6 +67,14 @@
     <ion-label color="danger">{{ errorMessage }}</ion-label>
   </ion-item>
 
+  <!-- Refund Policy Note -->
+  <ion-item lines="none" color="light">
+    <ion-label>
+      Refunds will not be processed through the website. Please see our 
+      <span (click)="goToRefundPolicy()" style="color: blue; text-decoration: underline; cursor: pointer;">refund policy</span>.
+    </ion-label>
+  </ion-item>
+
   <ion-button expand="full" color="danger" (click)="closeModal()"
-  [disabled]="isCheckboxDisabled" id="confirmButton">Confirm</ion-button>
+    [disabled]="isCheckboxDisabled" id="confirmButton">Confirm</ion-button>
 </ion-content>

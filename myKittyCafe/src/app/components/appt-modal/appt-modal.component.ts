@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Appointment } from 'src/app/appointment';
 import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class ApptModalComponent{
   isCheckboxDisabled: boolean = false;
   errorMessage: string = '';
 
-  constructor(private modalController: ModalController) {}
+  constructor(private modalController: ModalController, private router: Router) {}
 
   ngOnInit() {
     this.isCheckboxDisabled = !this.isCancellationAllowed();
@@ -63,5 +64,13 @@ export class ApptModalComponent{
       this.errorMessage = 'You cannot delete this appointment because it is past the ' +
       'cancellation deadline or the confirmation checkbox is not checked.';
     }
+  }
+
+  goToRefundPolicy() {
+    // Dismiss the modal
+    this.modalController.dismiss().then(() => {
+      // Navigate to the refund policy page
+      this.router.navigate(['/refund-policy']);
+    });
   }
 }

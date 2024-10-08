@@ -42,7 +42,7 @@
     <ion-button (click)="addLimit()" color="primary" slot="end">
       Add Limit
     </ion-button>
-    <div *ngIf="invalidLimit">
+    <div *ngIf="invalidLimit" class="invalid-input">
       Limit cannot be lower than amount of people already booked!
     </div>
   </div>

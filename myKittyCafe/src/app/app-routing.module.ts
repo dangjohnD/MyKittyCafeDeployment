@@ -42,6 +42,10 @@ const routes: Routes = [
     path: 'limit-appointment',
     loadChildren: () => import('./pages/limit-appointment/limit-appointment.module').then( m => m.LimitAppointmentPageModule)
   },
+  {
+    path: 'refund-policy',
+    loadChildren: () => import('./pages/refund-policy/refund-policy.module').then( m => m.RefundPolicyPageModule)
+  },
 
 ];
 
