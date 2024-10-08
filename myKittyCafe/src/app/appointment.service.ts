@@ -25,9 +25,11 @@ export class AppointmentService {
   }
 
   deleteAppointmentById(id: number): Observable<any> {
-    console.log(id);
-    console.log(`${this.apiUrl}/${id}`);
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+
+  deleteAppointmentByIdAdmin(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/admin/${id}`);
   }
   
 }

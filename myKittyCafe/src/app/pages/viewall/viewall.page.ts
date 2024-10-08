@@ -135,7 +135,9 @@ export class ViewallPage implements OnInit {
           if (this.userType != 'admin@gmail.com' && this.userType){
             this.deleteAppointment(result.data.selectedAppt.id);
           }
-          
+          if (this.userType == 'admin@gmail.com'){
+
+          }
         }
       }
     });
@@ -148,6 +150,22 @@ export class ViewallPage implements OnInit {
     console.log("delete appt: " + appointmentId);
 
     this.appointmentService.deleteAppointmentById(appointmentId).subscribe(
+      async response => {
+        console.log('Deletion successful:', response);
+        await this.presentToast();
+      },
+      error => {
+        console.error('Deletion failed:', error);
+      }
+    );
+    // Refresh the list of appointments
+    this.loadUserAppointments();
+  }
+
+  async deleteAppointmentAdmin(appointmentId: number) {
+    // Delete and show message
+
+    this.appointmentService.deleteAppointmentByIdAdmin(appointmentId).subscribe(
       async response => {
         console.log('Deletion successful:', response);
         await this.presentToast();

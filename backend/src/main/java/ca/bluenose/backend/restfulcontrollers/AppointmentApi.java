@@ -111,7 +111,7 @@ public class AppointmentApi {
     }
 
     // delete appt based on ID value
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity<?> deleteAppointmentAdmin(@PathVariable("id") long id) {
         if (appointmentRepository.findById(id).isPresent()) {
             Appointment appointment = appointmentRepository.findById(id).get();
