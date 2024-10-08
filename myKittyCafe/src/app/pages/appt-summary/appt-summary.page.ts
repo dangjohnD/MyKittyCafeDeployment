@@ -79,6 +79,8 @@ export class ApptSummaryPage implements OnInit {
       minute: '2-digit',
       second: '2-digit',
     });
+
+    this.formattedDateTime = `${formattedDate}, ${formattedTime}`;
   }
 
 }

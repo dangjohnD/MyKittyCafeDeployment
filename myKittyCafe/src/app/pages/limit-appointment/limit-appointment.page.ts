@@ -71,6 +71,7 @@ export class LimitAppointmentPage implements OnInit {
   }
 
   fetchAllLimitsForTimeslots() {
+    // Get the Limit for the timeslot
     const limitRequests = this.timeSlots.map((timeslot) => {
       const time = this.convertTo24Hour(timeslot.time);
       const dateTime = new Date(this.selectedDay);
@@ -79,6 +80,7 @@ export class LimitAppointmentPage implements OnInit {
       return this.apptLimitService.getApptLimitByDate(dateTimeString);
     });
 
+    // Assign Limit to timeslot
     forkJoin(limitRequests).subscribe(
       (limits: apptLimit[]) => {
         limits.forEach((limit, index) => {
@@ -87,12 +89,6 @@ export class LimitAppointmentPage implements OnInit {
           }
         });
 
-        // Check above capacity after fetching limits
-        this.timeSlots.forEach(timeslot => {
-          if (timeslot.numAppt > timeslot.limit) {
-            timeslot.aboveCapacity = true;
-          }
-        });
       },
       (error) => {
         console.error('Error fetching limits: ', error);
@@ -102,6 +98,7 @@ export class LimitAppointmentPage implements OnInit {
 
   getTimeSlots(appointments: Appointment[]): TimeSlot[] {
     const timeSlots: TimeSlot[] = [];
+    // Generate timeslots
     for (let hour = 9; hour <= 11; hour++) {
       timeSlots.push({
         time: hour + ' am',
@@ -124,6 +121,7 @@ export class LimitAppointmentPage implements OnInit {
 
     if (!appointments) return timeSlots;
 
+    // Add up existing appointments for the timeslots
     appointments.forEach(appointment => {
       if (this.isSameDay(appointment.date, this.selectedDate)) {
         const appointmentDate = new Date(appointment.date);
@@ -181,6 +179,7 @@ export class LimitAppointmentPage implements OnInit {
     });
   }
 
+
   addLimit() {
 
     if (!this.timeslotSelected){
@@ -191,6 +190,9 @@ export class LimitAppointmentPage implements OnInit {
       this.invalidLimit = true;
       return;
     }
+    this.invalidLimit = false;
+    
+    // assign number selected to limitAppt Object
     this.currentLimit.limit = this.selectedLimit;
 
     this.apptLimitService.addAppointmentLimit(this.currentLimit).subscribe(

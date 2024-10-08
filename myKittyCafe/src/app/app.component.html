@@ -34,7 +34,7 @@
             Hello, {{ userType }}
           </ion-label>
 
-          <ion-button *ngIf="userType === 'employee' || userType === 'admin@gmail.com'" (click)="navigateToAdmin()">
+          <ion-button id="adminBoard" *ngIf="userType === 'employee' || userType === 'admin@gmail.com'" (click)="navigateToAdmin()">
             Admin Board
           </ion-button>
 
@@ -42,11 +42,11 @@
             Book Appointment
           </ion-button>
 
-          <ion-button *ngIf="userType !== 'admin@gmail.com' && userType" (click)="navigateToViewAll()">
+          <ion-button id="viewButton" *ngIf="userType !== 'admin@gmail.com' && userType" (click)="navigateToViewAll()">
             View My Appointments
           </ion-button>
 
-          <ion-button *ngIf="userType === 'employee' || userType === 'admin@gmail.com'" (click)="navigateToViewAll()">
+          <ion-button id="viewAllButton"*ngIf="userType === 'employee' || userType === 'admin@gmail.com'" (click)="navigateToViewAll()">
             View Appointments
           </ion-button>
 

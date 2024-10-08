@@ -68,7 +68,7 @@ public class EmailTemplatesService {
                 "</table>" +
                 "<p>Please note that our website does not process refunds automatically. We will be refunding you or contacting you shortly regarding the next steps for your cancelled appointment.</p>"
                 +
-                "<p>If you have any questions, feel free to reach out to us or visit our <a href='https://mykittycafe.com/refund-policy'>refund policy page</a> for more details.</p>"
+                "<p>If you have any questions, feel free to reach out to us or visit our <a href='https://mykittycafe.azurewebsites.net/refund-policy'>refund policy page</a> for more details.</p>"
                 +
                 "<p>We apologize for any inconvenience caused and hope to serve you in the near future.</p>" +
                 "<p>Best regards,</p>" +

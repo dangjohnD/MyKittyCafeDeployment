@@ -46,6 +46,9 @@ export class ViewallPage implements OnInit {
       console.log("getting user appts")
       this.loadUserAppointments();
     }
+    if (this.userType == "admin@gmail.com"){
+      this.loadAppointments();
+    }
   }
 
   // Method to filter appointments based on selected start and end dates
@@ -136,7 +139,7 @@ export class ViewallPage implements OnInit {
             this.deleteAppointment(result.data.selectedAppt.id);
           }
           if (this.userType == 'admin@gmail.com'){
-
+            this.deleteAppointmentAdmin(result.data.selectedAppt.id);
           }
         }
       }
@@ -175,7 +178,7 @@ export class ViewallPage implements OnInit {
       }
     );
     // Refresh the list of appointments
-    this.loadUserAppointments();
+    this.loadAppointments();
   }
 
   async presentToast() {
