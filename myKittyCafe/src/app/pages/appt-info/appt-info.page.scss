@@ -1,0 +1,73 @@
+ion-content {
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    background-color: white; 
+  }
+  
+  ion-card {
+    margin: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    background-color: white; 
+  }
+  
+  ion-card-header {
+    padding-bottom: 0; /* Align with card content */
+  }
+  
+  ion-card-title {
+    font-size: 1.4rem; /* Slightly larger title text */
+    font-weight: bold;
+    color: #333;
+    text-transform: capitalize;
+  }
+  
+  ion-card-content {
+    font-size: 1rem; 
+    color: #555; /* Slightly lighter text for readability */
+    padding: 10px 16px; 
+  }
+  
+  ion-item {
+    --inner-padding-top: 12px;
+    --inner-padding-bottom: 12px;
+    --inner-padding-start: 16px;
+    --inner-padding-end: 16px;
+    background-color: #f0fff0; /* Light green background for success message */
+    border-radius: 12px;
+    margin: 16px;
+    box-shadow: 0 2px 6px rgba(0, 128, 0, 0.2); /* Soft shadow for success label */
+  }
+  
+  ion-label {
+    font-size: 1.1rem; /* Slightly larger success message */
+    font-weight: bold;
+    color: #28a745; /* Success green */
+  }
+  
+  /* Mobile-specific styles */
+  @media only screen and (max-width: 600px) {
+    ion-card {
+      margin: 10px; /* Reduce margins for mobile */
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Lighter shadow on mobile */
+    }
+  
+    ion-card-title {
+      font-size: 1.2rem; /* Adjust title font for smaller screens */
+    }
+  
+    ion-card-content {
+      font-size: 0.9rem; /* Slightly smaller text on mobile */
+    }
+  
+    ion-item {
+      margin: 10px; /* Reduce margin for mobile */
+    }
+  
+    ion-label {
+      font-size: 1rem; /* Adjust text size */
+    }
+  }
+  

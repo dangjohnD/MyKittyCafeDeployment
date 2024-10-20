@@ -3,12 +3,12 @@ ion-content {
     --padding-bottom: 20px;
     --padding-left: 15px;
     --padding-right: 15px;
-    background-color: #f7f8fa; /* Subtle background color for a cleaner look */
+    background-color: white; 
   }
   
   ion-header {
-    background-color: #f5a623; /* Header background color */
-    color: #ffffff; /* Header text color */
+    background-color: goldenrod; 
+    color: white; 
   }
 
   ion-title {
@@ -30,13 +30,13 @@ ion-content {
     --padding-top: 8px;
     --padding-bottom: 8px;
     border-radius: 10px; /* Add rounding to the item boxes */
-    background-color: #ffffff; /* White background for the form fields */
+    background-color: white; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   }
   
   ion-label {
     font-weight: bold;
-    color: #333; /* Darker text color for labels */
+    color: #333; 
   }
   
   ion-text {

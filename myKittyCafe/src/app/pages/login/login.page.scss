@@ -1,8 +1,76 @@
-.login-card, .error-card {
-    margin: 30px;
-  }
-  
+/* General styling for login cards */
+.login-card {
+  margin: 20px; /* Reduced margin for better fit on mobile */
+  border-radius: 12px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 16px; 
+  background-color: white; 
+}
+
+.login-card ion-card-title {
+  font-size: 1.4rem; /* Larger title for login */
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+  color: #333; 
+}
+
+.login-card ion-item {
+  --highlight-color-focused: goldenrod; /* Gold input highlight on focus */
+  margin-bottom: 16px; 
+  border-radius: 8px; 
+}
+
+/* General styling for error cards */
+.error-card {
+  margin: 20px; /* Reduced margin for better fit on mobile */
+  border-radius: 12px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 16px; 
+  background-color: white; 
+}
+
+.error-card ion-card-title {
+  font-size: 1.4rem; /* Larger title for error */
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+  color: #333; 
+}
+
+/* Button styling */
+ion-button {
+  --background: goldenrod; 
+  --color: #333; 
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1rem; /* Font size adjustment for readability */
+  margin-top: 16px;
+}
+
+button:hover {
+  background-color: darkgoldenrod; /* Slightly darker on hover */
+}
+
+/* Mobile-specific adjustments */
+@media only screen and (max-width: 600px) {
+  .login-card,
   .error-card {
-    background-color: #f8d7da; /* Use a different background color for error messages */
-    color: #721c24; /* Adjust text color for better visibility */
+    margin: 12px; /* Reduced margin for smaller screens */
+    padding: 12px; /* Compact padding for mobile */
   }
+
+  .login-card ion-card-title,
+  .error-card ion-card-title {
+    font-size: 1.2rem; /* Slightly smaller title for mobile */
+  }
+
+  ion-item {
+    margin-bottom: 12px; /* Tighter spacing between inputs */
+  }
+
+  ion-button {
+    font-size: 0.9rem; /* Adjust button size for mobile */
+    padding: 10px;
+  }
+}

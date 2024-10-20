@@ -1,9 +1,36 @@
 .custom-header {
-    --ion-color-base: #000000; /* Background color */
-    --ion-color-contrast: #ffffff; /* Text color */
+  --ion-color-base: black; /* Background color */
+  --ion-color-contrast: white; /* Text color */
+}
+
+.new-background-color {
+  --background: black;
+  color: white;
+}
+
+/* Mobile-friendly adjustments */
+@media only screen and (max-width: 600px) {
+  ion-title {
+      font-size: 18px; /* Smaller title text for mobile */
   }
 
-  .new-background-color{
-    --background: #000000;
-    color: #ffffff;
+  .custom-header {
+      --ion-color-base: black;
+  }
+
+  ion-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Stack buttons vertically */
+      padding: 5px;
+  }
+
+  ion-button {
+      margin-bottom: 5px; /* Space between buttons */
+      font-size: 14px; /* Smaller button text on mobile */
+  }
+
+  ion-label {
+      font-size: 14px; /* Smaller text for the label */
+  }
 }

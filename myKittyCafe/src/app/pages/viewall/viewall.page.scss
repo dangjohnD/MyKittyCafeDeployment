@@ -50,7 +50,7 @@ input[type="date"] {
 }
 
 button {
-  background-color: #f5a623; /* Bright gold button */
+  background-color: goldenrod; /* Bright gold button */
   color: white;
   padding: 10px 16px;
   border: none;
@@ -62,7 +62,7 @@ button {
 }
 
 button:hover {
-  background-color: #d48f1a; /* Slightly darker on hover */
+  background-color: darkgoldenrod; /* Slightly darker on hover */
 }
 
 table {
@@ -82,7 +82,7 @@ th, td {
 }
 
 th {
-  background-color: #f5a623;
+  background-color: goldenrod;
   color: white;
   text-align: left;
 }
@@ -141,7 +141,7 @@ ion-modal p {
 }
 
 ion-modal button {
-  background-color: #f5a623;
+  background-color: goldenrod;
   color: white;
   padding: 10px 16px;
   border: none;
