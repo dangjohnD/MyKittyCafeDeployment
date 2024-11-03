@@ -13,10 +13,6 @@ export class ApptSummaryPage implements OnInit {
   appointmentInfo: any;
   formattedDateTime: any;
 
-  // variables for payment
-  paymentAmount: string = '0.01';
-  currency: string = 'CAD';
-  currencyIcon: string = '$';
   
   constructor(private router: Router, private appService: AppointmentService) {
 
@@ -28,11 +24,32 @@ export class ApptSummaryPage implements OnInit {
 
         // Set up transaction - enter value
         createOrder: function (data: any, actions: any) {
+          const unitPrice = 10.00; // Price per person
+          const quantity = _this.appointmentInfo.persons; // Number of persons
+          const totalAmount = (unitPrice * quantity).toFixed(2); // Total amount for the order
+        
           return actions.order.create({
             purchase_units: [{
               amount: {
-                value: (_this.appointmentInfo.persons * 10).toFixed(2)
-              }
+                currency_code: "CAD", // Specify your currency
+                value: totalAmount,
+                breakdown: {
+                  item_total: {
+                    currency_code: "CAD",
+                    value: totalAmount // Item total should match the value
+                  }
+                }
+              },
+              items: [
+                {
+                  name: "Person(s) in My Kitty Cafe Appointment",
+                  unit_amount: {
+                    currency_code: "CAD",
+                    value: unitPrice.toFixed(2) // Price per person
+                  },
+                  quantity: quantity.toString() // Convert quantity to string
+                }
+              ]
             }]
           });
         },
@@ -83,4 +100,7 @@ export class ApptSummaryPage implements OnInit {
     this.formattedDateTime = `${formattedDate}, ${formattedTime}`;
   }
 
+  goBackToBooking() {
+    this.router.navigate(['/booking'], { replaceUrl: true });
+  }
 }

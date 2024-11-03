@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ mode === 'add' ? 'Add New Kitty' : mode === 'edit' ? 'Edit Kitty' : 'Kitty Details' }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="form-container">
+  <form (ngSubmit)="saveKitty()" #kittyForm="ngForm">
+    <div *ngIf="mode === 'view'" class="kitty-info">
+      <h2>{{ kitty.name }}</h2>
+      <img [src]="kitty.image" alt="{{ kitty.name }}" />
+      <p>Color: {{ kitty.color }}</p>
+      <p>Birthday: {{ kitty.birthday | date }}</p>
+      <p>Disabled: {{ kitty.isDisabled ? 'Yes' : 'No' }}</p>
+      <p *ngIf="kitty.isDisabled">Note: {{ kitty.note }}</p>
+    </div>
+
+    <div *ngIf="mode === 'add' || mode === 'edit'">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" [(ngModel)]="kitty.name" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="color">Color</label>
+        <select id="color" [(ngModel)]="kitty.color" name="color" required>
+          <option *ngFor="let color of colorOptions" [value]="color">{{ color }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="birthday">Birthday</label>
+        <input type="date" id="birthday" [(ngModel)]="kitty.birthday" name="birthday" required>
+      </div>
+
+      <div class="form-group">
+        <label for="isDisabled">Disabled</label>
+        <input type="checkbox" id="isDisabled" [(ngModel)]="kitty.isDisabled" name="isDisabled">
+      </div>
+
+      <div class="form-group" *ngIf="kitty.isDisabled">
+        <label for="note">Note</label>
+        <textarea id="note" [(ngModel)]="kitty.note" name="note"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="image">Upload Image</label>
+        <input type="file" id="image" (change)="onFileSelected($event)" accept="image/*" />
+      </div>
+
+      <div *ngIf="kitty.image">
+        <p>Selected Image:</p>
+        <img [src]="kitty.image" style="width: 100%; height: auto; margin-top: 8px;" />
+      </div>
+
+      <button type="submit" [disabled]="!kittyForm.form.valid" class="submit-button">
+        {{ mode === 'edit' ? 'Save Changes' : 'Add Kitty' }}
+      </button>
+    </div>
+
+
+  </form>
+</ion-content>

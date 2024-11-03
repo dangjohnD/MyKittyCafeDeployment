@@ -15,29 +15,34 @@ import { ToastController } from '@ionic/angular';
 })
 export class LimitAppointmentPage implements OnInit {
 
+  // info about the limit
   currentLimit: apptLimit = {
     date: '',
     limit: 0
   }
-
   selectedLimit: number = 10;
   selectedDate: any;
+
+  //  Objects for the page
   selectedDay: any;
-  dateValid: boolean = true;
+  selectedTimeslot!: TimeSlot;
   minDate: string;
   timeSlots: TimeSlot[] = [];
+
+  // Flags for warning text/popups
+  dateValid: boolean = true;
   showCalendarFlag: boolean = true;
   timeslotSelected: boolean = false;
-  selectedTimeslot!: TimeSlot;
-
   invalidLimit: boolean = false;
 
   constructor(private appService: AppointmentService, private router: Router,
     private apptLimitService: ApptLimitService, private toastController: ToastController) {
-    const dateNow = new Date();
-    dateNow.setUTCHours(dateNow.getUTCHours());
-    const isoDateString = dateNow.toISOString().split('T')[0];
-    this.minDate = isoDateString;
+
+      // Get the current date
+      const dateNow = new Date();
+      dateNow.setUTCHours(dateNow.getUTCHours());
+      const isoDateString = dateNow.toISOString().split('T')[0];
+      this.minDate = isoDateString;
   }
 
   ngOnInit() {
@@ -191,7 +196,7 @@ export class LimitAppointmentPage implements OnInit {
       return;
     }
     this.invalidLimit = false;
-    
+
     // assign number selected to limitAppt Object
     this.currentLimit.limit = this.selectedLimit;
 

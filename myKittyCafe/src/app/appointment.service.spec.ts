@@ -54,7 +54,6 @@ describe('AppointmentService', () => {
     service.addAppointment(dummyAppointment).subscribe((response) => {
       expect(response).toEqual(mockAppointment);
       console.log(response);
-      // Add additional expectations as needed
     });
 
     const req = httpMock.expectOne(service.apiUrl);
