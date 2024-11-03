@@ -1,8 +1,9 @@
 export interface Cat {
     id?: number,
     name: string,
-    color: string,
+    colour: string,
     birthday: Date,
+    desc: string,
     isDisabled: boolean,
     note: string
     image: string | File

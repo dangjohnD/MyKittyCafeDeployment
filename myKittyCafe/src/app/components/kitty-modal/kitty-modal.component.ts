@@ -13,8 +13,9 @@ export class KittyModalComponent  implements OnInit {
   @Input() mode: 'view' | 'add' | 'edit' = 'view'; // Mode of the modal
   @Input() kitty: Cat = {
     name: '',
-    color: '',
+    colour: '',
     birthday: new Date(),
+    desc: '',
     isDisabled: false,
     image: '',
     note: ''
@@ -70,8 +71,8 @@ export class KittyModalComponent  implements OnInit {
       alert('Name is required.');
       return false;
     }
-    if (!this.kitty.color) {
-      alert('Color is required.');
+    if (!this.kitty.colour) {
+      alert('Colour is required.');
       return false;
     }
     if (!this.kitty.birthday || this.kitty.birthday > today) {

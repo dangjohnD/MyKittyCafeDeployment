@@ -39,4 +39,6 @@ public class Cat {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "image")
+    private String image;
 }

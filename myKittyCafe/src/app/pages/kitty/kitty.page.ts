@@ -11,42 +11,46 @@ import { KittyModalComponent } from 'src/app/components/kitty-modal/kitty-modal.
 })
 export class KittyPage implements OnInit {
 
-  colorOptions = ['Black', 'White', 'Grey', 'Calico', 'Brown', 'Hairless', 'Orange'];
+  colourOptions = ['Black', 'White', 'Grey', 'Calico', 'Brown', 'Hairless', 'Orange'];
   kitties: Cat[] = [
     {
       name: 'Ryan',
-      color: 'Orange',
+      colour: 'Orange',
       birthday: new Date(),
+      desc: '',
       isDisabled: false,
       image: 'https://publicstoragemkc.blob.core.windows.net/demoblob/img.png',
       note: ''
     },
     {
       name: 'Ryan but Disabled',
-      color: 'Black',
+      colour: 'Black',
       birthday: new Date(new Date().setFullYear(new Date().getFullYear() - 6)),
+      desc: '',
       isDisabled: true,
       image: 'https://publicstoragemkc.blob.core.windows.net/demoblob/testUpload.png',
       note: 'Has FIV and AIDS'
     },{
       name: 'Calico Joe',
-      color: 'Calico',
+      colour: 'Calico',
       birthday: new Date(new Date().setFullYear(new Date().getFullYear() - 3)), // 3 years old
+      desc: '',
       isDisabled: false,
       image: 'https://publicstoragemkc.blob.core.windows.net/demoblob/img.png',
       note: ''
     },
     {
       name: 'Ryan',
-      color: 'Orange',
+      colour: 'Orange',
       birthday: new Date(),
+      desc: '',
       isDisabled: false,
       image: 'https://publicstoragemkc.blob.core.windows.net/demoblob/img.png',
       note: ''
     }
   ];
   filteredKitties: Cat[] = [];
-  selectedColor: string = '';
+  selectedColour: string = '';
   sortByAge: string = '';
 
 
@@ -60,7 +64,7 @@ export class KittyPage implements OnInit {
 
   filterKitties() {
     this.filteredKitties = this.kitties.filter(kitty => {
-      return this.selectedColor ? kitty.color === this.selectedColor : true; // Filter by selected color
+      return this.selectedColour ? kitty.colour === this.selectedColour : true; // Filter by selected color
     });
     this.sortKitties(); // Sort after filtering
   }
@@ -91,8 +95,9 @@ export class KittyPage implements OnInit {
         mode: 'add', // Set mode to 'add' for adding a new kitty
         kitty: {
           name: '',
-          color: '',
+          colour: '',
           birthday: new Date(),
+          desc: '',
           isDisabled: false,
           note: '',
           image: ''
