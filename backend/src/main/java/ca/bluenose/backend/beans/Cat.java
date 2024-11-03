@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 @Data
 @Entity
-@Table(name = "cats")
+@Table(name = "cats_db")
 public class Cat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class Cat {
     private String desc;
 
     @Column(name = "is_disabled", nullable = false)
-    private boolean isDisabled;
+    private boolean disabled;
 
     @Column(name = "note")
     private String note;
