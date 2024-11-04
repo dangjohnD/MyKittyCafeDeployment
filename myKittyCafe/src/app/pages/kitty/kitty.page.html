@@ -23,6 +23,15 @@
           <img [src]="kitty.image ? kitty.image : 'https://publicstoragemkc.blob.core.windows.net/demoblob/no_image.jpg'" alt="{{ kitty.name }}" />
           <ion-card-header>
             <ion-card-title>{{ kitty.name }}</ion-card-title>
+
+            <div class="adoption-status">
+              <ion-icon 
+                *ngIf="kitty.adoptable" 
+                name="heart" 
+                class="adoptable-icon">
+              </ion-icon>
+              <span class="status-text">{{ kitty.adoptable ? 'Adoptable' : 'Not Adoptable' }}</span>
+            </div>
           </ion-card-header>
 
           <ion-icon *ngIf="kitty.disabled" name="alert-circle" class="disabled-icon"></ion-icon>
@@ -31,6 +40,15 @@
           <img [src]="kitty.image ? kitty.image : 'https://publicstoragemkc.blob.core.windows.net/demoblob/no_image.jpg'" alt="{{ kitty.name }}" />
           <ion-card-header>
             <ion-card-title>{{ kitty.name }}</ion-card-title>
+
+            <div class="adoption-status">
+              <ion-icon 
+                *ngIf="kitty.adoptable" 
+                name="heart" 
+                class="adoptable-icon">
+              </ion-icon>
+              <span class="status-text">{{ kitty.adoptable ? 'Adoptable' : 'Not Adoptable' }}</span>
+            </div>
           </ion-card-header>
 
           <ion-icon *ngIf="kitty.disabled" name="alert-circle" class="disabled-icon"></ion-icon>

@@ -7,4 +7,5 @@ export interface Cat {
     disabled: boolean,
     note: string
     image: string | File
+    adoptable: boolean
   }

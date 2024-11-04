@@ -5,6 +5,7 @@ import { CatService } from 'src/app/cat.service';
 import { KittyModalComponent } from 'src/app/components/kitty-modal/kitty-modal.component';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-kitty',
@@ -20,7 +21,7 @@ export class KittyPage implements OnInit {
   sortByAge: string = '';
   userType!: any;
 
-  constructor(private modalController: ModalController, private catService: CatService,
+  constructor(private router: Router, private modalController: ModalController, private catService: CatService,
     private toastController: ToastController, private authService: AuthService) {
     this.filteredKitties = this.kitties;
    }

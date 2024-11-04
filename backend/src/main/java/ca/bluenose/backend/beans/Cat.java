@@ -41,4 +41,7 @@ public class Cat {
 
     @Column(name = "image")
     private String image;
+
+    @Column(name = "adoptable", nullable = false)
+    private boolean adoptable;
 }

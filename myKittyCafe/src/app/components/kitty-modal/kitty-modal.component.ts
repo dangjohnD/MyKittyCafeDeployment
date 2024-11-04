@@ -18,7 +18,8 @@ export class KittyModalComponent  implements OnInit {
     desc: '',
     disabled: false,
     image: '',
-    note: ''
+    note: '',
+    adoptable: true
   };
   colourOptions = ['Black', 'White', 'Grey', 'Calico', 'Brown', 'Hairless', 'Orange'];
   

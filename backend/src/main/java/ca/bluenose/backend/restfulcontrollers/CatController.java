@@ -36,6 +36,7 @@ public class CatController {
             cat.setDisabled(catDetails.isDisabled());
             cat.setNote(catDetails.getNote());
             cat.setImage(catDetails.getImage());
+            cat.setAdoptable(catDetails.isAdoptable());
             return catRepository.save(cat);
         }).orElseThrow(() -> new RuntimeException("Cat not found with id " + id));
     }
