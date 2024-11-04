@@ -4,7 +4,7 @@ export interface Cat {
     colour: string,
     birthday: Date,
     desc: string,
-    isDisabled: boolean,
+    disabled: boolean,
     note: string
     image: string | File
   }

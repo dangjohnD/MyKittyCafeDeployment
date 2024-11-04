@@ -28,7 +28,16 @@ export class CatService {
     return this.http.post<any>(this.apiUrl, cat);
   }
 
+  deleteCatById(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+
+  updateCat(cat: Cat): Observable<any>{
+    return this.http.put<any>(`${this.apiUrl}/${cat.id}`, cat);
+  }
+
   getAllCats(): Observable<Cat[]>{
     return this.http.get<Cat[]>(this.apiUrl);
   }
+  
 }

@@ -16,11 +16,11 @@ export class KittyModalComponent  implements OnInit {
     colour: '',
     birthday: new Date(),
     desc: '',
-    isDisabled: false,
+    disabled: false,
     image: '',
     note: ''
   };
-  colorOptions = ['Black', 'White', 'Grey', 'Calico', 'Brown', 'Hairless', 'Orange'];
+  colourOptions = ['Black', 'White', 'Grey', 'Calico', 'Brown', 'Hairless', 'Orange'];
   
   ngOnInit() {
     console.log(this.kitty);
@@ -90,5 +90,15 @@ export class KittyModalComponent  implements OnInit {
     if (this.validateFields()) {
       this.modalController.dismiss(this.kitty); // Pass the kitty data back if valid
     }
+  }
+
+  editKitty(){
+    if (this.validateFields()) {
+      this.modalController.dismiss({ action: 'edit', data: this.kitty });
+    }
+  }
+
+  deleteKitty(){
+    this.modalController.dismiss({ action: 'delete', data: this.kitty });
   }
 }

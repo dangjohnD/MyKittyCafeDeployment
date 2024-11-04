@@ -61,3 +61,23 @@ form{
     background-color: #ccc; /* Grey background when disabled */
     cursor: not-allowed; /* Not-allowed cursor when disabled */
   }
+
+  .delete-button {
+    background-color: #FF4B4B; /* Red */
+    color: white; /* White text */
+    padding: 12px; /* Padding for button */
+    margin: 5px;
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  .delete-button:hover {
+    background-color: #FF3333; /* Darker red on hover */
+  }
+  
+  .delete-button:active {
+    background-color: #CC0000; /* Even darker red on active click */
+  }

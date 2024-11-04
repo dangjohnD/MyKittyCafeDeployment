@@ -1,12 +1,12 @@
 <ion-content [fullscreen]="true">
-  <div style="display: flex; justify-content: flex-end; padding: 16px;">
+  <div style="display: flex; justify-content: flex-end; padding: 16px;" *ngIf="userType === 'employee' || userType === 'admin@gmail.com'">
     <ion-button (click)="addKitty()">Add Kitty</ion-button>
   </div>
   <!-- Rest of your content goes here -->
    <!-- Color Filter -->
-   <ion-select [(ngModel)]="selectedColor" (ionChange)="filterKitties()" placeholder="Select Color">
-    <ion-select-option value="">All Colors</ion-select-option>
-    <ion-select-option *ngFor="let color of colorOptions" [value]="color">{{ color }}</ion-select-option>
+   <ion-select [(ngModel)]="selectedColour" (ionChange)="filterKitties()" placeholder="Select Color">
+    <ion-select-option value="">All Colours</ion-select-option>
+    <ion-select-option *ngFor="let colour of colourOptions" [value]="colour">{{ colour }}</ion-select-option>
   </ion-select>
 
   <ion-select [(ngModel)]="sortByAge" (ionChange)="sortKitties()" placeholder="Sort by Age">
@@ -19,11 +19,21 @@
       <ion-col size="6" size-sm="5" size-md="4" size-lg="3" 
       style="max-width: 50px; height: auto;"  
       *ngFor="let kitty of filteredKitties">
-        <ion-card (click)="openKittyModal(kitty)">
-          <img [src]="kitty.image" alt="{{ kitty.name }}" />
+        <ion-card (click)="openKittyModal(kitty)" *ngIf="userType != 'admin@gmail.com'">
+          <img [src]="kitty.image ? kitty.image : 'https://publicstoragemkc.blob.core.windows.net/demoblob/no_image.jpg'" alt="{{ kitty.name }}" />
           <ion-card-header>
             <ion-card-title>{{ kitty.name }}</ion-card-title>
           </ion-card-header>
+
+          <ion-icon *ngIf="kitty.disabled" name="alert-circle" class="disabled-icon"></ion-icon>
+        </ion-card>
+        <ion-card (click)="openKittyModalAdmin(kitty)" *ngIf="userType === 'employee' || userType === 'admin@gmail.com'">
+          <img [src]="kitty.image ? kitty.image : 'https://publicstoragemkc.blob.core.windows.net/demoblob/no_image.jpg'" alt="{{ kitty.name }}" />
+          <ion-card-header>
+            <ion-card-title>{{ kitty.name }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-icon *ngIf="kitty.disabled" name="alert-circle" class="disabled-icon"></ion-icon>
         </ion-card>
       </ion-col>
     </ion-row>
