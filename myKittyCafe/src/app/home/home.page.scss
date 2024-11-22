@@ -1,7 +1,38 @@
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-content {
+  display: flex;
+  align-items: center;
+}
+
+.right-content {
+  margin-left: auto; /* Pushes the disabled icon to the far right */
+}
 .disabled-icon {
   color: #F2E14D; /* Change color to yellow */
-  font-size: 2rem; /* Increase size for better visibility */
-  z-index: 10; /* Ensures it overlays the image */
+  font-size: 1.2rem; /* Increase size for better visibility */
+}
+
+.adoption-status {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.adoptable-icon {
+  color: #28a745; /* Green for adoptable */
+  font-size: 1.2em;
+  margin-right: 5px;
+}
+
+
+.status-text {
+  font-size: 0.9em;
+  color: #333;
 }
 
 .title-section {
@@ -27,4 +58,15 @@
   height: 150px;
   object-fit: cover;
   border-radius: 8px;
+}
+
+.kitty-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 1%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center
 }

@@ -8,8 +8,7 @@ import { Cat } from 'src/app/cat';
   templateUrl: './kitty-modal.component.html',
   styleUrls: ['./kitty-modal.component.scss'],
 })
-export class KittyModalComponent  implements OnInit {
-
+export class KittyModalComponent implements OnInit {
   @Input() mode: 'view' | 'add' | 'edit' = 'view'; // Mode of the modal
   @Input() kitty: Cat = {
     name: '',
@@ -19,10 +18,21 @@ export class KittyModalComponent  implements OnInit {
     disabled: false,
     image: '',
     note: '',
-    adoptable: true
+    adoptable: true,
   };
-  colourOptions = ['Black', 'White', 'Grey', 'Calico', 'Brown', 'Hairless', 'Orange'];
-  
+  colourOptions = [
+    'Black',
+    'White',
+    'Grey',
+    'Calico',
+    'Brown',
+    'Hairless',
+    'Orange',
+  ];
+
+  deleteClicked = false;
+  deleteConfirmed = false;
+
   ngOnInit() {
     console.log(this.kitty);
   }
@@ -63,6 +73,8 @@ export class KittyModalComponent  implements OnInit {
       reader.readAsDataURL(file); // Read the file as a base64 string
     }
   }
+
+
   validateFields(): boolean {
     const today = new Date();
     const thirtyYearsAgo = new Date();
@@ -76,11 +88,18 @@ export class KittyModalComponent  implements OnInit {
       alert('Colour is required.');
       return false;
     }
-    if (!this.kitty.birthday || this.kitty.birthday > today) {
+
+    // Convert birthday to a Date object if it's a string
+    const birthday =
+      typeof this.kitty.birthday === 'string'
+        ? new Date(this.kitty.birthday)
+        : this.kitty.birthday;
+
+    if (!birthday || birthday > today) {
       alert('Birthday cannot be in the future.');
       return false;
     }
-    if (this.kitty.birthday < thirtyYearsAgo) {
+    if (birthday < thirtyYearsAgo) {
       alert('Birthday cannot be older than 30 years.');
       return false;
     }
@@ -93,13 +112,26 @@ export class KittyModalComponent  implements OnInit {
     }
   }
 
-  editKitty(){
+  editKitty() {
     if (this.validateFields()) {
       this.modalController.dismiss({ action: 'edit', data: this.kitty });
     }
   }
 
-  deleteKitty(){
-    this.modalController.dismiss({ action: 'delete', data: this.kitty });
+  deleteKitty() {
+    // Make confirm visible
+    console.log('deleteKitty')
+    console.log('clicked = ' + this.deleteClicked);
+    console.log(this.deleteConfirmed);
+    if (this.deleteConfirmed == false){
+      console.log('make check visible');
+      this.deleteClicked = true;
+      return;
+    }
+    if(this.deleteConfirmed){
+      console.log("try delete");
+      this.modalController.dismiss({ action: 'delete', data: this.kitty });
+    }
+    return;
   }
 }

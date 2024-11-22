@@ -20,6 +20,9 @@ export class HomePage {
   sortByAge: string = '';
   userType!: any;
 
+  adoptableFilter: string = '';
+  disabledFilter: string = '';
+
   constructor(private router: Router, private modalController: ModalController, private catService: CatService,
     private toastController: ToastController, private authService: AuthService) {
     this.filteredKitties = this.kitties;
@@ -36,15 +39,28 @@ export class HomePage {
     this.loadCats();
   }
 
-  filterKitties() {
-    if (this.selectedColour == ''){
-      this.loadCats();
-    }
-    this.filteredKitties = this.kitties.filter(kitty => {
-      return this.selectedColour ? kitty.colour === this.selectedColour : true; // Filter by selected color
+  // Update the filterKitties method
+filterKitties() {
+  this.filteredKitties = this.kitties
+    .filter(kitty => {
+      // Filter selected colour
+      if (this.selectedColour && kitty.colour !== this.selectedColour) {
+        return false;
+      }
+      // Filter adoptable
+      if (this.adoptableFilter !== '' && kitty.adoptable.toString() !== this.adoptableFilter) {
+        return false;
+      }
+      // Filter disabled
+      if (this.disabledFilter !== '' && kitty.disabled.toString() !== this.disabledFilter) {
+        return false;
+      }
+      return true;
     });
-    this.sortKitties(); // Sort after filtering
-  }
+
+  // Optionally sort after filtering
+  this.sortKitties();
+}
 
   loadCats(){
     this.catService.getAllCats().subscribe(
@@ -54,7 +70,7 @@ export class HomePage {
         this.filteredKitties = cats;
       },
       (error) => {
-        console.error('Error fetching appointments: ', error);
+        console.error('Error fetching cats: ', error);
       }
     );
   }
@@ -94,12 +110,8 @@ export class HomePage {
       var kitty = data;
       if (action === 'edit' && data) {
         this.updateKitty(data);
-        this.loadCats()
-        this.filterKitties();
       } else if (action === 'delete' && data) {
-        this.loadCats()
         this.deleteKitty(kitty);
-        this.filterKitties();
       }
     });
 
@@ -150,7 +162,20 @@ export class HomePage {
           this.catService.updateCat(kitty).subscribe(
             (response) => {
             this.presentSuccessToast("Kitty has been updated");
-            this.loadCats()
+
+            // Add a delay before loading cats
+            setTimeout(() => {
+              this.catService.getAllCats().subscribe(
+                (cats: Cat[]) => {
+                  console.log("cats gotten")
+                  this.kitties = cats;
+                  this.filteredKitties = cats;
+                },
+                (error) => {
+                  console.error('Error fetching appointments: ', error);
+                }
+              );
+            }, 3000);
             },
             (error) => {
               console.error('update cat failed', error)
@@ -167,7 +192,6 @@ export class HomePage {
         (response) => {
         this.presentSuccessToast("Kitty has been updated");
         this.loadCats()
-        this.filterKitties();
         },
         (error) => {
           console.error('Update Cat failed', error)
@@ -229,7 +253,6 @@ export class HomePage {
                 (response) => {
                 this.presentSuccessToast("Kitty has been added");
                 this.loadCats();
-                this.filterKitties();
                 },
                 (error) => {
                   console.error('add cat failed', error)
@@ -246,7 +269,6 @@ export class HomePage {
             (response) => {
             this.presentSuccessToast("Kitty has been added");
             this.loadCats();
-            this.filterKitties();
             },
             (error) => {
               console.error('Add Cat failed', error)

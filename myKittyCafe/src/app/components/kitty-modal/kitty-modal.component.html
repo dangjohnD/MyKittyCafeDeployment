@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content class="form-container">
-  <form (ngSubmit)="saveKitty()" #kittyForm="ngForm">
+  <form #kittyForm="ngForm">
     <div *ngIf="mode === 'view'" class="kitty-info">
       <h2>{{ kitty.name }}</h2>
       <img [src]="kitty.image" alt="{{ kitty.name }}" />
@@ -70,7 +70,7 @@
         <img [src]="kitty.image" style="width: 100%; height: auto; margin-top: 8px;" />
       </div>
 
-      <button (click)="saveKitty()" [disabled]="!kittyForm.form.valid" class="submit-button" *ngIf = "mode === 'add'">
+      <button (click)="saveKitty()" [disabled]="!kittyForm.form.valid" class="submit-button" *ngIf = "mode === 'add'" id="addKitty">
         Add Kitty
       </button>
       <button (click)="editKitty()" [disabled]="!kittyForm.form.valid" class="submit-button" *ngIf = "mode === 'edit'">
@@ -79,6 +79,10 @@
       <button (click)="deleteKitty()" class="delete-button" *ngIf = "mode === 'edit'">
         Delete Kitty
       </button>
+        <div *ngIf="deleteClicked">
+          <label for="confirm">Confirm Deletion</label>
+          <input type="checkbox" id="confirm" [(ngModel)]="deleteConfirmed" name="confirm">
+        </div>
     </div>
 
 
