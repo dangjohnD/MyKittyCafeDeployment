@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ApptSummaryPageRoutingModule } from './appt-summary-routing.module';
 
 import { ApptSummaryPage } from './appt-summary.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ApptSummaryPageRoutingModule
+    ApptSummaryPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ApptSummaryPage]
 })

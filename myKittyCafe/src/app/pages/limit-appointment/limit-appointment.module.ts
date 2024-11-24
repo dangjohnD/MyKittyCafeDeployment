@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { LimitAppointmentPageRoutingModule } from './limit-appointment-routing.module';
 
 import { LimitAppointmentPage } from './limit-appointment.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LimitAppointmentPageRoutingModule
+    LimitAppointmentPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [LimitAppointmentPage]
 })

@@ -11,6 +11,8 @@
       <ion-list>
         <ion-item routerLink="/home">Home</ion-item>
         <ion-item routerLink="/refund-policy">Refund Policy</ion-item>
+        <ion-item routerLink="/menu">Menu</ion-item>
+        <ion-item routerLink="/adoption">Adoption Process</ion-item>
         <!-- Add more menu items here -->
       </ion-list>
     </ion-content>
@@ -34,7 +36,8 @@
             Hello, {{ userType }}
           </ion-label>
 
-          <ion-button id="adminBoard" *ngIf="userType === 'employee' || userType === 'admin@gmail.com'" (click)="navigateToAdmin()">
+          <ion-button id="adminBoard" *ngIf="userType === 'employee' || userType === 'admin@gmail.com'"
+            (click)="navigateToAdmin()">
             Admin Board
           </ion-button>
 
@@ -46,7 +49,8 @@
             View My Appointments
           </ion-button>
 
-          <ion-button id="viewAllButton"*ngIf="userType === 'employee' || userType === 'admin@gmail.com'" (click)="navigateToViewAll()">
+          <ion-button id="viewAllButton" *ngIf="userType === 'employee' || userType === 'admin@gmail.com'"
+            (click)="navigateToViewAll()">
             View Appointments
           </ion-button>
 
@@ -58,7 +62,8 @@
             Login
           </ion-button>
 
-          <ion-button *ngIf="userType === undefined || userType === '' || userType === 'admin@gmail.com'" (click)="navigateToRegister()">
+          <ion-button *ngIf="userType === undefined || userType === '' || userType === 'admin@gmail.com'"
+            (click)="navigateToRegister()">
             Register
           </ion-button>
         </ion-buttons>
@@ -68,5 +73,7 @@
   </div>
   <ion-content>
     <ion-router-outlet></ion-router-outlet>
+    <!-- Footer Section -->
+    
   </ion-content>
 </ion-app>

@@ -47,6 +47,14 @@ const routes: Routes = [
     path: 'refund-policy',
     loadChildren: () => import('./pages/refund-policy/refund-policy.module').then( m => m.RefundPolicyPageModule)
   },
+  {
+    path: 'menu',
+    loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
+  },
+  {
+    path: 'adopt',
+    loadChildren: () => import('./adopt/adopt.module').then( m => m.AdoptPageModule)
+  },
 
 ];
 

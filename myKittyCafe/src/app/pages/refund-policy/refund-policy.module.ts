@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { RefundPolicyPageRoutingModule } from './refund-policy-routing.module';
 
 import { RefundPolicyPage } from './refund-policy.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RefundPolicyPageRoutingModule
+    RefundPolicyPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [RefundPolicyPage]
 })
