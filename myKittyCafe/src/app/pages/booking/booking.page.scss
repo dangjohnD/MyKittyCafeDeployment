@@ -1,3 +1,4 @@
+/* General container styling */
 .container {
     padding: 20px;
     border-radius: 10px; 
@@ -21,32 +22,121 @@
     text-decoration: line-through;
   }
 
-  ion-header {
-    --ion-background-color: black;
-  }
-  
-  ion-toolbar {
-    --ion-color-base: gold;
-  }
-  
-  ion-title {
-    color: white;
-  }
-  
-  .container ion-item {
-    --ion-color-base: white;
-    --ion-color-base-rgb: 255, 255, 255;
-  }
-  
+  margin: 20px; /* Reduced margin for better fit on mobile */
+  border-radius: 12px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: white; 
+}
 
-  ion-card-header{
-    background-color: gold;
-    color: black;
-    font-weight: bold;
+/* Invalid input message */
+.invalid-input {
+  color: red;
+  font-size: 0.85rem; /* Slightly larger and more readable font size */
+  margin-top: 4px;
+  padding-left: 8px;
+}
+
+/* Selected time slot styling */
+.selected-item {
+  background-color: goldenrod; 
+  border: 2px solid goldenrod; 
+  color: #333; 
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+/* Over-capacity time slot styling */
+ion-item.over-capacity {
+  color: #333; 
+  text-decoration: line-through;
+  opacity: 0.6; /* Slight opacity to indicate unavailability */
+}
+
+/* Header and toolbar styling */
+ion-header {
+  --ion-background-color: #333; 
+}
+
+ion-toolbar {
+  --ion-color-base: goldenrod; 
+}
+
+ion-title {
+  color: white; 
+  font-size: 1.4rem; /* Slightly larger title font */
+  text-transform: capitalize; /* Capitalize the first letter */
+}
+
+/* Card styling */
+ion-card {
+  margin: 20px; /* Consistent card margin */
+  border-radius: 12px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: white; 
+}
+
+ion-card-header {
+  background-color: goldenrod; 
+  color: #333; 
+  font-weight: bold;
+  text-align: center; /* Center the card title */
+  font-size: 1.2rem; /* Slightly larger font for readability */
+}
+
+
+ion-card-content {
+  padding: 16px;
+  font-size: 1rem; /* Standard font size */
+}
+
+/* Button styling */
+ion-button {
+  --background: goldenrod; 
+  --color: #333; 
+  font-weight: bold;
+  width: 100%; /* Full-width button for better touch accessibility */
+  margin-top: 16px; /* Spacing above the button */
+  border-radius: 8px;
+  padding: 12px 0;
+}
+
+/* Form input styling */
+ion-item {
+  --highlight-color-focused: goldenrod; /* Highlight input borders with gold when focused */
+  --background: white; 
+  border-radius: 8px;
+  margin-bottom: 16px; /* Spacing between input fields */
+}
+
+p{
+  text-decoration: underline;
+  text-align: center;
+}
+
+/* Mobile-specific adjustments */
+@media only screen and (max-width: 600px) {
+  .container {
+    margin: 12px; /* Reduce margins for mobile */
+    padding: 12px; /* Less padding for smaller screens */
+  }
+
+  ion-card-header {
+    font-size: 1rem; /* Adjust card header size for mobile */
+  }
+
+  ion-title {
+    font-size: 1.2rem; /* Adjust title size for mobile */
   }
 
   ion-button {
-    --background: gold;
-    --color: black;
+    font-size: 0.9rem; /* Adjust button text size for smaller screens */
   }
-  
+
+  ion-item {
+    margin-bottom: 12px; /* Reduce space between input fields */
+  }
+
+  .invalid-input {
+    font-size: 0.8rem; /* Smaller text for mobile */
+  }
+}
