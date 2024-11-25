@@ -1,0 +1,52 @@
+.container {
+    padding: 20px; 
+    border-radius: 10px; 
+    border: 1px solid #ccc; 
+    margin: 20px;
+  }
+
+  .invalid-input {
+    color: red;
+    font-size: 80%;
+  }
+
+  .selected-item {
+    background-color: #50fd9e;
+    border: 2px solid #f4980f;
+    color: #e7910feb; 
+  }
+
+  ion-item.over-capacity {
+    color: #555; 
+    text-decoration: line-through;
+  }
+
+  ion-header {
+    --ion-background-color: black;
+  }
+  
+  ion-toolbar {
+    --ion-color-base: gold;
+  }
+  
+  ion-title {
+    color: white;
+  }
+  
+  .container ion-item {
+    --ion-color-base: white;
+    --ion-color-base-rgb: 255, 255, 255;
+  }
+  
+
+  ion-card-header{
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+  }
+
+  ion-button {
+    --background: gold;
+    --color: black;
+  }
+  

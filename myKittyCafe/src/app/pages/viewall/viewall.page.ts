@@ -32,10 +32,22 @@ export class ViewallPage implements OnInit {
       message => { this.userType = message}
     );
     console.log(this.userType);
+    
+    // if user logged in, get all appointments
     if (this.userType != 'admin@gmail.com' && this.userType){
       console.log("getting user appts")
       this.loadUserAppointments();
       console.log(this.filteredAppointments);
+    }
+  }
+
+  ionViewWillEnter(){
+    if (this.userType != 'admin@gmail.com' && this.userType){
+      console.log("getting user appts")
+      this.loadUserAppointments();
+    }
+    if (this.userType == "admin@gmail.com"){
+      this.loadAppointments();
     }
   }
 
@@ -46,6 +58,7 @@ export class ViewallPage implements OnInit {
       this.datesNotEmpty = false;
       return;
     }
+    this.datesNotEmpty = true;
 
     if (new Date(this.endDate) < new Date(this.startDate)) {
       // Set the boolean variable to true to indicate the error
@@ -93,6 +106,7 @@ export class ViewallPage implements OnInit {
       (appointments: Appointment[]) => {
         this.appointments = appointments;
         console.log(this.appointments);
+        // If there are appointments, show them
         if (appointments.length > 0){
           this.filteredAppointments = appointments;
         }
@@ -103,7 +117,10 @@ export class ViewallPage implements OnInit {
     );
   }
 
+  // Open the appointment dialog to
   async openAppointmentModal(id: Number | undefined){
+    
+    //Grab appointment that's being deleted
     console.log(id);
     var selectedAppt = this.filteredAppointments.find(appointment => appointment.id === id);
     console.log(selectedAppt);
@@ -113,10 +130,17 @@ export class ViewallPage implements OnInit {
       componentProps: { selectedAppt }
     });
   
+    // on confirmation delete via service
     modal.onDidDismiss().then((result) => {
       if (result.data != undefined){
         if (result.data.delete) {
-          this.deleteAppointment(result.data.selectedAppt.id);
+          // Normal user
+          if (this.userType != 'admin@gmail.com' && this.userType){
+            this.deleteAppointment(result.data.selectedAppt.id);
+          }
+          if (this.userType == 'admin@gmail.com'){
+            this.deleteAppointmentAdmin(result.data.selectedAppt.id);
+          }
         }
       }
     });
@@ -125,18 +149,42 @@ export class ViewallPage implements OnInit {
   }
 
   async deleteAppointment(appointmentId: number) {
-    // Perform the deletion logic
+    // Delete and show message
     console.log("delete appt: " + appointmentId);
-    // After deletion, show a toast message
-    await this.presentToast();
+
+    this.appointmentService.deleteAppointmentById(appointmentId).subscribe(
+      async response => {
+        console.log('Deletion successful:', response);
+        await this.presentToast();
+      },
+      error => {
+        console.error('Deletion failed:', error);
+      }
+    );
     // Refresh the list of appointments
     this.loadUserAppointments();
+  }
+
+  async deleteAppointmentAdmin(appointmentId: number) {
+    // Delete and show message
+
+    this.appointmentService.deleteAppointmentByIdAdmin(appointmentId).subscribe(
+      async response => {
+        console.log('Deletion successful:', response);
+        await this.presentToast();
+      },
+      error => {
+        console.error('Deletion failed:', error);
+      }
+    );
+    // Refresh the list of appointments
+    this.loadAppointments();
   }
 
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Appointment deleted, email sent to user.',
-      duration: 2000, // Duration in milliseconds
+      duration: 5000, // Duration in milliseconds
       position: 'bottom',
       color: 'success',
     });

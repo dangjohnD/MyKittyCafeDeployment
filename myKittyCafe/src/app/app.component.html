@@ -1,52 +1,79 @@
 <ion-app color="light">
-  <ion-header [translucent]="true" class="custom-header">
-    <ion-toolbar class="new-background-color">
-      <ion-title>
-        MyKittyCafe
-      </ion-title>
-      <ion-buttons slot="start">
-        <ion-button (click)="navigateHome()">
-          <ion-icon slot="icon-only" name="home"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-buttons slot="end">
-        <ion-label *ngIf="userType">
-          Hello, {{ userType }}
-        </ion-label>
-        <ion-button (click)="navigateToBooking()">
-          Book Appointment
-        </ion-button>
-        <div *ngIf="userType !== 'admin@gmail.com' && userType">
-          <ion-button (click)="navigateToViewAll()">
+
+  <!-- Side Menu -->
+  <ion-menu side="start" menuId="main-menu" contentId="main-content">
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item routerLink="/home">Home</ion-item>
+        <ion-item routerLink="/refund-policy">Refund Policy</ion-item>
+        <ion-item routerLink="/menu">Menu</ion-item>
+        <ion-item routerLink="/adoption">Adoption Process</ion-item>
+        <!-- Add more menu items here -->
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <!-- Main Content Area -->
+  <div id="main-content">
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+          <!-- Menu button to toggle the menu -->
+          <ion-menu-button menu="main-menu"></ion-menu-button>
+        </ion-buttons>
+
+        <ion-title (click)="navigateHome()">MyKittyCafe</ion-title>
+
+        <!-- Buttons Section -->
+        <ion-buttons slot="end">
+          <!-- Display user-related buttons in the toolbar -->
+          <ion-label *ngIf="userType">
+            Hello, {{ userType }}
+          </ion-label>
+
+          <ion-button id="adminBoard" *ngIf="userType === 'employee' || userType === 'admin@gmail.com'"
+            (click)="navigateToAdmin()">
+            Admin Board
+          </ion-button>
+
+          <ion-button (click)="navigateToBooking()">
+            Book Appointment
+          </ion-button>
+
+          <ion-button id="viewButton" *ngIf="userType !== 'admin@gmail.com' && userType" (click)="navigateToViewAll()">
             View My Appointments
           </ion-button>
-        </div>
-        <div *ngIf="userType === 'employee' || userType === 'admin@gmail.com'">
-          <ion-button (click)="navigateToViewAll()">
+
+          <ion-button id="viewAllButton" *ngIf="userType === 'employee' || userType === 'admin@gmail.com'"
+            (click)="navigateToViewAll()">
             View Appointments
           </ion-button>
-        </div>
-        <div *ngIf="userType != ''">
-          <ion-button (click)="logout()">
+
+          <ion-button *ngIf="userType != ''" (click)="logout()">
             Log Out
           </ion-button>
-        </div>
-        <div *ngIf="userType === undefined || userType === ''">
-          <ion-button (click)="navigateToLogin()">
+
+          <ion-button *ngIf="userType === undefined || userType === ''" (click)="navigateToLogin()">
             Login
           </ion-button>
-        </div>
-        <!--<div *ngIf="userType === 'admin@gmail.com'">-->
-        <div *ngIf="userType === undefined || userType === '' || userType === 'admin@gmail.com'">
-          <ion-button (click)="navigateToRegister()">
+
+          <ion-button *ngIf="userType === undefined || userType === '' || userType === 'admin@gmail.com'"
+            (click)="navigateToRegister()">
             Register
           </ion-button>
-        </div>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+        </ion-buttons>
+
+      </ion-toolbar>
+    </ion-header>
+  </div>
   <ion-content>
-    <!-- Your other content goes here -->
     <ion-router-outlet></ion-router-outlet>
+    <!-- Footer Section -->
+    
   </ion-content>
 </ion-app>

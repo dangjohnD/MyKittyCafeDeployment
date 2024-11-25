@@ -1,0 +1,31 @@
+<ion-content class="ion-text-center">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Checkout</ion-card-title>
+    </ion-card-header>
+
+    <ion-button (click)="goBackToBooking()">
+      Back to Booking
+    </ion-button>
+    <ion-card-content>
+      <h2 class="summary-title">Appointment Summary</h2>
+      <p class="summary-info"><strong>Name:</strong> {{ appointmentInfo.firstName }} {{ appointmentInfo.lastName }}</p>
+      <p class="summary-info"><strong>Phone:</strong> {{ appointmentInfo.phone }}</p>
+      <p class="summary-info"><strong>Email:</strong> {{ appointmentInfo.email }}</p>
+      <p class="summary-info"><strong>Date:</strong> {{ formattedDateTime }} </p>
+      <p class="summary-info"><strong>Number of Persons:</strong> {{ appointmentInfo.persons }}</p>
+
+      <h3 class="total-price-title">Total Price:</h3>
+      <p class="summary-info"><strong>${{ (appointmentInfo.persons * 10).toFixed(2) }} CAD</strong></p>
+
+      <div style="display: block; margin: 0 auto; width:50%;">
+        <div id="paypal-button"></div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item class="ion-text-center">
+    <ion-label color="success"></ion-label>
+  </ion-item>
+  <app-footer></app-footer>
+</ion-content>

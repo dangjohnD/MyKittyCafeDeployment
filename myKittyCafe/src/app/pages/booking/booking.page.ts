@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { Appointment } from 'src/app/appointment';
 import { AppointmentService } from 'src/app/appointment.service';
 import { TimeSlot } from 'src/app/timeslot';
+import { apptLimit } from 'src/app/apptLimit';
+import { ApptLimitService } from 'src/app/appt-limit.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-booking',
@@ -26,12 +29,14 @@ export class BookingPage implements OnInit {
   lNameValid: boolean = true;
   dateValid: boolean = true;
   timeslotSelected: boolean = false;
+  daySelected: string = '';
 
   minDate: string;
   timeSlots: TimeSlot[] = [];
   showCalendarFlag: boolean = false;
 
-  constructor(private appService: AppointmentService, private router: Router) {
+  constructor(private appService: AppointmentService, private router: Router
+    ,private apptLimitService: ApptLimitService) {
     // Get the current date and time in UTC
     const dateNow = new Date();
     
@@ -44,6 +49,7 @@ export class BookingPage implements OnInit {
     // Set the minimum date for the component
     this.minDate = isoDateString;
 }
+
 
   ngOnInit() {}
 
@@ -60,13 +66,21 @@ export class BookingPage implements OnInit {
       )
     );
     this.addAppointment.date = utcSelectedDate.toISOString();
-
-    //get timeslots
-    this.appService
-      .getAllAppointments()
-      .subscribe((appointments: Appointment[]) => {
-        this.timeSlots = this.getTimeSlots(appointments);
-      });
+    
+    // Set the time to 00:00:00 for comparison purposes
+    utcSelectedDate.setUTCHours(0);
+    utcSelectedDate.setUTCMinutes(0);
+    utcSelectedDate.setUTCSeconds(0);
+    
+    this.daySelected = utcSelectedDate.toISOString();
+  
+    // Get timeslots for the selected date
+    this.appService.getAllAppointments().subscribe((appointments: Appointment[]) => {
+      this.timeSlots = this.getTimeSlots(appointments);
+  
+      // Fetch the updated limits for the new date and timeslots
+      this.fetchAllLimitsForTimeslots();
+    });
   }
 
   bookAppointment() {
@@ -89,17 +103,11 @@ export class BookingPage implements OnInit {
       Date: ${this.addAppointment.date}
     `;
 
-    this.appService.addAppointment(this.addAppointment).subscribe(
-      (response) => {
-        this.router.navigate(['/appt-info'], {
-          state: { state: this.addAppointment },
-        });
-        this.clear();
-      },
-      (error) => {
-        console.error('Error adding appointment:', error);
-      }
-    );
+    // Appointment info is right
+    this.router.navigate(['/appt-summary'], {
+      state: this.addAppointment,
+    });
+
   }
 
   validateEmail(email: string): boolean {
@@ -199,6 +207,7 @@ export class BookingPage implements OnInit {
         numAppt: 0,
         isSelected: false,
         aboveCapacity: false,
+        limit: 10
       });
     }
 
@@ -210,6 +219,7 @@ export class BookingPage implements OnInit {
         numAppt: 0,
         isSelected: false,
         aboveCapacity: false,
+        limit: 10
       });
     }
 
@@ -222,16 +232,18 @@ export class BookingPage implements OnInit {
       if (this.isSameDay(appointment.date, this.addAppointment.date)) {
         const appointmentDate = new Date(appointment.date);
 
-        // Add the appointment to the current timeslots
+        // Add the appointment to the current timeslots+4 for
         const hour = appointmentDate.getHours() + 4;
         const timeSlotIndex = hour - 9;
-        timeSlots[timeSlotIndex].numAppt += appointment.persons;
+        if (timeSlotIndex >= 0 && timeSlotIndex < timeSlots.length) {
+          timeSlots[timeSlotIndex].numAppt += appointment.persons;
+        }
       }
     });
 
     // indicate if timeslot does not have room
     timeSlots.forEach((timeslot) =>{
-      if (timeslot.numAppt + this.addAppointment.persons > 10){
+      if (timeslot.numAppt + this.addAppointment.persons > timeslot.limit){
         timeslot.aboveCapacity = true;
       }
     })
@@ -266,7 +278,7 @@ export class BookingPage implements OnInit {
     var enough = true;
     this.timeSlots.forEach((timeslot) => {
       if (timeStr == timeslot.time) {
-        enough = !(this.addAppointment.persons + timeslot.numAppt > 10);
+        enough = !(this.addAppointment.persons + timeslot.numAppt > timeslot.limit);
       }
     });
     return enough;
@@ -342,4 +354,46 @@ export class BookingPage implements OnInit {
   this.showCalendarFlag = false;
   this.timeSlots = [];
   }
+
+  fetchAllLimitsForTimeslots() {
+    const limitRequests = this.timeSlots.map((timeslot) => {
+      const time = this.convertTo24Hour(timeslot.time);
+      const dateTime = new Date(this.daySelected);
+      dateTime.setUTCHours(time);
+      const dateTimeString = dateTime.toISOString();
+      return this.apptLimitService.getApptLimitByDate(dateTimeString);
+    });
+
+    forkJoin(limitRequests).subscribe(
+      (limits: apptLimit[]) => {
+        limits.forEach((limit, index) => {
+          if (limit) {
+            this.timeSlots[index].limit = limit.limit;
+          }
+        });
+
+        // Check above capacity after fetching limits
+        this.timeSlots.forEach(timeslot => {
+          if (timeslot.numAppt + this.addAppointment.persons > timeslot.limit) {
+            timeslot.aboveCapacity = true;
+          }
+        });
+      },
+      (error: any) => {
+        console.error('Error fetching limits: ', error);
+      }
+    );
+  }
+
+  convertTo24Hour(timeString: string): number {
+    const [time, period] = timeString.split(' ');
+    let hour = parseInt(time);
+    if (period.toLowerCase() === 'pm' && hour !== 12) {
+      hour += 12;
+    } else if (period.toLowerCase() === 'am' && hour === 12) {
+      hour = 0;
+    }
+    return hour;
+  }
+
 }

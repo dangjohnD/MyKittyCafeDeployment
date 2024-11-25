@@ -5,5 +5,10 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    // Add environment variables here
+    env: {
+      baseUrlLocal: 'http://localhost:8100',
+      baseUrlProd: 'https://mykittycafe.azurewebsites.net',
+    },
   },
 });

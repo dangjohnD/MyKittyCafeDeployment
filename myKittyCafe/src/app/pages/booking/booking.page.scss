@@ -1,5 +1,27 @@
 /* General container styling */
 .container {
+    padding: 20px;
+    border-radius: 10px; 
+    border: 1px solid #ccc; 
+    margin: 20px;
+  }
+
+  .invalid-input {
+    color: red;
+    font-size: 80%; 
+  }
+
+  .selected-item {
+    background-color: #50fd9e; 
+    border: 2px solid #f4980f;
+    color: #e7910feb;
+  }
+
+  ion-item.over-capacity {
+    color: #555; 
+    text-decoration: line-through;
+  }
+
   margin: 20px; /* Reduced margin for better fit on mobile */
   border-radius: 12px; 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
@@ -60,6 +82,7 @@ ion-card-header {
   text-align: center; /* Center the card title */
   font-size: 1.2rem; /* Slightly larger font for readability */
 }
+
 
 ion-card-content {
   padding: 16px;

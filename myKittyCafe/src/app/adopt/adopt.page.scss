@@ -1,0 +1,40 @@
+.adoption-container {
+    padding: 16px;
+    max-width: 800px; /* Restrict maximum width */
+    margin: 0 auto; /* Center the content */
+    font-family: Arial, sans-serif;
+  }
+  
+  h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  ul {
+    margin-left: 20px;
+  }
+  
+  ul li {
+    margin-bottom: 5px;
+  }
+  
+  ion-button {
+    margin-top: 12px;
+  }
+  
+  p {
+    text-align: justify;
+    margin-bottom: 12px;
+  }
+  
+  hr {
+    margin-top: 20px;
+  }
+  
+  .small-image {
+    max-width: 60%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+  }
+  

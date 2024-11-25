@@ -1,5 +1,50 @@
 .info-container {
   padding: 16px;
+  background-color: #f9f9f9;
+
+  .logo-container {
+    text-align: center;
+    margin: 16px 0;
+
+    .logo {
+      max-width: 200px;
+      height: auto;
+    }
+  }
+
+  .info-text {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+
+    p {
+      margin: 0;
+      color: #333;
+    }
+
+    strong {
+      color: #007bff;
+      font-weight: bold;
+    }
+  }
+
+  .image-container {
+    text-align: center;
+    margin: 16px 0;
+
+    .info-image {
+      max-width: 30%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
   background-color: white;
   margin-top: 120px; /* Adjust for large header */
 

@@ -1,0 +1,83 @@
+.form-container {
+    background-color: #f9f9f9; /* Light grey background for the form */
+    padding: 20px; /* Padding around the form */
+    border-radius: 8px; /* Rounded corners for the form */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  }
+  
+  .kitty-info {
+    margin-bottom: 20px;
+    border: 1px solid #333; /* Dark border for kitty info */
+    padding: 10px; /* Padding inside the info box */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #fff; /* White background for contrast */
+  }
+  
+  .form-group {
+    margin-bottom: 16px; /* Spacing between form groups */
+  }
+  
+form{
+    padding:10px;
+    margin:10px;
+}
+
+  label {
+    display: block; /* Full line for labels */
+    margin-bottom: 4px; /* Space between label and input */
+    color: #333; /* Dark text color */
+    font-weight: bold; /* Bold labels */
+  }
+  
+  input, select, textarea {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding for inputs */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 4px; /* Rounded corners */
+    transition: border-color 0.3s; /* Smooth transition */
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    border-color: #ff8800; /* Orange border on focus */
+    outline: none; /* Remove default outline */
+  }
+  
+  .submit-button {
+    background-color: #ff8800; /* Orange background */
+    color: white; /* White text */
+    padding: 12px; /* Padding for button */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  .submit-button:hover {
+    background-color: #e57800; /* Darker orange on hover */
+  }
+  
+  .submit-button:disabled {
+    background-color: #ccc; /* Grey background when disabled */
+    cursor: not-allowed; /* Not-allowed cursor when disabled */
+  }
+
+  .delete-button {
+    background-color: #FF4B4B; /* Red */
+    color: white; /* White text */
+    padding: 12px; /* Padding for button */
+    margin: 5px;
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  .delete-button:hover {
+    background-color: #FF3333; /* Darker red on hover */
+  }
+  
+  .delete-button:active {
+    background-color: #CC0000; /* Even darker red on active click */
+  }

@@ -23,4 +23,13 @@ export class AppointmentService {
   getAppointmentsByEmails(email: String): Observable<Appointment[]>{
     return this.http.get<Appointment[]>(this.apiUrl + "/email/" + email);
   }
+
+  deleteAppointmentById(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+
+  deleteAppointmentByIdAdmin(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/admin/${id}`);
+  }
+  
 }

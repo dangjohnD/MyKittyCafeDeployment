@@ -1,27 +1,72 @@
-#container {
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-content {
+  display: flex;
+  align-items: center;
+}
+
+.right-content {
+  margin-left: auto; /* Pushes the disabled icon to the far right */
+}
+.disabled-icon {
+  color: #F2E14D; /* Change color to yellow */
+  font-size: 1.2rem; /* Increase size for better visibility */
+}
+
+.adoption-status {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.adoptable-icon {
+  color: #28a745; /* Green for adoptable */
+  font-size: 1.2em;
+  margin-right: 5px;
+}
+
+
+.status-text {
+  font-size: 0.9em;
+  color: #333;
+}
+
+.title-section {
   text-align: center;
-  padding: 10%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-bottom: 20px;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.title-section h2 {
+  font-size: 24px;
+  color: #333;
 }
 
-#container p {
+.title-section p {
   font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
 }
 
-#container a {
-  text-decoration: none;
+.kitty-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.kitty-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 1%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center
 }
