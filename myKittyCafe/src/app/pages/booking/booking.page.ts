@@ -233,8 +233,8 @@ export class BookingPage implements OnInit {
       if (this.isSameDay(appointment.date, this.addAppointment.date)) {
         const appointmentDate = new Date(appointment.date);
 
-        // Add the appointment to the current timeslots+4 for
-        const hour = appointmentDate.getHours() + 4;
+        // Add the appointment to the current timeslots+5 for
+        const hour = appointmentDate.getHours() + 5;
         const timeSlotIndex = hour - 9;
         if (timeSlotIndex >= 0 && timeSlotIndex < timeSlots.length) {
           timeSlots[timeSlotIndex].numAppt += appointment.persons;

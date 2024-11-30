@@ -83,7 +83,7 @@ export class ApptSummaryPage implements OnInit {
     this.appointmentInfo = this.router.getCurrentNavigation()?.extras.state;
     console.log(this.appointmentInfo);
     let inputDate = new Date(this.appointmentInfo.date);
-    inputDate.setUTCHours(inputDate.getUTCHours() + 4);
+    inputDate.setUTCHours(inputDate.getUTCHours() + 5);
 
     let formattedDate = inputDate.toLocaleDateString('en-US', {
       weekday: 'short',
