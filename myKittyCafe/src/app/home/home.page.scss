@@ -1,6 +1,5 @@
 .header-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -38,6 +37,8 @@
 .title-section {
   text-align: center;
   margin-bottom: 20px;
+  padding: 16px;
+  background-color: #f9f9f9;
 }
 
 .title-section h2 {
@@ -55,18 +56,54 @@
 
 .kitty-image {
   width: 100%;
-  height: 150px;
+  height: 200px; /* Increased height for a larger image display */
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 12px; /* Softer, rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effect */
+}
+
+ion-card {
+  border-radius: 16px; /* Softer edges for cards */
+  overflow: hidden; /* Ensure no content overflows the card */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* Add shadow to the card */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover animation */
+}
+
+ion-card:hover {
+  transform: translateY(-4px); /* Lift card slightly on hover */
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2); /* Add deeper shadow on hover */
+}
+
+ion-card-title {
+  font-size: 1.2rem; /* Slightly larger title */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
 }
 
 .kitty-section {
-  background-color: #ffffff;
+  background-color: white;
   border-radius: 12px;
   padding: 16px;
-  margin: 1%;
+  margin: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-size: 16px;
   line-height: 1.5;
   text-align: center
+}
+
+/* Button styling */
+ion-button {
+  --background: goldenrod; 
+  --color: white; 
+  font-weight: bold;
+  width: 100%; /* Full-width button for better touch accessibility */
+  margin-top: 16px; /* Spacing above the button */
+  border-radius: 8px;
+  padding: 12px 0;
+}
+
+ion-button:hover {
+  --background: darkgoldenrod; /* Slightly darker on hover */
 }

@@ -58,7 +58,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="6" size-sm="5" size-md="4" size-lg="3" style="max-width: 150px; height: auto;"
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3" style="max-width: 250px; height: auto;"
         *ngFor="let kitty of filteredKitties">
         <ion-card (click)="openKittyModal(kitty)" *ngIf="userType != 'admin@gmail.com'" style="cursor: pointer;">
           <img

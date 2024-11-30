@@ -12,8 +12,8 @@
 
   .selected-item {
     background-color: #50fd9e;
-    border: 2px solid #f4980f;
-    color: #e7910feb; 
+    border: 2px solid goldenrod;
+    color: goldenrod; 
   }
 
   ion-item.over-capacity {
@@ -45,8 +45,27 @@
     font-weight: bold;
   }
 
-  ion-button {
-    --background: gold;
-    --color: black;
-  }
-  
+  /* Button styling */
+ion-button {
+  --background: goldenrod; 
+  --color: white; 
+  font-weight: bold;
+  width: 100%; /* Full-width button for better touch accessibility */
+  margin-top: 16px; /* Spacing above the button */
+  border-radius: 8px;
+  padding: 12px 0;
+}
+
+ion-button:hover {
+  --background: darkgoldenrod; /* Slightly darker on hover */
+}
+
+ion-datetime {
+  --ion-color-primary: goldenrod; /* Change the primary color to goldenrod */
+  --ion-color-primary-contrast: white; /* Ensure the text color contrasts well */
+}
+
+ion-select-option{
+  --ion-color-primary: goldenrod; /* Change the primary color to goldenrod */
+  --ion-color-primary-contrast: white; /* Ensure the text color contrasts well */
+}
