@@ -44,3 +44,69 @@
     }
   }
 }
+
+  background-color: white;
+  margin-top: 120px; /* Adjust for large header */
+
+  .logo-container {
+      text-align: center;
+      margin: 16px 0;
+
+      .logo {
+          max-width: 150px; /* Reduce for smaller screens */
+          height: auto;
+      }
+  }
+
+  .info-text {
+      background-color: white;
+      border-radius: 12px;
+      padding: 12px; /* Slightly reduced padding */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-size: 14px; /* Smaller text for mobile */
+      line-height: 1.4;
+
+      p {
+          margin: 0;
+          color: #333;
+      }
+
+      strong {
+          color: goldenrod;
+          font-weight: bold;
+      }
+  }
+
+  .image-container {
+      text-align: center;
+      margin: 12px 0; /* Reduce margins for mobile */
+
+      .info-image {
+          max-width: 90%; /* Increase width for mobile */
+          height: auto;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+  }
+}
+
+/* Mobile-specific styles */
+@media only screen and (max-width: 600px) {
+  .info-container {
+      margin-top: 80px; /* Reduced for mobile */
+      padding: 12px; /* Less padding for mobile */
+  }
+
+  .info-text {
+      padding: 10px; /* Less padding for mobile */
+      font-size: 13px; /* Slightly smaller text */
+  }
+
+  .logo-container .logo {
+      max-width: 120px; /* Smaller logo for mobile */
+  }
+
+  .image-container .info-image {
+      max-width: 100%; /* Ensure full width on smaller screens */
+  }
+}
