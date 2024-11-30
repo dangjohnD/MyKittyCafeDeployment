@@ -6,6 +6,7 @@ import { TimeSlot } from 'src/app/timeslot';
 import { apptLimit } from 'src/app/apptLimit';
 import { ApptLimitService } from 'src/app/appt-limit.service';
 import { forkJoin } from 'rxjs';
+import { LimitedApp } from 'src/app/limitedApp';
 
 @Component({
   selector: 'app-booking',
@@ -75,7 +76,7 @@ export class BookingPage implements OnInit {
     this.daySelected = utcSelectedDate.toISOString();
   
     // Get timeslots for the selected date
-    this.appService.getAllAppointments().subscribe((appointments: Appointment[]) => {
+    this.appService.getAllLimitedApps().subscribe((appointments: LimitedApp[]) => {
       this.timeSlots = this.getTimeSlots(appointments);
   
       // Fetch the updated limits for the new date and timeslots
@@ -195,7 +196,7 @@ export class BookingPage implements OnInit {
     console.log(this.addAppointment.date)
   }
 
-  getTimeSlots(appointments: Appointment[]): TimeSlot[] {
+  getTimeSlots(appointments: LimitedApp[]): TimeSlot[] {
     this.timeSlots = [];
     // Initialize the time slots from 9am to 5pm with an initial count of 0 appointments
     const timeSlots: TimeSlot[] = [];

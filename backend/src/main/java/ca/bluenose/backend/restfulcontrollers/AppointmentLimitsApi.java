@@ -5,6 +5,7 @@ import ca.bluenose.backend.services.AppointmentLimitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ public class AppointmentLimitsApi {
     @Autowired
     private AppointmentLimitService apptLimitService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ApptLimit> addLimit(@RequestBody ApptLimit apptLimit) {
         ApptLimit createdLimit = apptLimitService.addLimit(apptLimit);

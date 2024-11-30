@@ -1,6 +1,7 @@
 package ca.bluenose.backend.restfulcontrollers;
 
 import ca.bluenose.backend.beans.Appointment;
+import ca.bluenose.backend.dtos.LimitedAppDto;
 import ca.bluenose.backend.exception.ErrorMessage;
 import ca.bluenose.backend.repository.AppointmentRepository;
 import ca.bluenose.backend.services.EmailService;
@@ -8,10 +9,12 @@ import ca.bluenose.backend.services.EmailTemplatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 // add values to config file and read the values after deployment
@@ -33,6 +36,7 @@ public class AppointmentApi {
 
     // grabs each current appointment in the database
     // if there are no appointments, HTTP STATUS NO CONTENT is given
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Appointment>> getAllAppointments(@RequestParam(required = false) String appt) {
         List<Appointment> appointments = new ArrayList<>();
@@ -46,6 +50,28 @@ public class AppointmentApi {
 
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
+
+    // User endpoint for limited appointment details
+    @GetMapping("/user")
+    public ResponseEntity<List<LimitedAppDto>> getLimitedAppointments() {
+        List<Appointment> appointments = appointmentRepository.findAll();
+
+        if (appointments.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        // Map Appointment to LimitedAppDto
+        List<LimitedAppDto> limitedAppointments = appointments.stream()
+                .map(appointment -> LimitedAppDto.builder()
+                        .id(appointment.getId())
+                        .persons(appointment.getPersons())
+                        .date(appointment.getDate())
+                        .build())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(limitedAppointments);
+    }
+
 
     @GetMapping("email/{email}")
     public ResponseEntity<List<Appointment>> getAppointmentsByEmail(@PathVariable("email") String email) {
@@ -111,6 +137,7 @@ public class AppointmentApi {
     }
 
     // delete appt based on ID value
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/admin/{id}")
     public ResponseEntity<?> deleteAppointmentAdmin(@PathVariable("id") long id) {
         if (appointmentRepository.findById(id).isPresent()) {

@@ -1,30 +1,46 @@
+
 package ca.bluenose.backend.restfulcontrollers;
 
+import java.sql.Date;
+import java.util.Base64;
+import java.util.Collections;
 import java.util.Optional;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 import ca.bluenose.backend.beans.User;
+import ca.bluenose.backend.config.UserAuthenticationProvider;
 import ca.bluenose.backend.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
 import ca.bluenose.backend.dtos.UserDto;
 
 @RestController
+@RequiredArgsConstructor
 @CrossOrigin(origins = { "http://localhost:8100", "https://mykittycafe.azurewebsites.net" })
 public class AuthController {
 
-    @Value("${security.jwt.token.secret-key:secret-key}")
-    private String secretKey;
+    private final UserAuthenticationProvider userAuthProvider;
 
     @Autowired
     private UserRepository userRepository;
@@ -39,6 +55,7 @@ public class AuthController {
     @Autowired
     @Lazy
     private BCryptPasswordEncoder passwordEncoder;
+
 
     @PostMapping("/api/users")
     public ResponseEntity<String> createUser(@RequestBody UserDto userDto) {
@@ -76,14 +93,17 @@ public class AuthController {
         // Find the user by username in the database
         Optional<User> optionalUser = userRepository.findByUsername(username);
 
+
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
 
             // Compare the passwords
             if (passwordEncoder.matches(password, user.getPassword())) {
                 // Passwords match, generate JWT token and return it
-                String token = generateJwtToken(username);
-                return new ResponseEntity<>("{\"message\": \"success\"}", HttpStatus.OK);
+                String tokenJWT = userAuthProvider.createToken(user);
+                String responseBody = String.format("{\"message\": \"success\", \"token\": \"%s\"}", tokenJWT);
+
+                return new ResponseEntity<>(responseBody, HttpStatus.OK);
             }
         }
 
