@@ -3,6 +3,7 @@ package ca.bluenose.backend.restfulcontrollers;
 import ca.bluenose.backend.beans.Cat;
 import ca.bluenose.backend.repository.CatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class CatController {
         this.catRepository = catRepository;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     // Add a new cat
     @PostMapping
     public Cat addCat(@RequestBody Cat cat) {
@@ -26,6 +28,7 @@ public class CatController {
     }
 
     // Update an existing cat
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public Cat updateCat(@PathVariable Long id, @RequestBody Cat catDetails) {
         return catRepository.findById(id).map(cat -> {
@@ -41,6 +44,7 @@ public class CatController {
         }).orElseThrow(() -> new RuntimeException("Cat not found with id " + id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     // Delete cat by ID
     @DeleteMapping("/{id}")
     public void deleteCat(@PathVariable Long id) {

@@ -107,6 +107,10 @@ export class ViewallPage implements OnInit {
         this.appointments = appointments;
         console.log(this.appointments);
         // If there are appointments, show them
+        if (this.appointments == null){
+          this.noAppointments = true;
+          return;
+        }
         if (appointments.length > 0){
           this.filteredAppointments = appointments;
         }
@@ -156,6 +160,7 @@ export class ViewallPage implements OnInit {
       async response => {
         console.log('Deletion successful:', response);
         await this.presentToast();
+        this.loadUserAppointments();
       },
       error => {
         console.error('Deletion failed:', error);

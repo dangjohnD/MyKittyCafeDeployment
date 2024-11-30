@@ -28,6 +28,7 @@
     "@capacitor/status-bar": "5.0.7",
     "@ionic/angular": "^7.0.0",
     "ionicons": "^7.0.0",
+    "jwt-decode": "^4.0.0",
     "myKittyCafe": "file:",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
