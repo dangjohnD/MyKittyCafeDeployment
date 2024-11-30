@@ -1,0 +1,14 @@
+/* Button styling */
+ion-button {
+    --background: goldenrod; 
+    --color: white; 
+    font-weight: bold;
+    width: 100%; /* Full-width button for better touch accessibility */
+    margin-top: 16px; /* Spacing above the button */
+    border-radius: 8px;
+    padding: 12px 0;
+  }
+  
+  ion-button:hover {
+    --background: darkgoldenrod; /* Slightly darker on hover */
+  }

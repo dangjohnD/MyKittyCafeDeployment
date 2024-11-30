@@ -41,15 +41,16 @@
 /* Button styling */
 ion-button {
   --background: goldenrod; 
-  --color: #333; 
+  --color: white; 
+  font-weight: bold;
+  width: 100%; /* Full-width button for better touch accessibility */
+  margin-top: 16px; /* Spacing above the button */
   border-radius: 8px;
-  padding: 12px;
-  font-size: 1rem; /* Font size adjustment for readability */
-  margin-top: 16px;
+  padding: 12px 0;
 }
 
-button:hover {
-  background-color: darkgoldenrod; /* Slightly darker on hover */
+ion-button:hover {
+  --background: darkgoldenrod; /* Slightly darker on hover */
 }
 
 /* Mobile-specific adjustments */

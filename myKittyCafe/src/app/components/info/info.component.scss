@@ -13,7 +13,7 @@
   }
 
   .info-text {
-    background-color: #ffffff;
+    background-color: white;
     border-radius: 12px;
     padding: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -27,7 +27,7 @@
     }
 
     strong {
-      color: #007bff;
+      color: goldenrod;
       font-weight: bold;
     }
   }
@@ -37,16 +37,13 @@
     margin: 16px 0;
 
     .info-image {
-      max-width: 30%;
+      max-width: 100%; /* Increase width for desktop */
       height: auto;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
   }
 }
-
-  background-color: white;
-  margin-top: 120px; /* Adjust for large header */
 
   .logo-container {
       text-align: center;
@@ -88,7 +85,6 @@
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
   }
-}
 
 /* Mobile-specific styles */
 @media only screen and (max-width: 600px) {
