@@ -10,8 +10,8 @@ import { AuthService } from './auth.service';
 })
 export class AppointmentService {
 
-  public apiUrl = 'http://localhost:8080/api/appointments'
-  //public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/appointments';
+  //public apiUrl = 'http://localhost:8080/api/appointments'
+  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/appointments';
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   addAppointment(appointment: Appointment): Observable<any> {

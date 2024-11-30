@@ -11,8 +11,8 @@ export class AuthService {
   private readonly TOKEN_KEY = 'authToken';
   public username!: string;
   public password!: string;
-  public apiUrl = 'http://localhost:8080/api';
-  //public apiUrl = 'https://mykittycafeback.azurewebsites.net/api';
+  //public apiUrl = 'http://localhost:8080/api';
+  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api';
   message = new BehaviorSubject<any>('');
   asObserver = this.message.asObservable();
 

@@ -11,8 +11,8 @@ export class CatService {
 
   private blobBaseUrl = 'https://publicstoragemkc.blob.core.windows.net/demoblob/';
   private sasToken = 'sv=2022-11-02&ss=bfqt&srt=co&sp=rwdlacupiytfx&se=2025-05-01T08:51:18Z&st=2024-10-31T00:51:18Z&spr=https,http&sig=G%2F3EyjsnSrrNfKhFOAxnDEw7WGQ8J4EgWmFqK6PYjPk%3D';
-  //public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/cats'
-  public apiUrl = 'http://localhost:8080/api/cats'
+  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/cats'
+  //public apiUrl = 'http://localhost:8080/api/cats'
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

@@ -8,8 +8,8 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class ApptLimitService {
-  public apiUrl = 'http://localhost:8080/api/limit'
-  //public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/limit';
+  //public apiUrl = 'http://localhost:8080/api/limit'
+  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/limit';
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   addAppointmentLimit(apptLimit: apptLimit): Observable<any> {
