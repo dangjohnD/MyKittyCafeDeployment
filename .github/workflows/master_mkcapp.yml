@@ -22,14 +22,14 @@ jobs:
         run: |
           cd myKittyCafe
           npm install
-          npm install -g @ionic/cli # Ensure Ionic CLI is available
-          ionic build --prod # Build the Ionic app in production mode
+          npm install -g @ionic/cli
+          ionic build --prod
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: ionic-app
-          path: myKittyCafe/www # Path to the built app's `www` folder
+          path: myKittyCafe/www
 
   deploy:
     runs-on: ubuntu-latest
@@ -59,4 +59,4 @@ jobs:
         with:
           app-name: 'mkcapp'
           slot-name: 'Production'
-          package: myKittyCafe/www # Path to the built app's output
+          package: ./www
