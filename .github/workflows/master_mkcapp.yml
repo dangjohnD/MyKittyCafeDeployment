@@ -58,9 +58,11 @@ jobs:
       # Prepare deployment files (move contents of the correct directory)
       - name: Extract and prepare deployment files
         run: |
-          # Ensure the www directory is prepared
+          # Create www directory if it doesn't exist
           mkdir -p www
-          mv ionic-app/* ./www  # Adjusted path to the downloaded artifact
+          
+          # Move the downloaded files into the www directory
+          mv * ./www  # Move all files (and folders) to the www folder
 
       # Login to Azure
       - name: Login to Azure
