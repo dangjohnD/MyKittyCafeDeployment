@@ -44,7 +44,17 @@ jobs:
       id-token: write
 
     steps:
-      # Download the built artifact from the build job
+      # Create www directory first
+      - name: Create www directory
+        run: |
+          mkdir -p www
+
+      # cd into the www directory
+      - name: Change into www directory
+        run: |
+          cd www
+
+      # Download the artifact from the build job
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
@@ -55,14 +65,10 @@ jobs:
         run: |
           ls -R  # This will help verify the artifact structure in the current directory
 
-      # Prepare deployment files (move contents of the correct directory)
-      - name: Extract and prepare deployment files
+      # cd out of the www directory
+      - name: cd out of www directory
         run: |
-          # Create www directory if it doesn't exist
-          mkdir -p www
-          
-          # Move files from the downloaded folder into the www directory, excluding the www directory itself
-          mv !./www/* ./www  # Move all files and folders except the www folder
+          cd ..
 
       # Login to Azure
       - name: Login to Azure
