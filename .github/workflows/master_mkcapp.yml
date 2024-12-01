@@ -61,8 +61,8 @@ jobs:
           # Create www directory if it doesn't exist
           mkdir -p www
           
-          # Move the downloaded files into the www directory
-          mv * ./www  # Move all files (and folders) to the www folder
+          # Move files from the downloaded folder into the www directory, excluding the www directory itself
+          mv !./www/* ./www  # Move all files and folders except the www folder
 
       # Login to Azure
       - name: Login to Azure
