@@ -53,14 +53,14 @@ jobs:
       # List downloaded files for debugging purposes
       - name: List downloaded files
         run: |
-          ls -R ./ionic-app  # This will help verify the artifact structure
+          ls -R  # This will help verify the artifact structure in the current directory
 
       # Prepare deployment files (move contents of the correct directory)
       - name: Extract and prepare deployment files
         run: |
           # Ensure the www directory is prepared
           mkdir -p www
-          mv ionic-app/myKittyCafe/www/* ./www
+          mv ionic-app/* ./www  # Adjusted path to the downloaded artifact
 
       # Login to Azure
       - name: Login to Azure
