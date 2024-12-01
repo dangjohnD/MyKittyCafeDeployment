@@ -1,0 +1,145 @@
+.container {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin: 20px;
+}
+
+.invalid-input {
+  color: red;
+  font-size: 0.85rem; /* Slightly larger for readability */
+  margin-top: 4px;
+  padding-left: 8px;
+}
+
+.selected-item {
+  background-color: goldenrod; 
+  border: 2px solid goldenrod; 
+  color: #333; 
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+ion-item.over-capacity {
+  color: #333; 
+  text-decoration: line-through;
+  opacity: 0.6; /* Slight opacity to indicate unavailability */
+}
+
+div {
+  margin: 20px; /* Reduced margin for better fit */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: white;
+}
+
+/* Header and toolbar styling */
+ion-header {
+  --ion-background-color: #333;
+}
+
+ion-toolbar {
+  --ion-color-base: goldenrod;
+}
+
+ion-title {
+  color: white;
+  font-size: 1.4rem; /* Slightly larger title font */
+  text-transform: capitalize; /* Capitalize the first letter */
+}
+
+/* Card styling */
+ion-card {
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: white;
+}
+
+ion-card-header {
+  background-color: goldenrod;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.2rem; /* Slightly larger font for readability */
+}
+
+ion-card-content {
+  padding: 16px;
+  font-size: 1rem; /* Standard font size */
+}
+
+/* Button styling */
+ion-button {
+  --background: goldenrod;
+  --color: white;
+  font-weight: bold;
+  width: 100%; /* Full-width button for better touch accessibility */
+  margin-top: 16px; /* Spacing above the button */
+  border-radius: 8px;
+  padding: 12px 0;
+}
+
+ion-button:hover {
+  --background: darkgoldenrod; /* Slightly darker on hover */
+}
+
+/* Form input styling */
+ion-item {
+  --highlight-color-focused: goldenrod; /* Highlight input borders with gold when focused */
+  --background: white;
+  border-radius: 8px;
+  margin-bottom: 16px; /* Spacing between input fields */
+}
+
+p {
+  text-decoration: underline;
+  text-align: center;
+}
+
+ion-datetime {
+  --ion-color-primary: goldenrod;
+  --ion-color-primary-contrast: white;
+}
+
+/* Mobile-specific adjustments */
+@media only screen and (max-width: 600px) {
+  .container {
+    margin: 12px;
+    padding: 12px;
+  }
+
+  ion-card-header {
+    font-size: 1rem; /* Adjust card header size for mobile */
+  }
+
+  ion-title {
+    font-size: 1.2rem; /* Adjust title size for mobile */
+  }
+
+  ion-button {
+    font-size: 0.9rem; /* Adjust button text size for smaller screens */
+  }
+
+  ion-item {
+    margin-bottom: 12px; /* Reduce space between input fields */
+  }
+
+  .invalid-input {
+    font-size: 0.8rem; /* Smaller text for mobile */
+  }
+
+  ion-grid ion-row {
+    flex-direction: column; /* Stack columns vertically */
+    gap: 12px; /* Add spacing between the elements */
+  }
+
+  ion-col {
+    flex: 1 1 auto; /* Ensure columns take full width */
+  }
+
+  ion-datetime,
+  ion-list {
+    width: 100%; /* Ensure elements are full-width */
+  }
+}

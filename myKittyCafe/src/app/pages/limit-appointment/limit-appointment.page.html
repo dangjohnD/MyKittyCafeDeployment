@@ -1,0 +1,51 @@
+<ion-content [fullscreen]="true">
+  <p>Please select a date and timeslot</p>
+  <div *ngIf="showCalendarFlag">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-datetime presentation="date" (ionChange)="dateChanged($event)" min="{{minDate}}"></ion-datetime>
+        </ion-col>
+        <ion-col size="6">
+          <ion-list>
+            <ion-item *ngFor="let iTimeSlot of timeSlots" (click)="selectTimeSlot(iTimeSlot)"
+            [ngClass]="{ 'selected-item': iTimeSlot.isSelected, 'over-capacity': iTimeSlot.aboveCapacity }">
+              <ion-label>{{ iTimeSlot.time }}</ion-label>
+              <ion-label slot="end">{{ iTimeSlot.numAppt }}/{{ iTimeSlot.limit }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-item class="invalid-input" *ngIf="!dateValid">
+      <ion-text>
+        Please Select a Date.
+      </ion-text>
+    </ion-item>
+    <ion-item class="invalid-input" *ngIf="!timeslotSelected">
+      <ion-text>
+        Please select a timeslot
+      </ion-text>
+    </ion-item>
+  </div>
+
+  <!-- flag for timeslot picked-->
+  <div>
+    <ion-item>
+      <ion-label>Select Limit</ion-label>
+      <ion-select [(ngModel)]="selectedLimit" placeholder="Choose a limit">
+        <ion-select-option *ngFor="let num of [0,1,2,3,4,5,6,7,8,9,10]" [value]="num">
+          {{ num }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button (click)="addLimit()" slot="end">
+      Add Limit
+    </ion-button>
+    <div *ngIf="invalidLimit" class="invalid-input">
+      Limit cannot be lower than amount of people already booked!
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

@@ -1,15 +1,55 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>booking</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">booking</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <p>Please select a number of persons</p>
+
+  <div class="container">
+    <ion-item>
+      <ion-label position="floating">Number of Persons</ion-label>
+      <ion-input type="number" min="1" max="10" [(ngModel)]="addAppointment.persons" name="persons"
+        (ionChange)="showCalendar($event)" required></ion-input>
+    </ion-item>
+    <ion-item class="invalid-input" *ngIf="!numValid">
+      <ion-text>
+        Please enter number of persons between 1 and 10
+      </ion-text>
+    </ion-item>
+  </div>
+
+  <p>Please select a date and timeslot</p>
+  <div *ngIf="showCalendarFlag">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6">
+          <ion-datetime presentation="date" (ionChange)="dateChanged($event)" min="{{minDate}}"></ion-datetime>
+        </ion-col>
+        <ion-col size="12" size-md="6">
+          <ion-list>
+            <ion-item *ngFor="let iTimeSlot of timeSlots" (click)="changeAppointmentTime(iTimeSlot.time)"
+              [ngClass]="{ 'selected-item': iTimeSlot.isSelected, 'over-capacity': iTimeSlot.aboveCapacity }">
+              <ion-label>{{ iTimeSlot.time }}</ion-label>
+              <ion-label slot="end">{{ iTimeSlot.numAppt }}/{{ iTimeSlot.limit }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>    
+    <ion-item class="invalid-input" *ngIf="!dateValid">
+      <ion-text>
+        Please Select a Date.
+      </ion-text>
+    </ion-item>
+    <ion-item class="invalid-input" *ngIf="!timeslotSelected">
+      <ion-text>
+        Please select a timeslot
+      </ion-text>
+    </ion-item>
+  </div>
+
   <ion-card>
     <ion-card-header>
       Appointment Details
@@ -17,37 +57,46 @@
     <ion-card-content>
       <form>
         <ion-item>
-          <ion-label position="floating">First Name</ion-label>
-          <ion-input type="text" [(ngModel)]="addAppointment.firstName"
-            name="firstName"></ion-input>
+          <ion-label position="floating" required>First Name</ion-label>
+          <ion-input type="text" [(ngModel)]="addAppointment.firstName" name="firstName"></ion-input>
+        </ion-item>
+        <ion-item class="invalid-input" *ngIf="!fNameValid">
+          <ion-text>
+            Please enter a First Name
+          </ion-text>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Last Name</ion-label>
-          <ion-input type="text" [(ngModel)]="addAppointment.lastName"
-            name="lastName"></ion-input>
+          <ion-label position="floating" required>Last Name</ion-label>
+          <ion-input type="text" [(ngModel)]="addAppointment.lastName" name="lastName"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="floating">Number of Persons</ion-label>
-          <ion-input type="number" [(ngModel)]="addAppointment.persons"
-            name="persons"></ion-input>
+        <ion-item class="invalid-input" *ngIf="!lNameValid">
+          <ion-text>
+            Please enter a Last Name
+          </ion-text>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Phone</ion-label>
-          <ion-input type="tel" [(ngModel)]="addAppointment.phone"
-            name="phone"></ion-input>
+          <ion-input type="tel" [(ngModel)]="addAppointment.phone" name="phone" (ngModelChange)="formatPhoneNumber()"
+            required></ion-input>
+        </ion-item>
+        <ion-item class="invalid-input" *ngIf="!phoneValid">
+          <ion-text>
+            Please enter a valid Phone.
+          </ion-text>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" [(ngModel)]="addAppointment.email"
-            name="email"></ion-input>
+          <ion-input type="email" [(ngModel)]="addAppointment.email" name="email" (ngModelChange)="onEmailChange()"
+            required></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="floating">Date</ion-label>
-          <ion-input type="date" [(ngModel)]="addAppointment.date"
-            name="date"></ion-input>
+        <ion-item class="invalid-input" *ngIf="!emailValid">
+          <ion-text>
+            Please enter a valid email address.
+          </ion-text>
         </ion-item>
-        <ion-button (click)="demo()">Book Appointment</ion-button>
+        <ion-button (click)="bookAppointment()">Next</ion-button>
       </form>
     </ion-card-content>
   </ion-card>
+  <app-footer></app-footer>
 </ion-content>

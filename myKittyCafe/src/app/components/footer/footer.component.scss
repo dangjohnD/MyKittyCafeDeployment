@@ -1,0 +1,32 @@
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #222428; /* Footer background color */
+    color: white; /* Text color */
+    padding: 20px;
+  }
+  
+  .footer-main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .footer-buttons ion-button {
+    margin: 5px 0; /* Add spacing between buttons */
+  }
+  
+  .footer-social {
+    text-align: right; /* Align text/icons to the right */
+  }
+  
+  .footer-social h4 {
+    margin-bottom: 10px; 
+  }
+  
+  .footer-social ion-icon {
+    margin: 0 5px;
+    font-size: 20px;
+  }
+  

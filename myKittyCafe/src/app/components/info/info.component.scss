@@ -1,0 +1,74 @@
+.info-container {
+  padding: 16px;
+  background-color: #f9f9f9;
+
+  .logo-container {
+    text-align: center;
+    margin: 16px 0;
+
+    .logo {
+      max-width: 200px; /* Use larger logo for desktop */
+      height: auto;
+    }
+  }
+
+  .info-text {
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+
+    p {
+      margin: 0;
+      color: #333;
+    }
+
+    strong {
+      color: goldenrod;
+      font-weight: bold;
+    }
+  }
+
+  .image-container {
+    text-align: center;
+    margin: 16px 0;
+
+    .info-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+/* Mobile-specific styles */
+@media only screen and (max-width: 600px) {
+  .info-container {
+    margin-top: 80px;
+    padding: 12px; /* Reduced padding for mobile */
+  }
+
+  .logo-container {
+    .logo {
+      max-width: 120px; /* Smaller logo for mobile */
+    }
+  }
+
+  .info-text {
+    padding: 10px;
+    font-size: 13px; /* Smaller text for mobile */
+    line-height: 1.4;
+  }
+
+  .image-container {
+    margin: 12px 0;
+
+    .info-image {
+      max-width: 90%; /* Slightly narrower for mobile */
+    }
+  }
+}

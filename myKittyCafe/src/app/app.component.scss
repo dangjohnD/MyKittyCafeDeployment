@@ -1,0 +1,57 @@
+.custom-header {
+  --ion-color-base: black; /* Background color */
+  --ion-color-contrast: white; /* Text color */
+}
+
+.new-background-color {
+  --background: black;
+  color: white;
+}
+
+/* Mobile-friendly adjustments */
+@media only screen and (max-width: 600px) {
+  ion-title {
+      font-size: 18px; /* Smaller title text for mobile */
+  }
+
+  .new-background-color{
+    --background: #000000;
+    color: #ffffff;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Higher than ion-content */
+  top: 40px; /* Adjust this to your dropdown height */
+  right: 0; /* Align the dropdown to the right side of the button */
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+ion-content {
+  z-index: 0; /* Ensure it stays behind the dropdown */
+  position: relative;
+}
+
+  ion-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Stack buttons vertically */
+      padding: 5px;
+  }
+
+  ion-button {
+      margin-bottom: 5px; /* Space between buttons */
+      font-size: 14px; /* Smaller button text on mobile */
+  }
+
+  ion-label {
+      font-size: 14px; /* Smaller text for the label */
+  }
+}

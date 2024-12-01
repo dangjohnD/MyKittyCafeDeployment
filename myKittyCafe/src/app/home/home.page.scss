@@ -1,27 +1,109 @@
-#container {
+.header-content {
+  display: flex;
+  align-items: center;
+}
+
+.left-content {
+  display: flex;
+  align-items: center;
+}
+
+.right-content {
+  margin-left: auto; /* Pushes the disabled icon to the far right */
+}
+.disabled-icon {
+  color: #F2E14D; /* Change color to yellow */
+  font-size: 1.2rem; /* Increase size for better visibility */
+}
+
+.adoption-status {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.adoptable-icon {
+  color: #28a745; /* Green for adoptable */
+  font-size: 1.2em;
+  margin-right: 5px;
+}
+
+
+.status-text {
+  font-size: 0.9em;
+  color: #333;
+}
+
+.title-section {
   text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: #f9f9f9;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.title-section h2 {
+  font-size: 24px;
+  color: #333;
 }
 
-#container p {
+.title-section p {
   font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
 }
 
-#container a {
-  text-decoration: none;
+.kitty-image {
+  width: 100%;
+  height: 200px; /* Increased height for a larger image display */
+  object-fit: cover;
+  border-radius: 12px; /* Softer, rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effect */
+}
+
+ion-card {
+  border-radius: 16px; /* Softer edges for cards */
+  overflow: hidden; /* Ensure no content overflows the card */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* Add shadow to the card */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover animation */
+}
+
+ion-card:hover {
+  transform: translateY(-4px); /* Lift card slightly on hover */
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2); /* Add deeper shadow on hover */
+}
+
+ion-card-title {
+  font-size: 1.2rem; /* Slightly larger title */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.kitty-section {
+  background-color: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center
+}
+
+/* Button styling */
+ion-button {
+  --background: goldenrod; 
+  --color: white; 
+  font-weight: bold;
+  width: 100%; /* Full-width button for better touch accessibility */
+  margin-top: 16px; /* Spacing above the button */
+  border-radius: 8px;
+  padding: 12px 0;
+}
+
+ion-button:hover {
+  --background: darkgoldenrod; /* Slightly darker on hover */
 }

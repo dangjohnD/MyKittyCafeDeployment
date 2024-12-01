@@ -14,9 +14,46 @@ const routes: Routes = [
   {
     path: 'booking',
     loadChildren: () => import('./pages/booking/booking.module').then( m => m.BookingPageModule)
-  },  {
+  },
+  {
     path: 'viewall',
     loadChildren: () => import('./pages/viewall/viewall.module').then( m => m.ViewallPageModule)
+  },
+  {
+    path: 'appt-info',
+    loadChildren: () => import('./pages/appt-info/appt-info.module').then( m => m.ApptInfoPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'appt-summary',
+    loadChildren: () => import('./pages/appt-summary/appt-summary.module').then( m => m.ApptSummaryPageModule)
+  },
+  {
+    path: 'admin-board',
+    loadChildren: () => import('./pages/admin-board/admin-board.module').then( m => m.AdminBoardPageModule)
+  },
+  {
+    path: 'limit-appointment',
+    loadChildren: () => import('./pages/limit-appointment/limit-appointment.module').then( m => m.LimitAppointmentPageModule)
+  },
+  {
+    path: 'refund-policy',
+    loadChildren: () => import('./pages/refund-policy/refund-policy.module').then( m => m.RefundPolicyPageModule)
+  },
+  {
+    path: 'menu',
+    loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
+  },
+  {
+    path: 'adopt',
+    loadChildren: () => import('./adopt/adopt.module').then( m => m.AdoptPageModule)
   },
 
 ];

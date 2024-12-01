@@ -1,0 +1,71 @@
+.container {
+    padding: 20px; 
+    border-radius: 10px; 
+    border: 1px solid #ccc; 
+    margin: 20px;
+  }
+
+  .invalid-input {
+    color: red;
+    font-size: 80%;
+  }
+
+  .selected-item {
+    background-color: #50fd9e;
+    border: 2px solid goldenrod;
+    color: goldenrod; 
+  }
+
+  ion-item.over-capacity {
+    color: #555; 
+    text-decoration: line-through;
+  }
+
+  ion-header {
+    --ion-background-color: black;
+  }
+  
+  ion-toolbar {
+    --ion-color-base: gold;
+  }
+  
+  ion-title {
+    color: white;
+  }
+  
+  .container ion-item {
+    --ion-color-base: white;
+    --ion-color-base-rgb: 255, 255, 255;
+  }
+  
+
+  ion-card-header{
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+  }
+
+  /* Button styling */
+ion-button {
+  --background: goldenrod; 
+  --color: white; 
+  font-weight: bold;
+  width: 100%; /* Full-width button for better touch accessibility */
+  margin-top: 16px; /* Spacing above the button */
+  border-radius: 8px;
+  padding: 12px 0;
+}
+
+ion-button:hover {
+  --background: darkgoldenrod; /* Slightly darker on hover */
+}
+
+ion-datetime {
+  --ion-color-primary: goldenrod; /* Change the primary color to goldenrod */
+  --ion-color-primary-contrast: white; /* Ensure the text color contrasts well */
+}
+
+ion-select-option{
+  --ion-color-primary: goldenrod; /* Change the primary color to goldenrod */
+  --ion-color-primary-contrast: white; /* Ensure the text color contrasts well */
+}

@@ -28,6 +28,8 @@
     "@capacitor/status-bar": "5.0.7",
     "@ionic/angular": "^7.0.0",
     "ionicons": "^7.0.0",
+    "jwt-decode": "^4.0.0",
+    "myKittyCafe": "file:",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
@@ -47,6 +49,7 @@
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "cypress": "^13.7.0",
     "eslint": "^7.26.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",

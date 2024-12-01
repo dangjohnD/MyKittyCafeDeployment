@@ -1,0 +1,40 @@
+<ion-content [fullscreen]="true">
+
+<ion-card class="login-card">
+  <ion-card-content>
+    <ion-card-title>Login</ion-card-title>
+    <form>
+      <ion-item>
+        <ion-label position="floating">Username/Email</ion-label>
+        <ion-input type="text" [(ngModel)]="username" name="username" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+      </ion-item>
+      <br>
+      <ion-button expand="block" (click)="handleLogin()">Log In</ion-button>
+    </form>
+  </ion-card-content>
+</ion-card>
+
+<ion-card class="error-card" *ngIf="missingCredentials">
+  <ion-card-content>
+    <ion-card-title>Error</ion-card-title>
+    <p>Please Enter Username and Password!</p>
+  </ion-card-content>
+</ion-card>
+
+<ion-card class="error-card" *ngIf="wrongCredentials">
+  <ion-card-content>
+    <ion-card-title>Error</ion-card-title>
+    <p>Username or Password Incorrect!</p>
+  </ion-card-content>
+</ion-card>
+
+
+<br><br><br><br><br><br><br><br><br><br>
+
+<app-footer></app-footer>
+</ion-content>

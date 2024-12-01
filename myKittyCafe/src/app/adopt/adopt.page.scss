@@ -1,0 +1,51 @@
+.adoption-container {
+    padding: 16px;
+    max-width: 800px; /* Restrict maximum width */
+    margin: 0 auto; /* Center the content */
+    font-family: Arial, sans-serif;
+  }
+  
+  h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  ul {
+    margin-left: 20px;
+  }
+  
+  ul li {
+    margin-bottom: 5px;
+  }
+  
+  /* Button styling */
+ion-button {
+  --background: goldenrod; 
+  --color: white; 
+  font-weight: bold;
+  width: 100%; /* Full-width button for better touch accessibility */
+  margin-top: 16px; /* Spacing above the button */
+  border-radius: 8px;
+  padding: 12px 0;
+}
+
+ion-button:hover {
+  --background: darkgoldenrod; /* Slightly darker on hover */
+}
+  
+  p {
+    text-align: justify;
+    margin-bottom: 12px;
+  }
+  
+  hr {
+    margin-top: 20px;
+  }
+  
+  .small-image {
+    max-width: 60%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+  }
+  

@@ -1,0 +1,67 @@
+ion-content {
+    --background: #fff;
+  }
+  
+  .menu-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 16px;
+    text-align: left;
+  }
+  
+  .menu-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 16px 0;
+  }
+  
+  hr {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin: 16px 0;
+  }
+  
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px 0;
+  }
+  
+  .menu-name {
+    font-size: 1.25rem; 
+    font-weight: bold;
+  }
+  
+  .menu-size {
+    font-size: 1rem; 
+    color: #555;
+  }
+  
+  .menu-price {
+    font-size: 1.25rem; 
+    font-weight: bold;
+    color: #000;
+  }
+  
+  /* Button styling */
+ion-button {
+  --background: goldenrod; 
+  --color: white; 
+  font-weight: bold;
+  width: 100%; /* Full-width button for better touch accessibility */
+  margin-top: 16px; /* Spacing above the button */
+  border-radius: 8px;
+  padding: 12px 0;
+}
+
+ion-button:hover {
+  --background: darkgoldenrod; /* Slightly darker on hover */
+}
