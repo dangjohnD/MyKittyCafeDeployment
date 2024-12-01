@@ -46,6 +46,9 @@ jobs:
         with:
           name: ionic-app
 
+      - name: List downloaded files for debugging
+        run: ls -R
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -53,10 +56,10 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2AA3C988D5B2476CB304689E19F3EA9E }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3A190F2010EC40AFA9CED637898310A3 }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
           app-name: 'mkcapp'
           slot-name: 'Production'
-          package: ./www
+          package: ionic-app/www
