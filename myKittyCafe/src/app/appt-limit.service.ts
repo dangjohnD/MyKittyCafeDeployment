@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { apptLimit } from './apptLimit';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApptLimitService {
   //public apiUrl = 'http://localhost:8080/api/limit'
-  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/limit';
+  public apiUrl = environment.apiUrl + '/limit';
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   addAppointmentLimit(apptLimit: apptLimit): Observable<any> {

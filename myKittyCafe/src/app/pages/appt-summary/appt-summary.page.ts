@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AppointmentService } from 'src/app/appointment.service';
+import { PayPalLoaderService } from 'src/app/paypal-loader.service';
 
 @Component({
   selector: 'app-appt-summary',
@@ -14,7 +15,8 @@ export class ApptSummaryPage implements OnInit {
   formattedDateTime: any;
 
   
-  constructor(private router: Router, private appService: AppointmentService) {
+  constructor(private router: Router, private appService: AppointmentService,
+    private payPalLoader: PayPalLoaderService) {
 
     let _this = this;
 
@@ -80,6 +82,14 @@ export class ApptSummaryPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.payPalLoader.loadPayPalScript().then(() => {
+      console.log('PayPal SDK loaded successfully.');
+      // Initialize PayPal buttons or any other logic
+    }).catch(error => {
+      console.error('Failed to load PayPal SDK:', error);
+    });
+
     this.appointmentInfo = this.router.getCurrentNavigation()?.extras.state;
     console.log(this.appointmentInfo);
     let inputDate = new Date(this.appointmentInfo.date);

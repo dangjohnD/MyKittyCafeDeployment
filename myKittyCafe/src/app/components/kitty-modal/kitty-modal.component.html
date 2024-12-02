@@ -14,12 +14,30 @@
     <div *ngIf="mode === 'view'" class="kitty-info">
       <h2>{{ kitty.name }}</h2>
       <img [src]="kitty.image" alt="{{ kitty.name }}" />
-      <p>Colour: {{ kitty.colour }}</p>
-      <p>Birthday: {{ kitty.birthday | date }}</p>
-      <p>Description: {{ kitty.desc }}</p>
-      <p>Disabled: {{ kitty.disabled ? 'Yes' : 'No' }}</p>
-      <p>Adoptable: {{ kitty.adoptable ? 'Yes' : 'No' }}</p>
-      <p *ngIf="kitty.disabled">Note: {{ kitty.note }}</p>
+      <div class="info-item">
+        <span class="info-label">Colour:</span> <span class="info-value">{{ kitty.colour }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Birthday:</span> <span class="info-value">{{ kitty.birthday | date }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Description:</span> <span class="info-value">{{ kitty.desc }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Disabled:</span> 
+        <span class="info-value {{ kitty.disabled ? 'disabled' : 'enabled' }}">
+          {{ kitty.disabled ? 'Yes' : 'No' }}
+        </span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Adoptable:</span> 
+        <span class="info-value {{ kitty.adoptable ? 'adoptable' : 'not-adoptable' }}">
+          {{ kitty.adoptable ? 'Yes' : 'No' }}
+        </span>
+      </div>
+      <div *ngIf="kitty.disabled" class="info-note">
+        Note: {{ kitty.note }}
+      </div>
     </div>
 
     <div *ngIf="mode === 'add' || mode === 'edit'">
@@ -41,7 +59,7 @@
       </div>
 
       <div class="form-group">
-        <label for="desc">Note</label>
+        <label for="desc">Description</label>
         <textarea id="desc" [(ngModel)]="kitty.desc" name="desc"></textarea>
       </div>
 

@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { Appointment } from './appointment';
 import { LimitedApp } from './limitedApp';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService {
 
-  //public apiUrl = 'http://localhost:8080/api/appointments'
-  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/appointments';
+  public apiUrl = environment.apiUrl + '/appointments';
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   addAppointment(appointment: Appointment): Observable<any> {
@@ -40,7 +40,11 @@ export class AppointmentService {
   }
 
   deleteAppointmentByIdAdmin(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/admin/${id}`);
+    const token = this.authService.getToken();
+    const headers = { 
+      Authorization: `Bearer ${token}` // Attach the token
+    };
+    return this.http.delete<any>(`${this.apiUrl}/admin/${id}`, { headers });
   }
   
 }

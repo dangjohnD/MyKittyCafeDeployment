@@ -3,16 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cat } from './cat';
 import { AuthService } from './auth.service';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CatService {
 
-  private blobBaseUrl = 'https://publicstoragemkc.blob.core.windows.net/demoblob/';
-  private sasToken = 'sv=2022-11-02&ss=bfqt&srt=co&sp=rwdlacupiytfx&se=2025-05-01T08:51:18Z&st=2024-10-31T00:51:18Z&spr=https,http&sig=G%2F3EyjsnSrrNfKhFOAxnDEw7WGQ8J4EgWmFqK6PYjPk%3D';
-  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api/cats'
-  //public apiUrl = 'http://localhost:8080/api/cats'
+  private blobBaseUrl = environment.blobBaseUrl;
+  private sasToken = environment.sasToken;
+  public apiUrl = environment.apiUrl +  '/cats'
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -27,11 +27,19 @@ export class CatService {
   }
 
   addCat(cat: Cat): Observable<any>{
-    return this.http.post<any>(this.apiUrl, cat);
+    const token = this.authService.getToken();
+    const headers = { 
+      Authorization: `Bearer ${token}` // Attach the token
+    };
+    return this.http.post<any>(this.apiUrl, cat, { headers });
   }
 
   deleteCatById(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    const token = this.authService.getToken();
+    const headers = { 
+      Authorization: `Bearer ${token}` // Attach the token
+    };
+    return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
   }
 
   updateCat(cat: Cat): Observable<any> {

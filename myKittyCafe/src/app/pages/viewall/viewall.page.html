@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">viewall</ion-title>
+      <ion-title size="large">View All Appointments</ion-title>
     </ion-toolbar>
   </ion-header>
   <!-- No User -->
@@ -66,7 +66,7 @@
       <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate">
       <label for="endDate">End Date:</label>
       <input type="date" id="endDate" name="endDate" [(ngModel)]="endDate">
-      <button (click)="filterAppointments()">Filter</button>
+      <button (click)="filterAppointments()">Get Appointments</button>
       <p class="noAppointments" *ngIf="!datesNotEmpty">
         Please provide both start date and end date.
       </p>

@@ -5,14 +5,115 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
   }
   
+/*View Kitty */
+/* Container styling */
+.kitty-info {
+  padding: 20px;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: #fafafa; /* Light background for contrast */
+  border: 1px solid #ccc;
+  text-align: center; /* Center-align content */
+}
+
+/* Header styling */
+.kitty-info h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 16px;
+  text-transform: capitalize;
+  color: #ff914d; /* Warm orange for headers */
+}
+
+/* Image styling */
+.kitty-info img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border: 2px solid #ff914d; /* Add a border for emphasis */
+}
+
+/* Info item styling */
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #fff; /* Separate items with a white background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow for separation */
+  border-left: 4px solid #ff914d; /* Highlight info items */
+}
+
+.info-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.info-value {
+  color: #333;
+  font-style: italic;
+}
+
+/* Status-specific coloring */
+.info-value.adoptable {
+  color: #27ae60; /* Green for adoptable */
+}
+
+.info-value.not-adoptable {
+  color: #c0392b; /* Red for not-adoptable */
+}
+
+.info-value.disabled {
+  color: #e74c3c; /* Red for disabled */
+}
+
+.info-value.enabled {
+  color: #27ae60; /* Green for enabled */
+}
+
+/* Special note */
+.info-note {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: #e74c3c; /* Red for notes */
+  font-style: italic;
+  padding: 10px;
+  border-left: 4px solid #e74c3c;
+  background-color: #fdf2f2; /* Light red background for notes */
+}
+
+/* Mobile-specific adjustments */
+@media only screen and (max-width: 600px) {
   .kitty-info {
-    margin-bottom: 20px;
-    border: 1px solid #333; /* Dark border for kitty info */
-    padding: 10px; /* Padding inside the info box */
-    border-radius: 5px; /* Rounded corners */
-    background-color: #fff; /* White background for contrast */
+    margin: 12px;
+    padding: 12px;
   }
+
+  .kitty-info h2 {
+    font-size: 1.5rem; /* Adjust header size */
+  }
+
+  .info-item {
+    flex-direction: column; /* Stack items vertically */
+    text-align: left;
+  }
+
+  .info-label,
+  .info-value {
+    margin-bottom: 4px;
+  }
+}
+
   
+/*end view kitty */
+
+
   .form-group {
     margin-bottom: 16px; /* Spacing between form groups */
   }

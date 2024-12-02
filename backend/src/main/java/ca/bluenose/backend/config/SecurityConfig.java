@@ -1,5 +1,6 @@
 package ca.bluenose.backend.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,6 +18,7 @@ import org.springframework.web.filter.CorsFilter;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -26,6 +28,19 @@ import java.util.List;
 public class SecurityConfig {
 
     private final UserAuthenticationProvider userAuthProvider;
+
+    // Inject CORS configuration properties
+    @Value("${cors.allowed.origins}")
+    private String[] allowedOrigins;
+
+    @Value("${cors.allowed.methods}")
+    private String[] allowedMethods;
+
+    @Value("${cors.allowed.headers}")
+    private String[] allowedHeaders;
+
+    @Value("${cors.allow.credentials}")
+    private boolean allowCredentials;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -50,10 +65,10 @@ public class SecurityConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:8100", "https://mykittycafe.azurewebsites.net"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        config.setAllowCredentials(true);
+        config.setAllowedOrigins(Arrays.asList(allowedOrigins));
+        config.setAllowedMethods(Arrays.asList(allowedMethods));
+        config.setAllowedHeaders(Arrays.asList(allowedHeaders));
+        config.setAllowCredentials(allowCredentials);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
@@ -63,10 +78,10 @@ public class SecurityConfig {
 
     private UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:8100", "https://mykittycafe.azurewebsites.net"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        config.setAllowCredentials(true);
+        config.setAllowedOrigins(Arrays.asList(allowedOrigins));
+        config.setAllowedMethods(Arrays.asList(allowedMethods));
+        config.setAllowedHeaders(Arrays.asList(allowedHeaders));
+        config.setAllowCredentials(allowCredentials);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

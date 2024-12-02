@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,7 @@ export class AuthService {
   private readonly TOKEN_KEY = 'authToken';
   public username!: string;
   public password!: string;
-  //public apiUrl = 'http://localhost:8080/api';
-  public apiUrl = 'https://mykittycafeback.azurewebsites.net/api';
+  public apiUrl = environment.apiUrl;
   message = new BehaviorSubject<any>('');
   asObserver = this.message.asObservable();
 

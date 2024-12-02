@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
@@ -11,12 +11,25 @@ export class AppComponent {
 
   userEmail: string | null = null;
   userType!: any;
+  isMobile: boolean = false;
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(){
     this.authService.asObserver.subscribe(
       message => { this.userType = message}
     );
+
+    this.checkScreenSize();
+  }
+
+  @HostListener('window:resize', [])
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    this.isMobile = window.innerWidth <= 600; // Set mobile breakpoint
+    console.log("screencheck")
   }
 
   navigateHome() {

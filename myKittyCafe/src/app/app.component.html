@@ -14,6 +14,32 @@
         <ion-item routerLink="/menu">Menu</ion-item>
         <ion-item routerLink="/adopt">Adoption Process</ion-item>
         <!-- Add more menu items here -->
+
+        <!-- Buttons moved to side menu for mobile -->
+        <div *ngIf="isMobile">
+          <ion-item (click)="navigateToAdmin()" *ngIf="userType === 'employee' || userType === 'admin@gmail.com'">
+            Admin Board
+          </ion-item>
+          <ion-item (click)="navigateToBooking()" *ngIf="userType !== 'admin@gmail.com'">
+            Book Appointment
+          </ion-item>
+          <ion-item (click)="navigateToViewAll()" *ngIf="userType !== 'admin@gmail.com' && userType">
+            View My Appointments
+          </ion-item>
+          <ion-item (click)="navigateToViewAll()" *ngIf="userType === 'employee' || userType === 'admin@gmail.com'">
+            View Appointments
+          </ion-item>
+          <ion-item (click)="logout()" *ngIf="userType != ''">
+            Log Out
+          </ion-item>
+          <ion-item (click)="navigateToLogin()" *ngIf="userType === undefined || userType === ''">
+            Login
+          </ion-item>
+          <ion-item (click)="navigateToRegister()"
+            *ngIf="userType === undefined || userType === '' || userType === 'admin@gmail.com'">
+            Register
+          </ion-item>
+        </div>
       </ion-list>
     </ion-content>
   </ion-menu>
@@ -28,20 +54,20 @@
         </ion-buttons>
 
         <ion-title (click)="navigateHome()">MyKittyCafe</ion-title>
+        <ion-label *ngIf="userType" slot="end">
+          {{ userType }}
+        </ion-label>
 
         <!-- Buttons Section -->
-        <ion-buttons slot="end">
+        <ion-buttons slot="end" *ngIf="!isMobile">
           <!-- Display user-related buttons in the toolbar -->
-          <ion-label *ngIf="userType">
-            Hello, {{ userType }}
-          </ion-label>
 
           <ion-button id="adminBoard" *ngIf="userType === 'employee' || userType === 'admin@gmail.com'"
             (click)="navigateToAdmin()">
             Admin Board
           </ion-button>
 
-          <ion-button (click)="navigateToBooking()">
+          <ion-button (click)="navigateToBooking()" *ngIf="userType !== 'admin@gmail.com'">
             Book Appointment
           </ion-button>
 
@@ -67,13 +93,12 @@
             Register
           </ion-button>
         </ion-buttons>
-
       </ion-toolbar>
     </ion-header>
   </div>
   <ion-content>
     <ion-router-outlet></ion-router-outlet>
     <!-- Footer Section -->
-    
+
   </ion-content>
 </ion-app>
